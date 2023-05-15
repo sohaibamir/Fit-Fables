@@ -196,7 +196,7 @@ export function LoginIndividualSlider() {
             </Flex>
           </DrawerHeader>
 
-          <DrawerBody mt="3rem" px="50px">
+          <DrawerBody w="32vw" px="50px" m="auto" mt="4rem">
             <Stack spacing="20px">
               <form onSubmit={handleLogin}>
                 <Box>
@@ -215,8 +215,8 @@ export function LoginIndividualSlider() {
                       type="email"
                       pattern="[a-zA-Z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*"
                       letterSpacing=".2px"
-                      outline=".1px solid black"
-                      focusBorderColor="none"
+                      outline=".1px solid #159a94"
+                      focusBorderColor="#159a94"
                       placeholder="Enter your Email"
                       name="email"
                       value={user.email}
@@ -228,8 +228,8 @@ export function LoginIndividualSlider() {
                       <Input
                         h="2.8rem"
                         letterSpacing=".2px"
-                        outline=".1px solid black"
-                        focusBorderColor="none"
+                        outline=".1px solid #159a94"
+                        focusBorderColor="#159a94"
                         type={show ? "text" : "password"}
                         placeholder="Enter password"
                         name="password"
