@@ -14,7 +14,7 @@ function App() {
       <Navbar />
       {/* <BrowserRouter> */}
         <Routes>
-          <Route path="/">
+          <Route path="/" exact >
             <Route index element={<Home />} />
             <Route path="login" element={<Login />} />
             <Route path="users">

@@ -3,6 +3,7 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import CreditCardIcon from "@mui/icons-material/CreditCard";
+import MedicalInformationIcon from '@mui/icons-material/MedicalInformation';
 import StoreIcon from "@mui/icons-material/Store";
 import InsertChartIcon from "@mui/icons-material/InsertChart";
 import SettingsApplicationsIcon from "@mui/icons-material/SettingsApplications";
@@ -18,18 +19,20 @@ import { DarkModeContext } from "../../context/darkModeContext";
 const Sidebar = () => {
   return (
     <div className="sidebar">
-      <div className="top">
-        <Link to="/" style={{ textDecoration: "none" }}>
+      {/* <div className="top">
+        <Link to="#" style={{ textDecoration: "none" }}>
           <span className="logo">lamadmin</span>
         </Link>
-      </div>
+      </div> */}
       <hr />
       <div className="center">
         <ul>
           <p className="title">MAIN</p>
           <li>
             <DashboardIcon className="icon" />
+            <Link to="/">
             <span>Dashboard</span>
+            </Link>
           </li>
           <p className="title">LISTS</p>
           <Link to="/users" style={{ textDecoration: "none" }}>
@@ -49,8 +52,8 @@ const Sidebar = () => {
             <span>Orders</span>
           </li>
           <li>
-            <LocalShippingIcon className="icon" />
-            <span>Delivery</span>
+            <MedicalInformationIcon className="icon" />
+            <span>Doctors</span>
           </li>
           {/* <p className="title">USEFUL</p>
           <li>
