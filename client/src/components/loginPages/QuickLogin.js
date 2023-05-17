@@ -23,6 +23,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginAPI } from "../../allApi";
 import { getUserCart } from "../../api/api";
 import { getSuccess } from "../../redux/auth/action";
+import { setLoggedInUser } from "../../redux/user/action";
 import { setCart } from "../../redux/Cart/action";
 //   import GitAuthButton from "./GitAuthButton";
 import { LogOut } from "./LogOut";
@@ -34,7 +35,7 @@ const initState = {
 };
 
 export function LoginIndividualSlider() {
-  const auth = localStorage.getItem("isAuth");
+  const token = localStorage.getItem("token");
 
   const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -48,6 +49,7 @@ export function LoginIndividualSlider() {
   // const {isAuth} = useSelector((state) => state);
   const dispatch = useDispatch();
   const { cartItems, totalCount } = useSelector((state) => state.cart);
+  // const { User } = useSelector((state) => state.user);
 
   function getCart() {
     getUserCart()
@@ -74,7 +76,8 @@ export function LoginIndividualSlider() {
       .then((response) => response.json())
       .then((jsonresponse) => {
         if (jsonresponse.status === 200) {
-          console.log("logged in");
+          console.log("logged in", jsonresponse.user);
+          localStorage.setItem("name", jsonresponse.user.name);
 
           dispatch(getSuccess(true));
           localStorage.setItem("isAuth", true);
@@ -90,7 +93,7 @@ export function LoginIndividualSlider() {
           onClose();
         } else {
           console.log(
-            "aeoasjl error message",
+            "error message",
             jsonresponse,
             "errorstatus",
             jsonresponse.status
@@ -122,7 +125,7 @@ export function LoginIndividualSlider() {
 
   return (
     <>
-      {auth ? (
+      {token ? (
         <Text>
           <LogOut />
         </Text>
@@ -196,7 +199,16 @@ export function LoginIndividualSlider() {
             </Flex>
           </DrawerHeader>
 
-          <DrawerBody w="32vw" px="50px" m="auto" mt="4rem">
+          <DrawerBody
+            w="30vw"
+            px="50px"
+            m="auto"
+            mt="4rem"
+            maxHeight="370px"
+            boxShadow="-2px 2px 40px -9px rgba(0,0,0,0.75);
+-webkit-box-shadow: -2px 2px 40px -9px rgba(0,0,0,0.75);
+-moz-box-shadow: -2px 2px 40px -9px rgba(0,0,0,0.75);"
+          >
             <Stack spacing="20px">
               <form onSubmit={handleLogin}>
                 <Box>
@@ -260,7 +272,7 @@ export function LoginIndividualSlider() {
               </form>
               {/* <GitAuthButton></GitAuthButton> */}
             </Stack>
-            <Text fontSize="12px" color="#4f585e" py="20px">
+            <Text fontSize="12px" color="#4f585e" p="20px 0px 0px">
               By clicking continue, you agree with our{" "}
               <span style={{ color: "#159a94", cursor: "pointer" }}>
                 {" "}

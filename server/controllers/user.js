@@ -49,7 +49,7 @@ exports.login = async (req, res) => {
     const token = newJWTToken(user);
     return res
       .status(200)
-      .send({ message: "User Logged In", token, status: 200 });
+      .send({ message: "User Logged In", user, token, status: 200 });
   } catch (error) {
     res.status(500).send(error.message);
   }
