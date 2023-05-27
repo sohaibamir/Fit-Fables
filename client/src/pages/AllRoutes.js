@@ -13,27 +13,25 @@ import Products from "./Products";
 function AllRoutes() {
   return (
     <Routes>
-      <Route path="/" element={<HomeUser />} />
-      <Route exact path="/admin" element={<Home />}>
-        <Route exact path="login" element={<Login />} />
-        <Route exact path="users">
-          <Route index element={<List />} />
-          <Route exact path=":userId" element={<Single />} />
-          <Route
-            exact
-            path="new"
-            element={<New inputs={userInputs} title="Add New User" />}
-          />
-        </Route>
-        <Route path="products">
-          <Route index element={<List />} />
-          <Route path=":productId" element={<Single />} />
-          <Route
-            path="new"
-            element={<New inputs={productInputs} title="Add New Product" />}
-          />
-        </Route>
-      </Route>
+      <Route exact path="/" element={<HomeUser />} />
+      <Route exact path="/admin" element={<Home />} />
+      <Route exact path="/admin/login" element={<Login />} />
+
+      <Route path="/admin/users" element={<List />} />
+      <Route exact path="/admin/:userId" element={<Single />} />
+      <Route
+        exact
+        path="/admin/new/user"
+        element={<New inputs={userInputs} title="Add New User" />}
+      />
+
+      <Route path="/admin/products" element={<List />} />
+      <Route path="/admin/:productId" element={<Single />} />
+      <Route
+        path="/admin/new/product"
+        element={<New inputs={productInputs} title="Add New Product" />}
+      />
+
       <Route path="/healthcare" element={<Healthcare />} />
       <Route path="/healthcare/products/:cat" element={<Products />}></Route>
     </Routes>

@@ -3,7 +3,6 @@ import { Box } from "@chakra-ui/react";
 import HealthCareBreadcrumb from "../components/healthcare/HealthCareBreadcrumb";
 import Cards from "../components/healthcare/Cards";
 import Tabs from "../components/navbar/Tabs";
-import ReBreadcrumb from "../components/healthcare/HealthCareBreadcrumb";
 
 const Healthcare = () => {
   useEffect(() => {
