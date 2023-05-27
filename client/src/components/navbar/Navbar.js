@@ -141,20 +141,28 @@ function Navbar() {
           )}
           {windowWidth < 1024 && scrollPosition < 101 && (
             <Box margin="auto">
-              <Image
+              <Text
                 _hover={{ cursor: "pointer" }}
                 onClick={() => navigate("/")}
-                src="https://assets.pharmeasy.in/apothecary/images/logo_small.svg?dim=128x0"
-              ></Image>
+                color="#1f6560"
+                mt="8px"
+                fontWeight="400"
+              >
+                Fit Fables
+              </Text>
             </Box>
           )}
           {windowWidth > 1024 && (
             <Box>
-              <Image
+              <Text
                 _hover={{ cursor: "pointer" }}
                 onClick={() => navigate("/")}
-                src="https://assets.pharmeasy.in/apothecary/images/logo_big.svg?dim=256x0"
-              ></Image>
+                color="#1f6560"
+                mt="8px"
+                fontWeight="400"
+              >
+                Fit Fables
+              </Text>
             </Box>
           )}
           {windowWidth > 1024 && (

@@ -28,6 +28,7 @@ import { setCart } from "../../redux/Cart/action";
 //   import GitAuthButton from "./GitAuthButton";
 import { LogOut } from "./LogOut";
 import { QuickRegister } from "./QuickRegister";
+import { useNavigate } from "react-router-dom";
 
 const initState = {
   email: "",
@@ -36,6 +37,7 @@ const initState = {
 
 export function LoginIndividualSlider() {
   const token = localStorage.getItem("token");
+  const navigate = useNavigate();
 
   const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -78,6 +80,7 @@ export function LoginIndividualSlider() {
         if (jsonresponse.status === 200) {
           console.log("logged in", jsonresponse.user);
           localStorage.setItem("name", jsonresponse.user.name);
+          localStorage.setItem("role", jsonresponse.user.role);
 
           dispatch(getSuccess(true));
           localStorage.setItem("isAuth", true);
@@ -91,6 +94,9 @@ export function LoginIndividualSlider() {
             position: "top",
           });
           onClose();
+          if (localStorage.getItem("role") === "admin") {
+            navigate("/admin");
+          }
         } else {
           console.log(
             "error message",
@@ -179,10 +185,15 @@ export function LoginIndividualSlider() {
                 // py="10px"
                 align="end"
               >
-                <Image
-                  h="62%"
-                  src="https://assets.pharmeasy.in/web-assets/dist/fca22bc9.png"
-                />
+                <Text
+                  _hover={{ cursor: "pointer" }}
+                  onClick={() => navigate("/")}
+                  color="#1f6560"
+                  mt="8px"
+                  fontWeight="400"
+                >
+                  Fit Fables
+                </Text>
               </Flex>
               <Flex
                 align="end"
@@ -190,12 +201,7 @@ export function LoginIndividualSlider() {
                 h="100%"
                 // border="1px solid red"
                 justify="end"
-              >
-                <Image
-                  h="75%"
-                  src="https://assets.pharmeasy.in/web-assets/dist/1fe1322a.svg"
-                />
-              </Flex>
+              ></Flex>
             </Flex>
           </DrawerHeader>
 

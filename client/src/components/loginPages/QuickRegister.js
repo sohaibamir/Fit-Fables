@@ -150,24 +150,14 @@ export const QuickRegister = () => {
                 justify="start"
                 // py="10px"
                 align="end"
-              >
-                <Image
-                  h="62%"
-                  src="https://assets.pharmeasy.in/web-assets/dist/fca22bc9.png"
-                />
-              </Flex>
+              ></Flex>
               <Flex
                 align="end"
                 w="50%"
                 h="100%"
                 // border="1px solid red"
                 justify="end"
-              >
-                <Image
-                  h="75%"
-                  src="https://assets.pharmeasy.in/web-assets/dist/1fe1322a.svg"
-                />
-              </Flex>
+              ></Flex>
             </Flex>
           </DrawerHeader>
 

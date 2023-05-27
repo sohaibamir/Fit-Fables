@@ -9,10 +9,13 @@ const {
   getProductsBySearch,
 } = require("../controllers/product");
 
-router.get("/search", getProductsBySearch);
-router.get("/single/:id", getProductById);
-router.get("/category/:category", getAllProductsByCategory);
-router.get("/category/:category/:sub_category", getAllProductsBySubCategory);
-router.get("/", getCategories);
+router.get("/products/search", getProductsBySearch);
+router.get("products//single/:id", getProductById);
+router.get("/products/category/:category", getAllProductsByCategory);
+router.get(
+  "/products/category/:category/:sub_category",
+  getAllProductsBySubCategory
+);
+router.get("/products", getCategories);
 
 module.exports = router;
