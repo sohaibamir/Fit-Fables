@@ -57,11 +57,17 @@ export async function getSingleProduct(id) {
   return axios.get(`${process.env.REACT_APP_API}/products/single/${id}`);
 }
 
-export async function AddItemToCart(id, quantity) {
-  return axios.post(`${process.env.REACT_APP_API}/cart/`, {
-    productId: id,
-    quantity,
-  });
+export async function AddItemToCart(id, quantity, token) {
+  return axios.post(
+    `${process.env.REACT_APP_API}/cart`,
+    {
+      Authorization: `Bearer ${token}`,
+    },
+    {
+      productId: id,
+      quantity,
+    }
+  );
 }
 
 export async function getUserCart() {

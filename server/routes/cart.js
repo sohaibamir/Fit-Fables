@@ -10,9 +10,9 @@ const {
 
 const { authMiddleware } = require("../middlewares/auth");
 
-router.get("/", authMiddleware, getCartItems);
-router.post("/", authMiddleware, addItemToCart);
-router.patch("/:id", authMiddleware, updateCartItem);
-router.delete("/:id", authMiddleware, removeItemFromCart);
+router.get("/cart", authMiddleware, getCartItems);
+router.post("/cart", authMiddleware, addItemToCart);
+router.patch("/cart/:id", authMiddleware, updateCartItem);
+router.delete("/cart/:id", authMiddleware, removeItemFromCart);
 
 module.exports = router;

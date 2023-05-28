@@ -44,15 +44,22 @@ function ProductCard({
         </Box>
         <Box>
           <HStack>
-            <Text color="#8897a2" fontSize="14px">
-              MRP
-              <span
-                style={{ textDecoration: "line-through", marginLeft: "5px" }}
-              >
-                Rs {originalPrice}
-              </span>
-            </Text>
-            <Badge colorScheme="red">{offer}%</Badge>
+            {originalPrice && (
+              <>
+                <Text color="#8897a2" fontSize="14px">
+                  MRP
+                  <span
+                    style={{
+                      textDecoration: "line-through",
+                      marginLeft: "5px",
+                    }}
+                  >
+                    Rs {originalPrice}
+                  </span>
+                </Text>
+                <Badge colorScheme="red">{offer}%</Badge>
+              </>
+            )}
           </HStack>
           <Text textAlign="left" fontWeight={"500"}>
             {" "}

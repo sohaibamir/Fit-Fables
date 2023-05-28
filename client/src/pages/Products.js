@@ -162,7 +162,12 @@ function Products() {
                   </Text>
                   <RadioGroup onChange={setValue} value={value}>
                     {subCat.map((el) => (
-                      <HStack mb="26px" width={"100%"} justify="space-between">
+                      <HStack
+                        key={el}
+                        mb="26px"
+                        width={"100%"}
+                        justify="space-between"
+                      >
                         <Text fontSize={"14px"} fontWeight="400">
                           {el}
                         </Text>
