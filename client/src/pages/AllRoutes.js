@@ -10,6 +10,7 @@ import Home from "../Admin/src/pages/home/Home";
 import { productInputs, userInputs } from "../Admin/src/formSource";
 import Healthcare from "./Healthcare";
 import Products from "./Products";
+import Orders from "../Admin/src/pages/orders/Orders";
 
 function AllRoutes() {
   return (
@@ -34,7 +35,8 @@ function AllRoutes() {
       />
 
       <Route path="/healthcare" element={<Healthcare />} />
-      <Route path="/healthcare/products/:cat" element={<Products />}></Route>
+      <Route path="/healthcare/products/:cat" element={<Products />} />
+      <Route path="/admin/orders" element={<Orders />} />
     </Routes>
   );
 }
