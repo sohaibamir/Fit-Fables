@@ -3,9 +3,33 @@ import Sidebar from "../../components/sidebar/Sidebar";
 import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
 import { useState } from "react";
 import { Carousel } from 'react-bootstrap'
+import { createProduct } from "../../../../api/api";
 
 const New = ({ inputs, title }) => {
   const [file, setFile] = useState("");
+
+  const [product,setProduct] = useState({
+    id:0,
+    title:'',
+    actual_price:0,
+    crossed_price:0,
+    manufacturer:'',
+    country:'',
+    category:'',
+    sub_category:''
+  })
+
+  const handleProductChange=(e)=>{
+    setProduct({...product,[e.target.name]:e.target.value})
+  }
+
+  const onSave=(e)=>{
+    e.preventDefault();
+    let newProduct = {...product,id :Number(product.id),actual_price:Number(product.actual_price),crossed_price:Number(product.crossed_price),country:''}
+    createProduct(newProduct)
+    .then((res)=>{console.log(res)})
+    .catch((error)=>console.log(error))
+  }
 
   return (
     <div className="new">
@@ -52,10 +76,10 @@ const New = ({ inputs, title }) => {
               {inputs.map((input) => (
                 <div className="formInput" key={input.id}>
                   <label>{input.label}</label>
-                  <input type={input.type} placeholder={input.placeholder} />
+                  <input name={input.name} type={input.type} placeholder={input.placeholder} onChange={handleProductChange}/>
                 </div>
               ))}
-              <button>Save</button>
+              <button onClick={onSave}>Save</button>
             </form>
           </div>
         </div>

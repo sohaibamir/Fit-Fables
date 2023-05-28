@@ -88,6 +88,10 @@ export async function getOrders() {
   return axios.get(`${process.env.REACT_APP_API}/orders/`);
 }
 
+export async function createProduct(product) {
+  return axios.post(`${process.env.REACT_APP_API}/products/create`,product);
+}
+
 export const loginAPI = "http://localhost:8000/user/login";
 export const signupAPI = "http://localhost:8000/user/signup";
 export const checkLoggedInAPI = "http://localhost:8000/checkLoggedIn/";
