@@ -1,13 +1,13 @@
 import React from "react";
-import Login from "../admin/src/pages/login/Login";
-import List from "../admin/src/pages/list/List";
-import ProductList from "../admin/src/pages/list/ProductList";
-import Single from "../admin/src/pages/single/Single";
-import New from "../admin/src/pages/new/New";
+import Login from "../Admin/src/pages/login/Login";
+import List from "../Admin/src/pages/list/List";
+import ProductList from "../Admin/src/pages/list/ProductList";
+import Single from "../Admin/src/pages/single/Single";
+import New from "../Admin/src/pages/new/New";
 import HomeUser from "../components/home/HomeUser";
 import { Route, Routes } from "react-router-dom";
-import Home from "../admin/src/pages/home/Home";
-import { productInputs, userInputs } from "../admin/src/formSource";
+import Home from "../Admin/src/pages/home/Home";
+import { productInputs, userInputs } from "../Admin/src/formSource";
 import Healthcare from "./Healthcare";
 import Products from "./Products";
 

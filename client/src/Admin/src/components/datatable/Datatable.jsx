@@ -25,7 +25,7 @@ const Datatable = ({ data, callFrom }) => {
           }
           {
             callFrom == 'Products' &&
-            <Link to="/products/new" className="link">
+            <Link to="/admin/new/product" className="link">
               Add New
             </Link>
           }
