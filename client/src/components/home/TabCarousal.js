@@ -36,7 +36,7 @@ export const tabCards = [
   {
     title: "Vitamins",
     path: "/vitamins",
-    img: "/images/vitamins.webp",
+    img: "/images/vitamins.png",
   },
 ];
 
@@ -77,7 +77,7 @@ function TabCarousal() {
             onClick={onScrollX}
             bg={"rgba(0,0,0,0.4)"}
             position="absolute"
-            top="50"
+            top="20"
             left="-5"
             borderRadius="50%"
             icon={<AiOutlineLeft color="white" />}
@@ -90,7 +90,7 @@ function TabCarousal() {
           paddingX={"10px"}
           width="100%"
           gap={{ base: "10px", lg: "40px", sm: "30px" }}
-          overflowX="scroll"
+          overflowX="hidden"
           overflowY="hidden"
           paddingY={5}
           className="hideScroll"
@@ -100,7 +100,7 @@ function TabCarousal() {
         >
           {tabCards.map((tab) => (
             <Box
-              maxWidth="141px"
+              // maxWidth="190px"
               minW={{ base: "85px", sm: "110px", lg: "130px" }}
               key={tab.title}
               _hover={{
@@ -114,7 +114,7 @@ function TabCarousal() {
               onClick={() => navigate(tab.path)}
             >
               <Image
-                mb="10px"
+                // mb="10px"
                 borderBottom={{
                   base: "transparent",
                   sm: "transparent",
@@ -149,8 +149,8 @@ function TabCarousal() {
             onClick={onScrollY}
             bg={"rgba(0,0,0,0.4)"}
             position="absolute"
-            top="50"
-            right="-15"
+            top="20"
+            right="-5"
             borderRadius="50%"
             icon={<AiOutlineRight color="white" />}
           ></IconButton>

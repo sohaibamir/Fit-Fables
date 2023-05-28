@@ -1,5 +1,4 @@
 import {
-  Text,
   AlertDialog,
   AlertDialogBody,
   AlertDialogCloseButton,
@@ -12,33 +11,29 @@ import {
 } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { useRef, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { logoutUser } from "../../redux/user/action";
 import { useNavigate } from "react-router-dom";
 import { clearCart } from "../../redux/Cart/action";
 
 export function LogOut() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const dispatch = useDispatch();
+  const state = useSelector((state) => state.user);
+  const user = state ? state.user : null;
   const [username, setusername] = useState("User");
   const cancelRef = useRef();
   const navigate = useNavigate();
-  const parseJwt = async (token) => {
-    try {
-      return JSON.parse(atob(token.split(".")[1]));
-    } catch (e) {
-      return null;
-    }
-  };
+
   useEffect(() => {
     if (localStorage.getItem("token")) {
-      let token = localStorage.getItem("token");
-      parseJwt(token).then((data) => {
-        data.username ? setusername(data.username) : setusername(data.name);
-      });
+      const name = localStorage.getItem("name");
+      name ? setusername(name) : setusername("user");
     }
-  });
+  }, [user]);
   const handleLogOut = () => {
     localStorage.clear();
+    dispatch(logoutUser());
     onClose();
   };
 
@@ -48,6 +43,7 @@ export function LogOut() {
         color="black"
         bg={"transparent"}
         _hover={{ backgroundColor: "transparent", color: "teal" }}
+        p="4px"
         onClick={onOpen}
       >
         {username}

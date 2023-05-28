@@ -23,10 +23,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginAPI } from "../../allApi";
 import { getUserCart } from "../../api/api";
 import { getSuccess } from "../../redux/auth/action";
+import { setLoggedInUser } from "../../redux/user/action";
 import { setCart } from "../../redux/Cart/action";
 //   import GitAuthButton from "./GitAuthButton";
 import { LogOut } from "./LogOut";
 import { QuickRegister } from "./QuickRegister";
+import { useNavigate } from "react-router-dom";
 
 const initState = {
   email: "",
@@ -34,7 +36,8 @@ const initState = {
 };
 
 export function LoginIndividualSlider() {
-  const auth = localStorage.getItem("isAuth");
+  const token = localStorage.getItem("token");
+  const navigate = useNavigate();
 
   const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -48,6 +51,7 @@ export function LoginIndividualSlider() {
   // const {isAuth} = useSelector((state) => state);
   const dispatch = useDispatch();
   const { cartItems, totalCount } = useSelector((state) => state.cart);
+  // const { User } = useSelector((state) => state.user);
 
   function getCart() {
     getUserCart()
@@ -74,7 +78,9 @@ export function LoginIndividualSlider() {
       .then((response) => response.json())
       .then((jsonresponse) => {
         if (jsonresponse.status === 200) {
-          console.log("logged in");
+          console.log("logged in", jsonresponse.user);
+          localStorage.setItem("name", jsonresponse.user.name);
+          localStorage.setItem("role", jsonresponse.user.role);
 
           dispatch(getSuccess(true));
           localStorage.setItem("isAuth", true);
@@ -88,9 +94,12 @@ export function LoginIndividualSlider() {
             position: "top",
           });
           onClose();
+          if (localStorage.getItem("role") === "admin") {
+            navigate("/admin");
+          }
         } else {
           console.log(
-            "aeoasjl error message",
+            "error message",
             jsonresponse,
             "errorstatus",
             jsonresponse.status
@@ -122,7 +131,7 @@ export function LoginIndividualSlider() {
 
   return (
     <>
-      {auth ? (
+      {token ? (
         <Text>
           <LogOut />
         </Text>
@@ -176,10 +185,15 @@ export function LoginIndividualSlider() {
                 // py="10px"
                 align="end"
               >
-                <Image
-                  h="62%"
-                  src="https://assets.pharmeasy.in/web-assets/dist/fca22bc9.png"
-                />
+                <Text
+                  _hover={{ cursor: "pointer" }}
+                  onClick={() => navigate("/")}
+                  color="#1f6560"
+                  mt="8px"
+                  fontWeight="400"
+                >
+                  Fit Fables
+                </Text>
               </Flex>
               <Flex
                 align="end"
@@ -187,16 +201,20 @@ export function LoginIndividualSlider() {
                 h="100%"
                 // border="1px solid red"
                 justify="end"
-              >
-                <Image
-                  h="75%"
-                  src="https://assets.pharmeasy.in/web-assets/dist/1fe1322a.svg"
-                />
-              </Flex>
+              ></Flex>
             </Flex>
           </DrawerHeader>
 
-          <DrawerBody w="32vw" px="50px" m="auto" mt="4rem">
+          <DrawerBody
+            w="30vw"
+            px="50px"
+            m="auto"
+            mt="4rem"
+            maxHeight="370px"
+            boxShadow="-2px 2px 40px -9px rgba(0,0,0,0.75);
+-webkit-box-shadow: -2px 2px 40px -9px rgba(0,0,0,0.75);
+-moz-box-shadow: -2px 2px 40px -9px rgba(0,0,0,0.75);"
+          >
             <Stack spacing="20px">
               <form onSubmit={handleLogin}>
                 <Box>
@@ -260,7 +278,7 @@ export function LoginIndividualSlider() {
               </form>
               {/* <GitAuthButton></GitAuthButton> */}
             </Stack>
-            <Text fontSize="12px" color="#4f585e" py="20px">
+            <Text fontSize="12px" color="#4f585e" p="20px 0px 0px">
               By clicking continue, you agree with our{" "}
               <span style={{ color: "#159a94", cursor: "pointer" }}>
                 {" "}

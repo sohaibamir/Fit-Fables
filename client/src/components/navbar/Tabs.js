@@ -22,7 +22,7 @@ function Tabs() {
         margin="0 auto"
         justifyContent="center"
         gap="25px"
-        overflowX="scroll"
+        overflowX="hidden"
         overflowY="hidden"
       >
         {tabCards.map((tab) => (

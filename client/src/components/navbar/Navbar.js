@@ -15,8 +15,6 @@ import {
   Avatar,
   VStack,
   HStack,
-  IconButton,
-  Badge,
 } from "@chakra-ui/react";
 
 import React, { useEffect, useState } from "react";
@@ -36,7 +34,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCartTotal } from "../../redux/Cart/action";
 
 function Navbar() {
-  const isAuth = localStorage.getItem("isAuth") || false;
+  const token = localStorage.getItem("token") || false;
   const dispatch = useDispatch();
   const { cartItems, totalCount } = useSelector((state) => state.cart);
 
@@ -143,20 +141,28 @@ function Navbar() {
           )}
           {windowWidth < 1024 && scrollPosition < 101 && (
             <Box margin="auto">
-              <Image
+              <Text
                 _hover={{ cursor: "pointer" }}
                 onClick={() => navigate("/")}
-                src="https://assets.pharmeasy.in/apothecary/images/logo_small.svg?dim=128x0"
-              ></Image>
+                color="#1f6560"
+                mt="8px"
+                fontWeight="400"
+              >
+                Fit Fables
+              </Text>
             </Box>
           )}
           {windowWidth > 1024 && (
             <Box>
-              <Image
+              <Text
                 _hover={{ cursor: "pointer" }}
                 onClick={() => navigate("/")}
-                src="https://assets.pharmeasy.in/apothecary/images/logo_big.svg?dim=256x0"
-              ></Image>
+                color="#1f6560"
+                mt="8px"
+                fontWeight="400"
+              >
+                Fit Fables
+              </Text>
             </Box>
           )}
           {windowWidth > 1024 && (
@@ -185,7 +191,7 @@ function Navbar() {
               </Box>
 
               <Text fontSize="14px" align="right" pb="0" fontWeight="600">
-                400001 Karachi <b>⌵</b>
+                74600 Karachi <b>⌵</b>
               </Text>
             </Box>
           )}
@@ -193,20 +199,6 @@ function Navbar() {
 
         <Flex align="center" justifyContent="end" gap="20px">
           {scrollPosition > 100 && <NavSearch />}
-          {windowWidth > 1024 && scrollPosition < 101 && (
-            <Box>
-              <Button
-                leftIcon={<HiOutlineDeviceMobile fontSize="25px" />}
-                colorScheme="gray"
-                variant="solid"
-                fontWeight="500"
-                borderRadius="10px"
-                fontSize="15px"
-              >
-                Download App
-              </Button>
-            </Box>
-          )}
           {windowWidth > 1024 && (
             <Link className="hover_green">
               <Box display="flex" fontSize="14px">
@@ -221,7 +213,7 @@ function Navbar() {
               </Box>
             </Link>
           )}
-          {isAuth && (
+          {token && (
             <Link className="hover_green" to={"/orders"}>
               <Box display="flex" fontSize="14px">
                 <Box display="flex" alignItems="center" mr="5px">
@@ -240,7 +232,7 @@ function Navbar() {
               </Box>
             </Link>
           )}
-          {isAuth && (
+          {token && (
             <Link className="hover_green" to={"/cart"}>
               <Box display="flex" fontSize="14px" pos={"relative"}>
                 {
@@ -259,7 +251,7 @@ function Navbar() {
                       pos={"absolute"}
                       paddingX="5px"
                     >
-                      {isAuth ? totalCount : 0}
+                      {token ? totalCount : 0}
                     </Center>
                   </Box>
                 }

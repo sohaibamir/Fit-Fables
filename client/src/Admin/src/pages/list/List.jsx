@@ -107,14 +107,14 @@ const List = () => {
 ]
   return (
     <div className="list">
-      <Sidebar/>
+      <Sidebar />
       <div className="listContainer">
         <Datatable data={data}
           callFrom={"Users"}
         />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default List
+export default List;

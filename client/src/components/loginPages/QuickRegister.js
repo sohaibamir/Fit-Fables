@@ -29,6 +29,8 @@ const initState = {
   name: "",
   email: "",
   password: "",
+  phone: "",
+  address: "",
 };
 
 export const QuickRegister = () => {
@@ -57,6 +59,8 @@ export const QuickRegister = () => {
         email: user.email,
         password: user.password,
         name: user.name,
+        phone: user.phone,
+        address: user.address,
       }),
     })
       .then((response) => response.json())
@@ -65,9 +69,9 @@ export const QuickRegister = () => {
           console.log("logged in");
           dispatch(getSuccess(true));
           localStorage.setItem("isAuth", true);
-          localStorage.setItem("token", JSON.stringify(jsonresponse.token));
+
           toast({
-            title: "User Registered Successfully",
+            title: "User Registered Successfully! Please login to continue",
             status: "success",
             duration: 3000,
             isClosable: true,
@@ -146,28 +150,27 @@ export const QuickRegister = () => {
                 justify="start"
                 // py="10px"
                 align="end"
-              >
-                <Image
-                  h="62%"
-                  src="https://assets.pharmeasy.in/web-assets/dist/fca22bc9.png"
-                />
-              </Flex>
+              ></Flex>
               <Flex
                 align="end"
                 w="50%"
                 h="100%"
                 // border="1px solid red"
                 justify="end"
-              >
-                <Image
-                  h="75%"
-                  src="https://assets.pharmeasy.in/web-assets/dist/1fe1322a.svg"
-                />
-              </Flex>
+              ></Flex>
             </Flex>
           </DrawerHeader>
 
-          <DrawerBody w="32vw" px="50px" m="auto" mt="4rem">
+          <DrawerBody
+            w="30vw"
+            px="50px"
+            m="auto"
+            mt="3rem"
+            maxHeight="520px"
+            boxShadow="-2px 2px 40px -9px rgba(0,0,0,0.75);
+-webkit-box-shadow: -2px 2px 40px -9px rgba(0,0,0,0.75);
+-moz-box-shadow: -2px 2px 40px -9px rgba(0,0,0,0.75);"
+          >
             <Stack spacing="20px">
               <form onSubmit={handleReg}>
                 <Box>
@@ -187,7 +190,7 @@ export const QuickRegister = () => {
                       letterSpacing=".2px"
                       outline=".1px solid #159a94"
                       focusBorderColor="#159a94"
-                      placeholder="Enter your name"
+                      placeholder="Enter your Name"
                       name="name"
                       value={user.name}
                       onChange={handleChange}
@@ -227,6 +230,32 @@ export const QuickRegister = () => {
                         </Button>
                       </InputRightElement>
                     </InputGroup>
+                    <Input
+                      h="2.8rem"
+                      ref={firstField}
+                      type="number"
+                      letterSpacing=".2px"
+                      outline=".1px solid #159a94"
+                      focusBorderColor="#159a94"
+                      placeholder="Enter your Phone"
+                      name="phone"
+                      value={user.phone}
+                      onChange={handleChange}
+                      required
+                    />
+                    <Input
+                      h="2.8rem"
+                      ref={firstField}
+                      type="text"
+                      letterSpacing=".2px"
+                      outline=".1px solid #159a94"
+                      focusBorderColor="#159a94"
+                      placeholder="Enter your Address"
+                      name="address"
+                      value={user.address}
+                      onChange={handleChange}
+                      required
+                    />
                   </Stack>
                 </Box>
                 <Button
