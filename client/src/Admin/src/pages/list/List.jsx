@@ -8,7 +8,7 @@ const List = () => {
       <Sidebar />
       <div className="listContainer">
         {/* <Navbar/> */}
-        <Datatable />
+        <Datatable tableTitle="Users" />
       </div>
     </div>
   );
