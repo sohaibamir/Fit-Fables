@@ -1,6 +1,7 @@
 import React from "react";
 import Login from "../Admin/src/pages/login/Login";
 import List from "../Admin/src/pages/list/List";
+import ProductList from "../Admin/src/pages/list/ProductList";
 import Single from "../Admin/src/pages/single/Single";
 import New from "../Admin/src/pages/new/New";
 import HomeUser from "../components/home/HomeUser";
@@ -26,7 +27,7 @@ function AllRoutes() {
         element={<New inputs={userInputs} title="Add New User" />}
       />
 
-      <Route path="/admin/products" element={<List />} />
+      <Route path="/admin/products" element={<ProductList />} />
       <Route path="/admin/:productId" element={<Single />} />
       <Route
         path="/admin/new/product"

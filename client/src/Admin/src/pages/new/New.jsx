@@ -1,8 +1,8 @@
 import "./new.scss";
 import Sidebar from "../../components/sidebar/Sidebar";
-import Navbar from "../../components/navbar/Navbar";
 import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
 import { useState } from "react";
+import { Carousel } from 'react-bootstrap'
 
 const New = ({ inputs, title }) => {
   const [file, setFile] = useState("");
@@ -16,7 +16,7 @@ const New = ({ inputs, title }) => {
           <h1>{title}</h1>
         </div>
         <div className="bottom">
-          <div className="left">
+          {/* <div className="left">
             <img
               src={
                 file
@@ -25,6 +25,15 @@ const New = ({ inputs, title }) => {
               }
               alt=""
             />
+          </div> */}
+          <div className="left">
+            <div id="product_image">
+              <Carousel pause='hover'>
+                <Carousel.Item>
+                  <img className='d-block w-100' src={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSnfBD8oiQixFsc59ccAI4fSbIBvvTjUEZuw&usqp=CAU"} />
+                </Carousel.Item>
+              </Carousel>
+            </div>
           </div>
           <div className="right">
             <form>
@@ -46,7 +55,7 @@ const New = ({ inputs, title }) => {
                   <input type={input.type} placeholder={input.placeholder} />
                 </div>
               ))}
-              <button>Send</button>
+              <button>Save</button>
             </form>
           </div>
         </div>
