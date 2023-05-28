@@ -3,6 +3,7 @@ import Navbar from "./components/navbar/Navbar";
 import Home from "./Admin/src/pages/home/Home";
 import Login from "./Admin/src/pages/login/Login";
 import List from "./Admin/src/pages/list/List";
+import ProductList from "./Admin/src/pages/list/ProductList";
 import Single from "./Admin/src/pages/single/Single";
 import New from "./Admin/src/pages/new/New";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -12,7 +13,6 @@ function App() {
   return (
     <div>
       <Navbar />
-      {/* <BrowserRouter> */}
         <Routes>
           <Route path="/" exact >
             <Route index element={<Home />} />
@@ -26,7 +26,7 @@ function App() {
               />
             </Route>
             <Route path="products">
-              <Route index element={<List />} />
+              <Route index element={<ProductList />} />
               <Route path=":productId" element={<Single />} />
               <Route
                 path="new"
@@ -35,7 +35,6 @@ function App() {
             </Route>
           </Route>
         </Routes>
-      {/* </BrowserRouter> */}
     </div>
   );
 }
