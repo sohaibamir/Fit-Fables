@@ -161,3 +161,16 @@ exports.getProductsBySearch = async (req, res) => {
     return res.status(500).send({ message: error.message });
   }
 };
+
+exports.uploadProduct=async(req,res)=>{
+  try {
+    console.log(req.body)
+    const {id,title,actual_price,crossed_price,manufacturer,country,category,sub_category}=req.body;
+    await Product.create({
+      id,title,actual_price,crossed_price,manufacturer,country,category,sub_category,country:"Pakistan"
+    })
+    return res.status(201).send({ message: "success"});
+  } catch (error) {
+    return res.status(500).send({ message: error.message });
+  }
+}

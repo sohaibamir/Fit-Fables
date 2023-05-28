@@ -1,15 +1,17 @@
 import React from "react";
-import Login from "../admin/src/pages/login/Login";
-import List from "../admin/src/pages/list/List";
-import Single from "../admin/src/pages/single/Single";
-import New from "../admin/src/pages/new/New";
+import Login from "../Admin/src/pages/login/Login";
+import List from "../Admin/src/pages/list/List";
+import ProductList from "../Admin/src/pages/list/ProductList";
+import Single from "../Admin/src/pages/single/Single";
+import New from "../Admin/src/pages/new/New";
 import HomeUser from "../components/home/HomeUser";
 import { Route, Routes } from "react-router-dom";
-import Home from "../admin/src/pages/home/Home";
-import { productInputs, userInputs } from "../admin/src/formSource";
+import Home from "../Admin/src/pages/home/Home";
+import { productInputs, userInputs } from "../Admin/src/formSource";
 import Healthcare from "./Healthcare";
 import Products from "./Products";
 import SingleProduct from "./SingleProduct";
+import Orders from "../Admin/src/pages/orders/Orders";
 
 function AllRoutes() {
   return (
@@ -26,7 +28,7 @@ function AllRoutes() {
         element={<New inputs={userInputs} title="Add New User" />}
       />
 
-      <Route path="/admin/products" element={<List />} />
+      <Route path="/admin/products" element={<ProductList />} />
       <Route path="/admin/:productId" element={<Single />} />
       <Route
         path="/admin/new/product"
@@ -36,6 +38,7 @@ function AllRoutes() {
       <Route path="/healthcare" element={<Healthcare />} />
       <Route path="/healthcare/products/:cat" element={<Products />} />
       <Route path="/healthcare/product/:id" element={<SingleProduct />} />
+      <Route path="/admin/orders" element={<Orders />} />
     </Routes>
   );
 }

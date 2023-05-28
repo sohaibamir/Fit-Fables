@@ -1,11 +1,35 @@
 import "./new.scss";
 import Sidebar from "../../components/sidebar/Sidebar";
-import Navbar from "../../components/navbar/Navbar";
 import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
 import { useState } from "react";
+import { Carousel } from 'react-bootstrap'
+import { createProduct } from "../../../../api/api";
 
 const New = ({ inputs, title }) => {
   const [file, setFile] = useState("");
+
+  const [product,setProduct] = useState({
+    id:0,
+    title:'',
+    actual_price:0,
+    crossed_price:0,
+    manufacturer:'',
+    country:'',
+    category:'',
+    sub_category:''
+  })
+
+  const handleProductChange=(e)=>{
+    setProduct({...product,[e.target.name]:e.target.value})
+  }
+
+  const onSave=(e)=>{
+    e.preventDefault();
+    let newProduct = {...product,id :Number(product.id),actual_price:Number(product.actual_price),crossed_price:Number(product.crossed_price),country:''}
+    createProduct(newProduct)
+    .then((res)=>{console.log(res)})
+    .catch((error)=>console.log(error))
+  }
 
   return (
     <div className="new">
@@ -16,7 +40,7 @@ const New = ({ inputs, title }) => {
           <h1>{title}</h1>
         </div>
         <div className="bottom">
-          <div className="left">
+          {/* <div className="left">
             <img
               src={
                 file
@@ -25,6 +49,15 @@ const New = ({ inputs, title }) => {
               }
               alt=""
             />
+          </div> */}
+          <div className="left">
+            <div id="product_image">
+              <Carousel pause='hover'>
+                <Carousel.Item>
+                  <img className='d-block w-100' src={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSnfBD8oiQixFsc59ccAI4fSbIBvvTjUEZuw&usqp=CAU"} />
+                </Carousel.Item>
+              </Carousel>
+            </div>
           </div>
           <div className="right">
             <form>
@@ -43,10 +76,10 @@ const New = ({ inputs, title }) => {
               {inputs.map((input) => (
                 <div className="formInput" key={input.id}>
                   <label>{input.label}</label>
-                  <input type={input.type} placeholder={input.placeholder} />
+                  <input name={input.name} type={input.type} placeholder={input.placeholder} onChange={handleProductChange}/>
                 </div>
               ))}
-              <button>Send</button>
+              <button onClick={onSave}>Save</button>
             </form>
           </div>
         </div>
