@@ -43,10 +43,12 @@ const Sidebar = () => {
               <span>Orders</span>
             </li>
           </Link>
-          <li>
-            <MedicalInformationIcon className="icon" />
-            <span>Doctors</span>
-          </li>
+          <Link to="/admin/doctors">
+            <li>
+              <MedicalInformationIcon className="icon" style={{ textDecoration: "none" }} />
+              <span>Doctors</span>
+            </li>
+          </Link>
           <p className="title">USER</p>
           <li>
             <AccountCircleOutlinedIcon className="icon" />

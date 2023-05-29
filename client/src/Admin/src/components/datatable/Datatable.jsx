@@ -5,7 +5,7 @@ import { useState } from "react";
 import Table from "react-bootstrap/Table";
 import { PaginationControl } from "react-bootstrap-pagination-control";
 
-const Datatable = ({ tableTitle, ordersData }) => {
+const Datatable = ({ tableTitle, tableData }) => {
   const [data, setData] = useState(userRows);
   const [page, setPage] = useState(1);
   const [renderData, setRenderData] = useState(data.slice(0, 10));
@@ -21,60 +21,41 @@ const Datatable = ({ tableTitle, ordersData }) => {
     <div className="datatable">
       <div className="datatableTitle">
         {tableTitle}
-        <Link to="/admin/new/user" className="link">
-          Add New
-        </Link>
-
-        {/* {
-          callFrom == 'Products' &&
+        {tableTitle == "Products" ? (
           <Link to="/admin/new/product" className="link">
             Add New
           </Link>
-        } */}
+        ) : tableTitle == "Doctors" ? (
+          <Link to="/admin/new/doctor" className="link">
+            Add New
+          </Link>
+        ) : null}
       </div>
 
       <Table striped>
         <thead>
-          {ordersData?.tableHeader?.length > 0 && (
+          {tableData?.tableHeader?.length > 0 && (
             <tr>
-              {ordersData?.tableHeader?.map((value) => {
+              {tableData?.tableHeader?.map((value) => {
                 return <th>{value}</th>;
               })}
             </tr>
           )}
         </thead>
 
-        {ordersData?.tableBody?.length > 0 && (
+        {tableData?.tableBody?.length > 0 && (
           <tbody>
-            {ordersData?.tableBody?.map((record) => {
+            {tableData?.tableBody?.map((eachRecord) => {
               return (
                 <tr>
-                  <td>{record?.orderId}</td>
-                  <td>{record?.customerId}</td>
-                  <td>{record?.deliveryAddress}</td>
-                  <td>{record?.orderPlaceTime}</td>
-                  <td>{record?.orderStatus}</td>
+                  {Object.values(eachRecord)?.map((value) => {
+                    return <td>{value}</td>;
+                  })}
                 </tr>
               );
             })}
           </tbody>
         )}
-
-        {/* <tbody>
-          {
-            renderData.map((ele, ind) => {
-              return (
-                <tr>
-                  <td>{ele.name}</td>
-                  <td>{ele.pass}</td>
-                  <td>Karachi</td>
-                  <td>{ele.email}</td>
-                </tr>
-              )
-            })
-
-          }
-        </tbody> */}
       </Table>
 
       <div className="pagination-div">
