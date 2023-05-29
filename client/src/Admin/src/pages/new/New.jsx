@@ -8,27 +8,27 @@ import { createProduct } from "../../../../api/api";
 const New = ({ inputs, title }) => {
   const [file, setFile] = useState("");
 
-  const [product,setProduct] = useState({
-    id:0,
-    title:'',
-    actual_price:0,
-    crossed_price:0,
-    manufacturer:'',
-    country:'',
-    category:'',
-    sub_category:''
+  const [product, setProduct] = useState({
+    id: 0,
+    title: '',
+    actual_price: 0,
+    crossed_price: 0,
+    manufacturer: '',
+    country: '',
+    category: '',
+    sub_category: ''
   })
 
-  const handleProductChange=(e)=>{
-    setProduct({...product,[e.target.name]:e.target.value})
+  const handleProductChange = (e) => {
+    setProduct({ ...product, [e.target.name]: e.target.value })
   }
 
-  const onSave=(e)=>{
+  const onSave = (e) => {
     e.preventDefault();
-    let newProduct = {...product,id :Number(product.id),actual_price:Number(product.actual_price),crossed_price:Number(product.crossed_price),country:''}
+    let newProduct = { ...product, id: Number(product.id), actual_price: Number(product.actual_price), crossed_price: Number(product.crossed_price), country: '' }
     createProduct(newProduct)
-    .then((res)=>{console.log(res)})
-    .catch((error)=>console.log(error))
+      .then((res) => { console.log(res) })
+      .catch((error) => console.log(error))
   }
 
   return (
@@ -76,7 +76,7 @@ const New = ({ inputs, title }) => {
               {inputs.map((input) => (
                 <div className="formInput" key={input.id}>
                   <label>{input.label}</label>
-                  <input name={input.name} type={input.type} placeholder={input.placeholder} onChange={handleProductChange}/>
+                  <input name={input.name} type={input.type} placeholder={input.placeholder} onChange={handleProductChange} />
                 </div>
               ))}
               <button onClick={onSave}>Save</button>
