@@ -19,3 +19,14 @@ exports.authMiddleware = async (req, res, next) => {
 
   next();
 };
+
+exports.isAuth = (req, res, next) => {
+  let user = req.profile && req.profile._id;
+
+  if (!user) {
+    return res.status(403).json({
+      error: "Access denied",
+    });
+  }
+  next();
+};

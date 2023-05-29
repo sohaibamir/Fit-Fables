@@ -2,20 +2,20 @@ import "./datatable.scss";
 import { userRows } from "../../datatablesource";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import Table from 'react-bootstrap/Table';
-import { PaginationControl } from 'react-bootstrap-pagination-control';
+import Table from "react-bootstrap/Table";
+import { PaginationControl } from "react-bootstrap-pagination-control";
 
 const Datatable = ({ tableTitle, ordersData }) => {
   const [data, setData] = useState(userRows);
-  const [page, setPage] = useState(1)
-  const [renderData, setRenderData] = useState(data.slice(0, 10))
+  const [page, setPage] = useState(1);
+  const [renderData, setRenderData] = useState(data.slice(0, 10));
 
   const onChangePage = (page) => {
-    const offset = ((page - 1) * 10);
+    const offset = (page - 1) * 10;
     let changePage = data.slice(offset, offset + 10);
-    setPage(page)
+    setPage(page);
     setRenderData(changePage);
-  }
+  };
 
   return (
     <div className="datatable">
@@ -35,19 +35,16 @@ const Datatable = ({ tableTitle, ordersData }) => {
 
       <Table striped>
         <thead>
-          {ordersData?.tableHeader?.length > 0 &&
+          {ordersData?.tableHeader?.length > 0 && (
             <tr>
-              {
-                ordersData?.tableHeader?.map((value) => {
-                  return (
-                    <th>{value}</th>
-                  )
-                })
-              }
-            </tr>}
+              {ordersData?.tableHeader?.map((value) => {
+                return <th>{value}</th>;
+              })}
+            </tr>
+          )}
         </thead>
 
-        {ordersData?.tableBody?.length > 0 &&
+        {ordersData?.tableBody?.length > 0 && (
           <tbody>
             {ordersData?.tableBody?.map((record) => {
               return (
@@ -58,10 +55,10 @@ const Datatable = ({ tableTitle, ordersData }) => {
                   <td>{record?.orderPlaceTime}</td>
                   <td>{record?.orderStatus}</td>
                 </tr>
-              )
+              );
             })}
           </tbody>
-        }
+        )}
 
         {/* <tbody>
           {

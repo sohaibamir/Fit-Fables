@@ -22,7 +22,12 @@ const SingleProductBreadCumb = ({ title }) => {
         <Link to={"/healthcare"}>Healthcare</Link>
       </BreadcrumbItem>
       <BreadcrumbItem isCurrentPage>
-        <Text width="150px" textOverflow="ellipsis" whiteSpace="nowrap">
+        <Text
+          mb="0px"
+          width="150px"
+          textOverflow="ellipsis"
+          whiteSpace="nowrap"
+        >
           <BreadcrumbLink>{title}</BreadcrumbLink>
         </Text>
       </BreadcrumbItem>

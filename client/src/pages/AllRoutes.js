@@ -12,6 +12,8 @@ import Healthcare from "./Healthcare";
 import Products from "./Products";
 import SingleProduct from "./SingleProduct";
 import Orders from "../Admin/src/pages/orders/Orders";
+import Cart from "./Cart";
+import Search from "./Search";
 
 function AllRoutes() {
   return (
@@ -39,6 +41,8 @@ function AllRoutes() {
       <Route path="/healthcare/products/:cat" element={<Products />} />
       <Route path="/healthcare/product/:id" element={<SingleProduct />} />
       <Route path="/admin/orders" element={<Orders />} />
+      <Route path="/cart" element={<Cart />}></Route>
+      <Route path="/search/:name" element={<Search />}></Route>
     </Routes>
   );
 }

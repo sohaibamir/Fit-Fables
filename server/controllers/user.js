@@ -47,6 +47,10 @@ exports.login = async (req, res) => {
         .send({ message: "Invalid Credentials", status: 404 });
     delete user.password;
     const token = newJWTToken(user);
+    user.authType = undefined;
+    user.updatedAt = undefined;
+    user.createdAt = undefined;
+    user.password = undefined;
     return res
       .status(200)
       .send({ message: "User Logged In", user, token, status: 200 });
@@ -67,6 +71,23 @@ exports.checkLoggedIn = (req, res) => {
     return res.status(400).send({
       status: "Error",
       message: "User Not Logged In",
+    });
+  }
+};
+
+exports.getUserById = async (req, res, next, id) => {
+  try {
+    const user = await User.findById(id);
+    if (!user) {
+      return res.status(400).json({
+        error: "User not found",
+      });
+    }
+    req.profile = user;
+    next();
+  } catch (err) {
+    return res.status(400).json({
+      error: "User not found",
     });
   }
 };

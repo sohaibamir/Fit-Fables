@@ -14,23 +14,23 @@ import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../../redux/user/action";
 import { useNavigate } from "react-router-dom";
-import { clearCart } from "../../redux/Cart/action";
+import { isAuthenticated } from "../../api/api";
 
 export function LogOut() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const dispatch = useDispatch();
   const state = useSelector((state) => state.user);
-  const user = state ? state.user : null;
+  // const user = state ? state.user : null;
+  const name = isAuthenticated().name;
   const [username, setusername] = useState("User");
   const cancelRef = useRef();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (localStorage.getItem("token")) {
-      const name = localStorage.getItem("name");
+    if (localStorage.getItem("jwt")) {
       name ? setusername(name) : setusername("user");
     }
-  }, [user]);
+  }, [name]);
   const handleLogOut = () => {
     localStorage.clear();
     dispatch(logoutUser());
@@ -45,6 +45,8 @@ export function LogOut() {
         _hover={{ backgroundColor: "transparent", color: "teal" }}
         p="4px"
         onClick={onOpen}
+        display="flex"
+        mt="14px"
       >
         {username}
       </Button>

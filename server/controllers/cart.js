@@ -2,7 +2,7 @@ const Cart = require("../models/cart");
 
 exports.getCartItems = async (req, res) => {
   try {
-    const { user } = req;
+    const user = req.profile;
 
     if (!user) {
       return res.status(401).send({ message: "Not logged in" });
@@ -25,7 +25,7 @@ exports.getCartItems = async (req, res) => {
 
 exports.addItemToCart = async (req, res) => {
   try {
-    const { user } = req;
+    const user = req.profile;
 
     if (!user) {
       return res.status(401).send({ message: "Not logged in" });
@@ -60,7 +60,8 @@ exports.addItemToCart = async (req, res) => {
 
 exports.removeItemFromCart = async (req, res) => {
   try {
-    const { user } = req;
+    const user = req.profile;
+
     const { id } = req.params;
 
     if (!user) {
@@ -82,7 +83,8 @@ exports.removeItemFromCart = async (req, res) => {
 
 exports.updateCartItem = async (req, res) => {
   try {
-    const { user } = req;
+    const user = req.profile;
+
     const { id } = req.params;
 
     if (!user) {

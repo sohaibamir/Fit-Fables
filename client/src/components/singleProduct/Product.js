@@ -20,7 +20,7 @@ import SingleProductBreadCumb from "./SingleProductBreadCumb";
 import { useDispatch, useSelector } from "react-redux";
 
 import { addToCart, getCartTotal, remove } from "../../redux/Cart/action";
-import { AddItemToCart } from "../../api/api";
+import { AddItemToCart, isAuthenticated } from "../../api/api";
 
 const Product = (props) => {
   const toast = useToast();
@@ -35,10 +35,11 @@ const Product = (props) => {
 
   const btnRef = React.useRef(null);
   const { cartItems } = useSelector((state) => state.cart);
+  const userId = isAuthenticated()._id;
 
   function updateCart(amt) {
     console.log(amt);
-    AddItemToCart(data._id, amt, isAuth)
+    AddItemToCart(data._id, amt, userId)
       .then((res) => {
         dispatch(addToCart({ productId: data, quantity: amt }));
       })
@@ -225,13 +226,13 @@ const Product = (props) => {
               </Flex>
               <Flex justifyContent="space-between">
                 <Flex alignItems="center">
-                  <Text mr="10px" fontSize="20px" fontWeight="600">
+                  <Text mb="0px" mr="10px" fontSize="20px" fontWeight="600">
                     {" "}
                     Rs {data.actual_price}
                   </Text>
                   {data.crossed_price && (
                     <>
-                      <Text>MRP </Text>
+                      <Text mb="0px">MRP </Text>
                       <Text mr="10px" fontSize="14px" as="del">
                         {"  "}
                         {data.crossed_price}
@@ -351,7 +352,7 @@ const Product = (props) => {
             </Heading>
             <Flex justifyContent="space-between">
               <Flex alignItems="center">
-                <Text mr="10px" fontSize="22px" fontWeight="600">
+                <Text mb="0px" mr="10px" fontSize="22px" fontWeight="600">
                   {" "}
                   Rs {data.actual_price}
                 </Text>
@@ -427,10 +428,10 @@ const Product = (props) => {
           Brand: {data.company}
         </Text>
         <Text fontSize="19px" color="gray" mb={2}>
-          Expires on or After 30/01/2023
+          Expires on or After 30/10/2023
         </Text>
         <Text fontSize="19px" color="gray" mb={2}>
-          Country of Origin: India
+          Country of Origin: Pakistan
         </Text>
         <Link>
           <Text color="#10847E" fontSize="19px" mb={2}>
