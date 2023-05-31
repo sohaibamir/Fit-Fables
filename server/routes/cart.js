@@ -8,11 +8,14 @@ const {
   updateCartItem,
 } = require("../controllers/cart");
 
-const { authMiddleware } = require("../middlewares/auth");
+const { isAuth } = require("../middlewares/auth");
+const { getUserById } = require("../controllers/user");
 
-router.get("/", authMiddleware, getCartItems);
-router.post("/", authMiddleware, addItemToCart);
-router.patch("/:id", authMiddleware, updateCartItem);
-router.delete("/:id", authMiddleware, removeItemFromCart);
+router.get("/cart/:userId", isAuth, getCartItems);
+router.post("/cart/:userId", isAuth, addItemToCart);
+router.patch("/cart/:id/:userId", isAuth, updateCartItem);
+router.delete("/cart/:id/:userId", isAuth, removeItemFromCart);
+
+router.param("userId", getUserById);
 
 module.exports = router;

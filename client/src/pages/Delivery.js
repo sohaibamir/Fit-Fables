@@ -1,0 +1,232 @@
+import {
+  Box,
+  Button,
+  Flex,
+  Heading,
+  Image,
+  Radio,
+  RadioGroup,
+  Stack,
+  Text,
+  Accordion,
+  AccordionItem,
+  AccordionButton,
+  AccordionIcon,
+  Hide,
+} from "@chakra-ui/react";
+import React from "react";
+import { AiFillRightCircle } from "react-icons/ai";
+import { useSelector } from "react-redux";
+
+function Delivery() {
+  const { totalAmount, totalOriginalAmount } = useSelector(
+    (state) => state.cart
+  );
+
+  const handlePayment = async () => {
+    console.log("Soon");
+  };
+
+  return (
+    <Box
+      display="flex"
+      w={{ base: "90%", sm: "90%", md: "90%", lg: "90%", xl: "70%" }}
+      m="auto"
+      justifyContent="space-between"
+      mt="30px"
+      mb="30px"
+      flexDirection={{
+        base: "column",
+        sm: "column",
+        md: "column",
+        lg: "column",
+        xl: "row",
+      }}
+    >
+      {/* Left */}
+      <Box
+        w={{ base: "90%", sm: "90%", md: "90%", lg: "90%", xl: "60%" }}
+        mr="20px"
+      >
+        <Stack spacing={8} direction="column">
+          <Flex
+            alignItems="end"
+            p={5}
+            shadow="md"
+            bg="#ecf2ff"
+            borderRadius="7px"
+          >
+            <Box>
+              <Heading fontSize="xl" color="#4f585e">
+                Hey there!
+              </Heading>
+              <Text mb="0px" mt={4} fontSize="xl" color="#889dad">
+                Choose Express delivery to get your order quicker!
+              </Text>
+            </Box>
+          </Flex>
+          <RadioGroup defaultValue="1">
+            <Box
+              p={5}
+              borderRadius="7px"
+              mt={4}
+              _hover={{ border: "1px solid #159a94" }}
+              border="1px solid #e4e7ea"
+            >
+              <Flex>
+                <Radio colorScheme="green" value="1"></Radio>
+                <Box ml="20px">
+                  <Heading fontSize="xl" color="#4f585e">
+                    Tommorrow, before 10:00 pm{" "}
+                  </Heading>
+                  <Flex mt="6px">
+                    <Image src="/images/express-delivery.svg" />
+                    <Text mb="0px" fontSize="13px">
+                      {" "}
+                      Express Delivery | Rs 200{" "}
+                    </Text>
+                  </Flex>
+                </Box>
+              </Flex>
+            </Box>
+            <Box
+              p={5}
+              borderRadius="7px"
+              mt={4}
+              _hover={{ border: "1px solid #159a94" }}
+              border="1px solid #e4e7ea"
+            >
+              <Flex>
+                <Radio colorScheme="green" value="2"></Radio>
+                <Box ml="20px">
+                  <Heading fontSize="xl" color="#4f585e">
+                    12 June - 14 June
+                  </Heading>
+                  <Flex mt="6px">
+                    <Text mb="0px" fontSize="13px">
+                      {" "}
+                      Standard Delivery | Rs 100{" "}
+                    </Text>
+                  </Flex>
+                </Box>
+              </Flex>
+            </Box>
+          </RadioGroup>
+        </Stack>
+      </Box>
+      {/* Right */}
+      <Box
+        w={{ base: "90%", sm: "90%", md: "90%", lg: "90%", xl: "30%" }}
+        mt={{ base: "20px", sm: "20px", md: "20px", lg: "20px", xl: "1px" }}
+      >
+        <Button
+          onClick={handlePayment}
+          w="100%"
+          display="flex"
+          bg="#10847e"
+          color="white"
+          fontSize="xl"
+          p="25px"
+          _hover={{ border: "1px solid #159a94" }}
+        >
+          <Text mb="0px" mr="10px">
+            {" "}
+            Proceed to Pay{" "}
+          </Text>{" "}
+          <AiFillRightCircle w="50px" />
+        </Button>
+        <Hide below="lg">
+          <Box>
+            <Heading mb="0px" fontSize="xl" color="#889dad" p="10px">
+              Order Summary
+            </Heading>
+            <Flex justifyContent="space-between" p="10px">
+              <Text mb="0px" fontSize="l" color="#4f585e">
+                Cart Value
+              </Text>
+              <Flex>
+                <Heading fontSize="md" as="s" color="#8897a2" mr="5px">
+                  Rs {totalOriginalAmount}
+                </Heading>
+                <Heading fontSize="md" color="#4f585e">
+                  Rs {totalAmount}
+                </Heading>
+              </Flex>
+            </Flex>
+            <Flex justifyContent="space-between" p="10px">
+              <Text mb="0px" fontSize="l" color="#4f585e">
+                Delivery charges
+              </Text>
+
+              <Heading fontSize="md" color="#4f585e">
+                Rs 200.00{" "}
+              </Heading>
+            </Flex>
+            <Flex
+              justifyContent="space-between"
+              p="10px"
+              borderTop="2px dotted #e4e7ea"
+              borderBottom="2px dotted #e4e7ea"
+            >
+              <Text mb="0px" fontSize="l" color="#4f585e">
+                Cart Value
+              </Text>
+              {Radio.value === "1" ? (
+                <Heading fontSize="md" color="#4f585e">
+                  Rs {totalAmount + 200}
+                </Heading>
+              ) : (
+                <Heading fontSize="md" color="#4f585e">
+                  Rs {totalAmount + 100}
+                </Heading>
+              )}
+            </Flex>
+            <Accordion
+              defaultIndex={[0]}
+              allowMultiple
+              border="2px dotted #3bb896"
+              borderRadius="7px"
+              bg="#f2fff8"
+              p={2}
+              mt="20px"
+            >
+              <AccordionItem border="1px solid #f2fff8">
+                <h2>
+                  <AccordionButton _hover={{ bg: "#f2fff8" }}>
+                    <Box
+                      flex="1"
+                      textAlign="left"
+                      justifyContent="space-around"
+                      w="100%"
+                    >
+                      <Flex
+                        color="#3bb896"
+                        flexDirection={{
+                          base: "row",
+                          sm: "row",
+                          md: "row",
+                          lg: "row",
+                          xl: "row",
+                        }}
+                      >
+                        Total savings of{" "}
+                        <Text mb="0px" fontWeight="bold" mr="5px" ml="5px">
+                          {" "}
+                          Rs {totalOriginalAmount - totalAmount}{" "}
+                        </Text>{" "}
+                        on this order
+                      </Flex>
+                    </Box>
+                    <AccordionIcon color="#3bb896" />
+                  </AccordionButton>
+                </h2>
+              </AccordionItem>
+            </Accordion>
+          </Box>
+        </Hide>
+      </Box>
+    </Box>
+  );
+}
+
+export default Delivery;

@@ -79,8 +79,7 @@ export function LoginIndividualSlider() {
       .then((jsonresponse) => {
         if (jsonresponse.status === 200) {
           console.log("logged in", jsonresponse.user);
-          localStorage.setItem("name", jsonresponse.user.name);
-          localStorage.setItem("role", jsonresponse.user.role);
+          localStorage.setItem("jwt", JSON.stringify(jsonresponse.user));
 
           dispatch(getSuccess(true));
           localStorage.setItem("isAuth", true);
@@ -94,7 +93,7 @@ export function LoginIndividualSlider() {
             position: "top",
           });
           onClose();
-          if (localStorage.getItem("role") === "admin") {
+          if (localStorage.getItem("jwt").role === "admin") {
             navigate("/admin");
           }
         } else {
@@ -138,6 +137,7 @@ export function LoginIndividualSlider() {
       ) : (
         <Text
           onClick={onOpen}
+          mb="0px"
           color="black"
           cursor="pointer"
           _hover={{ color: "#10847E" }}

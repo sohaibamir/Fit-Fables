@@ -57,24 +57,24 @@ export async function getSingleProduct(id) {
   return axios.get(`${process.env.REACT_APP_API}/products/single/${id}`);
 }
 
-export async function AddItemToCart(id, quantity) {
-  return axios.post(`${process.env.REACT_APP_API}/cart/`, {
+export async function AddItemToCart(id, quantity, userId) {
+  return axios.post(`${process.env.REACT_APP_API}/cart/${userId}`, {
     productId: id,
     quantity,
   });
 }
 
-export async function getUserCart() {
-  return axios.get(`${process.env.REACT_APP_API}/cart/`);
+export async function getUserCart(userId) {
+  return axios.get(`${process.env.REACT_APP_API}/cart/${userId}`);
 }
 
-export async function updateCartItem(id, quantity) {
-  return axios.patch(`${process.env.REACT_APP_API}/cart/${id}`, {
+export async function updateCartItem(id, quantity, userId) {
+  return axios.patch(`${process.env.REACT_APP_API}/cart/${id}/${userId}`, {
     quantity,
   });
 }
-export async function deleteCartItem(id) {
-  return axios.delete(`${process.env.REACT_APP_API}/cart/${id}`);
+export async function deleteCartItem(id, userId) {
+  return axios.delete(`${process.env.REACT_APP_API}/cart/${id}/${userId}`);
 }
 
 export async function getSearchProducts(q) {
@@ -85,12 +85,23 @@ export async function createOrder() {
 }
 
 export async function getOrders() {
-  return axios.get(`${process.env.REACT_APP_API}/orders/`);
+  return axios.get(`${process.env.REACT_APP_API}/orders`);
 }
 
 export async function createProduct(product) {
-  return axios.post(`${process.env.REACT_APP_API}/products/create`,product);
+  return axios.post(`${process.env.REACT_APP_API}/products/create`, product);
 }
+
+export const isAuthenticated = () => {
+  if (typeof window == "undefined") {
+    return false;
+  }
+  if (localStorage.getItem("jwt")) {
+    return JSON.parse(localStorage.getItem("jwt"));
+  } else {
+    return false;
+  }
+};
 
 export const loginAPI = "http://localhost:8000/user/login";
 export const signupAPI = "http://localhost:8000/user/signup";

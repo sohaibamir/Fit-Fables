@@ -52,35 +52,28 @@ const New = ({ inputs, title }) => {
     <div className="new">
       <Sidebar />
       <div className="newContainer">
-        {/* <Navbar /> */}
         <div className="top">
           <h1>{title}</h1>
         </div>
         <div className="bottom">
-          {/* <div className="left">
-            <img
-              src={
-                file
-                  ? URL.createObjectURL(file)
-                  : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
-              }
-              alt=""
-            />
-          </div> */}
           <div className="left">
             <div id="product_image">
+            {
+              imagePreview && imagePreview.length>0 
+              ? 
               <Carousel pause='hover'>
                 {
                   imagePreview.map((url) => {
                     return (
                       <Carousel.Item>
                         <img className='d-block w-100' src={url} />
-                        {/* <img className='d-block w-100' src={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSnfBD8oiQixFsc59ccAI4fSbIBvvTjUEZuw&usqp=CAU"} /> */}
                       </Carousel.Item>
                     )
                   })
                 }
               </Carousel>
+              : <p>Please upload product images</p>
+            }
             </div>
           </div>
           <div className="right">

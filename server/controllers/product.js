@@ -163,7 +163,7 @@ exports.getProductsBySearch = async (req, res) => {
   }
 };
 
-exports.uploadProduct=async(req,res)=>{
+exports.uploadProduct = async (req, res) => {
   try {
     let images = [];
     if (typeof (req.body.images) === 'string') {
@@ -184,7 +184,9 @@ exports.uploadProduct=async(req,res)=>{
 
     imagesLink = imagesLink.slice(0,3);
 
-    let img1,img2,img3=''
+    let img1='';
+    let img2='';
+    let img3=''
 
     for(let i=0; i<imagesLink.length;i++){
       if(i==0){
@@ -207,4 +209,4 @@ exports.uploadProduct=async(req,res)=>{
   } catch (error) {
     return res.status(500).send({ message: error.message });
   }
-}
+};

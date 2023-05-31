@@ -143,7 +143,7 @@ function Products() {
                   Category
                 </Text>
                 <HStack mb="26px" width={"100%"} justify="space-between">
-                  <Text fontSize={"14px"} fontWeight="400">
+                  <Text mb="0px" fontSize={"14px"} fontWeight="400">
                     {catSplit}
                   </Text>
                   <Radio isChecked={true} colorScheme="teal"></Radio>
@@ -162,8 +162,13 @@ function Products() {
                   </Text>
                   <RadioGroup onChange={setValue} value={value}>
                     {subCat.map((el) => (
-                      <HStack mb="26px" width={"100%"} justify="space-between">
-                        <Text fontSize={"14px"} fontWeight="400">
+                      <HStack
+                        key={el}
+                        mb="26px"
+                        width={"100%"}
+                        justify="space-between"
+                      >
+                        <Text mb="0px" fontSize={"14px"} fontWeight="400">
                           {el}
                         </Text>
                         <Radio
@@ -178,7 +183,6 @@ function Products() {
               }
 
               <Divider />
-
               {
                 <Box width="100%">
                   <Text
@@ -200,15 +204,12 @@ function Products() {
                     <CheckboxGroup defaultValue={filterArr}>
                       {filters.map((el) => (
                         <HStack key={el} width={"100%"} justify="space-between">
-                          <Text fontSize={"14px"} fontWeight="400">
+                          <Text mb="0px" fontSize={"14px"} fontWeight="400">
                             {el}
                           </Text>
                           <Checkbox
                             onChange={() => handleCheckedState(el)}
-                            checked={() => {
-                              if (filterArr.includes(el)) return true;
-                              return false;
-                            }}
+                            checked={filterArr.includes(el)}
                             border={"grey"}
                             colorScheme="teal"
                             value={el}
@@ -239,7 +240,9 @@ function Products() {
                 </Text>
               </Box>
               <HStack>
-                <Text noOfLines={1}>Sort By:</Text>
+                <Text mb="0px" noOfLines={1}>
+                  Sort By:
+                </Text>
                 <Box>
                   <Select
                     colorScheme={"teal"}
@@ -306,7 +309,7 @@ function Products() {
               <HStack mt={"50px"} justify="center" spacing={"5px"}>
                 {arr.map((el) => {
                   if (el > +page + 3 && el !== +page && el !== +totalPages) {
-                    return <Text>.</Text>;
+                    return <Text key={el}>.</Text>;
                   }
                   return (
                     <Button

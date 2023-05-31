@@ -26,6 +26,7 @@ function ProductCard({
         </Box>
         <Box>
           <Text
+            mb="0px"
             noOfLines={2}
             textAlign="left"
             fontSize="16px"
@@ -34,6 +35,7 @@ function ProductCard({
             {title}
           </Text>
           <Text
+            mb="0px"
             noOfLines={2}
             textAlign="left"
             fontSize="10px"
@@ -44,15 +46,22 @@ function ProductCard({
         </Box>
         <Box>
           <HStack>
-            <Text color="#8897a2" fontSize="14px">
-              MRP
-              <span
-                style={{ textDecoration: "line-through", marginLeft: "5px" }}
-              >
-                Rs {originalPrice}
-              </span>
-            </Text>
-            <Badge colorScheme="red">{offer}%</Badge>
+            {originalPrice && (
+              <>
+                <Text mb="0px" color="#8897a2" fontSize="14px">
+                  MRP
+                  <span
+                    style={{
+                      textDecoration: "line-through",
+                      marginLeft: "5px",
+                    }}
+                  >
+                    Rs {originalPrice}
+                  </span>
+                </Text>
+                <Badge colorScheme="red">{offer}%</Badge>
+              </>
+            )}
           </HStack>
           <Text textAlign="left" fontWeight={"500"}>
             {" "}

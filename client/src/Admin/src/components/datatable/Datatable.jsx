@@ -2,80 +2,60 @@ import "./datatable.scss";
 import { userRows } from "../../datatablesource";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import Table from 'react-bootstrap/Table';
-import { PaginationControl } from 'react-bootstrap-pagination-control';
+import Table from "react-bootstrap/Table";
+import { PaginationControl } from "react-bootstrap-pagination-control";
 
-const Datatable = ({ tableTitle, ordersData }) => {
+const Datatable = ({ tableTitle, tableData }) => {
   const [data, setData] = useState(userRows);
-  const [page, setPage] = useState(1)
-  const [renderData, setRenderData] = useState(data.slice(0, 10))
+  const [page, setPage] = useState(1);
+  const [renderData, setRenderData] = useState(data.slice(0, 10));
 
   const onChangePage = (page) => {
-    const offset = ((page - 1) * 10);
+    const offset = (page - 1) * 10;
     let changePage = data.slice(offset, offset + 10);
-    setPage(page)
+    setPage(page);
     setRenderData(changePage);
-  }
+  };
 
   return (
     <div className="datatable">
       <div className="datatableTitle">
         {tableTitle}
-        {/* <Link to="/admin/new/user" className="link">
-          Add New
-        </Link> */}
-
+        {tableTitle == "Products" ? (
           <Link to="/admin/new/product" className="link">
             Add New
           </Link>
-
+        ) : tableTitle == "Doctors" ? (
+          <Link to="/admin/new/doctor" className="link">
+            Add New
+          </Link>
+        ) : null}
       </div>
 
       <Table striped>
         <thead>
-          {ordersData?.tableHeader?.length > 0 &&
+          {tableData?.tableHeader?.length > 0 && (
             <tr>
-              {
-                ordersData?.tableHeader?.map((value) => {
-                  return (
-                    <th>{value}</th>
-                  )
-                })
-              }
-            </tr>}
+              {tableData?.tableHeader?.map((value) => {
+                return <th>{value}</th>;
+              })}
+            </tr>
+          )}
         </thead>
 
-        {ordersData?.tableBody?.length > 0 &&
+        {tableData?.tableBody?.length > 0 && (
           <tbody>
-            {ordersData?.tableBody?.map((record) => {
+            {tableData?.tableBody?.map((eachRecord) => {
               return (
                 <tr>
-                  <td>{record?.orderId}</td>
-                  <td>{record?.customerId}</td>
-                  <td>{record?.deliveryAddress}</td>
-                  <td>{record?.orderPlaceTime}</td>
-                  <td>{record?.orderStatus}</td>
+                  {Object.values(eachRecord)?.map((value) => {
+                    return <td>{value}</td>;
+                  })}
                 </tr>
-              )
+              );
             })}
           </tbody>
-        }
-
-        {/* <tbody>
-          {
-            renderData.map((ele, ind) => {
-              return (
-                <tr>
-                  <td>{ele.name}</td>
-                  <td>{ele.pass}</td>
-                  <td>Karachi</td>
-                  <td>{ele.email}</td>
-                </tr>
-              )
-            })
-
-          }
-        </tbody> */}
+        )}
       </Table>
 
       <div className="pagination-div">

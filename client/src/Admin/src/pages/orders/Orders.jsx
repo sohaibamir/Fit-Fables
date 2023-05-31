@@ -16,7 +16,7 @@ const Orders = () => {
     <div className="orders">
       <Sidebar />
       <div className="ordersContainer">
-        <Datatable tableTitle="Orders" ordersData={ordersData} />
+        <Datatable tableTitle="Orders" tableData={ordersData} />
       </div>
     </div>
   );
