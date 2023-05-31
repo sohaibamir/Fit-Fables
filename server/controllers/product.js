@@ -1,4 +1,5 @@
 const Product = require("../models/product");
+const cloudinary = require('cloudinary')
 
 exports.getCategories = async (req, res) => {
   try {
@@ -164,10 +165,43 @@ exports.getProductsBySearch = async (req, res) => {
 
 exports.uploadProduct=async(req,res)=>{
   try {
-    console.log(req.body)
+    let images = [];
+    if (typeof (req.body.images) === 'string') {
+        images.push(req.body.images);
+    } else {
+        images = req.body.images;
+    }
+    let imagesLink = []
+    for(let i=0 ; i< images.length ; i++) {
+        let result = await cloudinary.v2.uploader.upload(images[i], {
+            folder: "products"
+        })
+
+        imagesLink.push(
+            result.secure_url
+        )
+    }
+
+    imagesLink = imagesLink.slice(0,3);
+
+    let img1,img2,img3=''
+
+    for(let i=0; i<imagesLink.length;i++){
+      if(i==0){
+        img1 = imagesLink[i]
+      }
+      else if(i==1){
+        img2 = imagesLink[i]
+      }
+      else if(i==2){
+        img3 = imagesLink[i]
+      }
+    }
+    
+
     const {id,title,actual_price,crossed_price,manufacturer,country,category,sub_category}=req.body;
     await Product.create({
-      id,title,actual_price,crossed_price,manufacturer,country,category,sub_category,country:"Pakistan"
+      id,title,actual_price,crossed_price,manufacturer,country,category,sub_category,country:"Pakistan",img1,img2,img3
     })
     return res.status(201).send({ message: "success"});
   } catch (error) {

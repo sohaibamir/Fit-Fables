@@ -5,6 +5,7 @@ const cors = require("cors");
 const morgan = require("morgan");
 const { readdirSync } = require("fs");
 require("dotenv").config();
+const cloudinary = require('cloudinary')
 
 // app
 const app = express();
@@ -17,7 +18,8 @@ mongoose
 
 // middleware
 app.use(morgan("dev"));
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit: "500mb"}));
+app.use(bodyParser.urlencoded({limit: "50mb", extended: true, parameterLimit:50000}));
 app.use(cors());
 
 // routes middleware
@@ -29,3 +31,9 @@ const port = process.env.PORT || 8000;
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
+
+cloudinary.config({
+  cloud_name : process.env.CLOUDINARY_CLOUD_NAME,
+  api_key : process.env.CLOUDINARY_API_KEY,
+  api_secret : process.env.CLOUDINARY_API_SECRET,
+})

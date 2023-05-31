@@ -21,16 +21,14 @@ const Datatable = ({ tableTitle, ordersData }) => {
     <div className="datatable">
       <div className="datatableTitle">
         {tableTitle}
-        <Link to="/admin/new/user" className="link">
+        {/* <Link to="/admin/new/user" className="link">
           Add New
-        </Link>
+        </Link> */}
 
-        {/* {
-          callFrom == 'Products' &&
           <Link to="/admin/new/product" className="link">
             Add New
           </Link>
-        } */}
+
       </div>
 
       <Table striped>
