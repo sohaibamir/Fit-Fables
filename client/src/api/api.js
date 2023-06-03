@@ -72,6 +72,14 @@ export async function getUserCart(userId) {
   return axios.get(`${process.env.REACT_APP_API}/cart/${userId}`);
 }
 
+export async function updateProduct(id,product) {
+  return axios.put(`${process.env.REACT_APP_API}/update/product/${id}`,{product:product});
+}
+
+export async function deleteProduct(id) {
+  return axios.delete(`${process.env.REACT_APP_API}/delete/product/${id}`);
+}
+
 export async function updateCartItem(id, quantity, userId) {
   return axios.patch(`${process.env.REACT_APP_API}/cart/${id}/${userId}`, {
     quantity,

@@ -10,6 +10,8 @@ const {
   uploadProduct,
   getAllProducts,
   getOfferProducts,
+  updateProduct,
+  deleteProduct
 } = require("../controllers/product");
 
 router.get("/products/search", getProductsBySearch);
@@ -23,5 +25,7 @@ router.get(
 router.get("/products", getCategories);
 router.post('/products/create',uploadProduct)
 router.get('/products/all',getAllProducts)
+router.put('/update/product/:id',updateProduct)
+router.delete('/delete/product/:id',deleteProduct)
 
 module.exports = router;

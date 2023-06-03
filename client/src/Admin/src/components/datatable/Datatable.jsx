@@ -13,7 +13,7 @@ const Datatable = ({ tableTitle, tableData }) => {
 
   useEffect(() => {
     onChangePage(page);
-  }, [data])
+  }, [tableData])
 
   const onChangePage = (page) => {
     const offset = (page - 1) * 10;

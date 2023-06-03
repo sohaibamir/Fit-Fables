@@ -3,11 +3,8 @@ import Sidebar from "../../components/sidebar/Sidebar";
 import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
 import { useEffect, useState } from "react";
 import { Carousel } from 'react-bootstrap'
-import { createProduct, getSingleProduct } from "../../../../api/api";
+import { createProduct, getSingleProduct,updateProduct } from "../../../../api/api";
 import { useParams,useNavigate } from "react-router-dom";
-import { useState } from "react";
-import { Carousel } from "react-bootstrap";
-import { createProduct } from "../../../../api/api";
 
 
 const New = ({ inputs, title }) => {
@@ -58,7 +55,7 @@ const New = ({ inputs, title }) => {
       })
       .catch((err)=>{console.log(err)})
     }
-  },[param])
+  },[])
 
   const navigate = useNavigate();
 
@@ -66,27 +63,37 @@ const New = ({ inputs, title }) => {
     setProduct({ ...product, [e.target.name]: e.target.value });
   };
 
-  const onSave = (e) => {
+  const onSave = (e) => 
+  {
     e.preventDefault();
-    let newProduct = {
-      ...product,
-      id: Number(product.id),
-      actual_price: Number(product.actual_price),
-      crossed_price: Number(product.crossed_price),
-      country: "",
-      images,
-    };
-    createProduct(newProduct)
-      .then((res) => {
+    if(title!='Add New Product'){
+      let id = param.productId;
+      updateProduct(id,product)
+      .then((res)=>{
         console.log(res);
-        alert("Product added successfully");
-        navigate("/admin/products");
       })
-      .catch((error) => {
-        console.log(error);
-        alert(error);
-      });
-  };
+      .catch((err)=>console.log(err))
+    }else{
+      let newProduct = {
+        ...product,
+        id: Number(product.id),
+        actual_price: Number(product.actual_price),
+        crossed_price: Number(product.crossed_price),
+        country: "",
+        images,
+      };
+      createProduct(newProduct)
+        .then((res) => {
+          console.log(res);
+          alert("Product added successfully");
+          navigate("/admin/products");
+        })
+        .catch((error) => {
+          console.log(error);
+          alert(error);
+        });
+    }
+  }
 
   const handleOnChange = (e) => {
     const files = Array.from(e.target.files);
