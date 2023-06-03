@@ -23,8 +23,10 @@ export async function getAllCategories() {
   return axios.get(`${process.env.REACT_APP_API}/products`);
 }
 
-export async function getAllOfferProducts() {
-  return axios.get(`${process.env.REACT_APP_API}/products/offer`);
+export async function getAllOfferProducts(page, sortBy) {
+  return axios.get(
+    `${process.env.REACT_APP_API}/products/offer?page=${page}&sortBy=actual_price&sortOrder=${sortBy}`
+  );
 }
 
 export async function getAllProductsByCategory(
