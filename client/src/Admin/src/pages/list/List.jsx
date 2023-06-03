@@ -15,10 +15,11 @@ const List = () => {
     .then((res)=>{
       console.log(res)
       if(res.data && res.data.data && res.data.data.length>0){
-        let fetchData = res.data.data.map(({createdAt,updatedAt,password,role,authType,__v,...rest})=>{return rest})
+        let fetchData = res.data.data.map(({createdAt,updatedAt,password,role,username,authType,__v,...rest})=>{return rest})
+        console.log(fetchData)
         if(fetchData.length>0){
           let tableHeader = Object.keys(fetchData[0])
-          let tableBody = fetchData 
+          let tableBody = fetchData.map((dat)=>{return {_id:dat._id,name:dat.name,email:dat.email,addr:dat.address}}) 
           setUsers({
             tableHeader,tableBody
           })
