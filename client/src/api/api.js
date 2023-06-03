@@ -23,6 +23,10 @@ export async function getAllCategories() {
   return axios.get(`${process.env.REACT_APP_API}/products`);
 }
 
+export async function getAllOfferProducts() {
+  return axios.get(`${process.env.REACT_APP_API}/products/offer`);
+}
+
 export async function getAllProductsByCategory(
   category,
   page,

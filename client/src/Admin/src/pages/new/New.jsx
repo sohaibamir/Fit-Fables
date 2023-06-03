@@ -2,51 +2,67 @@ import "./new.scss";
 import Sidebar from "../../components/sidebar/Sidebar";
 import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
 import { useState } from "react";
-import { Carousel } from 'react-bootstrap'
+import { Carousel } from "react-bootstrap";
 import { createProduct } from "../../../../api/api";
+import { useNavigate } from "react-router-dom";
 
 const New = ({ inputs, title }) => {
-  const [images, setImages] = useState([])
-  const [imagePreview, setImagePreview] = useState([])
+  const [images, setImages] = useState([]);
+  const [imagePreview, setImagePreview] = useState([]);
   const [product, setProduct] = useState({
     id: 0,
-    title: '',
+    title: "",
     actual_price: 0,
     crossed_price: 0,
-    manufacturer: '',
-    country: '',
-    category: '',
-    sub_category: ''
-  })
+    manufacturer: "",
+    country: "",
+    category: "",
+    sub_category: "",
+  });
+
+  const navigate = useNavigate();
 
   const handleProductChange = (e) => {
-    setProduct({ ...product, [e.target.name]: e.target.value })
-  }
+    setProduct({ ...product, [e.target.name]: e.target.value });
+  };
 
   const onSave = (e) => {
     e.preventDefault();
-    let newProduct = { ...product, id: Number(product.id), actual_price: Number(product.actual_price), crossed_price: Number(product.crossed_price), country: '',images}
+    let newProduct = {
+      ...product,
+      id: Number(product.id),
+      actual_price: Number(product.actual_price),
+      crossed_price: Number(product.crossed_price),
+      country: "",
+      images,
+    };
     createProduct(newProduct)
-      .then((res) => { console.log(res) })
-      .catch((error) => console.log(error))
-  }
+      .then((res) => {
+        console.log(res);
+        alert("Product added successfully");
+        navigate("/admin/products");
+      })
+      .catch((error) => {
+        console.log(error);
+        alert(error);
+      });
+  };
 
   const handleOnChange = (e) => {
     const files = Array.from(e.target.files);
-    setImagePreview([])
-    setImages([])
+    setImagePreview([]);
+    setImages([]);
     files.forEach((file) => {
       const reader = new FileReader();
       reader.onload = () => {
         if (reader.readyState === 2) {
-          setImagePreview(oldArray => [...oldArray, reader.result])
-          setImages(oldArray => [...oldArray, reader.result])
+          setImagePreview((oldArray) => [...oldArray, reader.result]);
+          setImages((oldArray) => [...oldArray, reader.result]);
         }
-      }
-      reader.readAsDataURL(file)
-    })
-  }
-
+      };
+      reader.readAsDataURL(file);
+    });
+  };
 
   return (
     <div className="new">
@@ -58,22 +74,19 @@ const New = ({ inputs, title }) => {
         <div className="bottom">
           <div className="left">
             <div id="product_image">
-            {
-              imagePreview && imagePreview.length>0 
-              ? 
-              <Carousel pause='hover'>
-                {
-                  imagePreview.map((url) => {
+              {imagePreview && imagePreview.length > 0 ? (
+                <Carousel pause="hover">
+                  {imagePreview.map((url) => {
                     return (
-                      <Carousel.Item>
-                        <img className='d-block w-100' src={url} />
+                      <Carousel.Item key={url}>
+                        <img alt="img" className="d-block w-100" src={url} />
                       </Carousel.Item>
-                    )
-                  })
-                }
-              </Carousel>
-              : <p>Please upload product images</p>
-            }
+                    );
+                  })}
+                </Carousel>
+              ) : (
+                <p>Please upload product images</p>
+              )}
             </div>
           </div>
           <div className="right">
@@ -94,7 +107,12 @@ const New = ({ inputs, title }) => {
               {inputs.map((input) => (
                 <div className="formInput" key={input.id}>
                   <label>{input.label}</label>
-                  <input name={input.name} type={input.type} placeholder={input.placeholder} onChange={handleProductChange} />
+                  <input
+                    name={input.name}
+                    type={input.type}
+                    placeholder={input.placeholder}
+                    onChange={handleProductChange}
+                  />
                 </div>
               ))}
               <button onClick={onSave}>Save</button>

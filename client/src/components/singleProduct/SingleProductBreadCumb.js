@@ -18,9 +18,7 @@ const SingleProductBreadCumb = ({ title }) => {
       <BreadcrumbItem>
         <Link to={"/"}>Home</Link>
       </BreadcrumbItem>
-      <BreadcrumbItem>
-        <Link to={"/healthcare"}>Healthcare</Link>
-      </BreadcrumbItem>
+
       <BreadcrumbItem isCurrentPage>
         <Text
           mb="0px"

@@ -37,7 +37,7 @@ const Datatable = ({ tableTitle, tableData }) => {
           {tableData?.tableHeader?.length > 0 && (
             <tr>
               {tableData?.tableHeader?.map((value) => {
-                return <th>{value}</th>;
+                return <th key={value}>{value}</th>;
               })}
             </tr>
           )}
@@ -47,9 +47,9 @@ const Datatable = ({ tableTitle, tableData }) => {
           <tbody>
             {tableData?.tableBody?.map((eachRecord) => {
               return (
-                <tr>
+                <tr key={eachRecord}>
                   {Object.values(eachRecord)?.map((value) => {
-                    return <td>{value}</td>;
+                    return <td key={value}>{value}</td>;
                   })}
                 </tr>
               );

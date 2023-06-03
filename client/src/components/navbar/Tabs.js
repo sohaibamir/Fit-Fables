@@ -12,6 +12,7 @@ function Tabs() {
       top="65px"
       left="0"
       alignItems="end"
+      zIndex="1"
     >
       <HStack
         paddingY={"12px"}

@@ -16,11 +16,11 @@ import { Link, useNavigate } from "react-router-dom";
 
 import TabCarousal from "../home/TabCarousal";
 import { ChevronDownIcon } from "@chakra-ui/icons";
-import SingleProductBreadCumb from "./SingleProductBreadCumb";
 import { useDispatch, useSelector } from "react-redux";
 
 import { addToCart, getCartTotal, remove } from "../../redux/Cart/action";
 import { AddItemToCart, isAuthenticated } from "../../api/api";
+import HealthCareBreadcrumb from "../healthcare/HealthCareBreadcrumb";
 
 const Product = (props) => {
   const toast = useToast();
@@ -62,11 +62,11 @@ const Product = (props) => {
   }, []);
   return (
     <Box fontFamily="'Open Sans',sans-serif">
-      <Box m="50px 0 50px 15px">
-        <SingleProductBreadCumb title={data.title} />
+      <Box m="50px 0px 50px 15px" pl="30px">
+        <HealthCareBreadcrumb title={data.title} />
       </Box>
       <Flex
-        m="50px 15px"
+        m="55px 15px"
         justifyContent="space-between"
         flexDirection={{ base: "column", md: "column", lg: "row" }}
       >
@@ -75,7 +75,8 @@ const Product = (props) => {
             <Box
               className="imagebox"
               mr="15px"
-              m={{ base: "auto", md: "auto" }}
+              ml="30px"
+              // m={{ base: "auto", md: "auto" }}
             >
               <Box
                 className="image"
@@ -91,87 +92,9 @@ const Product = (props) => {
                     width="100%"
                     height="100%"
                   />
-                  <Box
-                    bgColor="white"
-                    position="absolute"
-                    top="420px"
-                    left="260px"
-                    width="30px"
-                    height="30px"
-                    borderRadius="50%"
-                    boxShadow="0 0 10px #cecece"
-                    p="5px"
-                  >
-                    <Img
-                      src="/images/share.svg"
-                      alt="Share"
-                      width="100%"
-                      height="100%"
-                    />
-                  </Box>
                 </Box>
               </Box>
               <Grid gridTemplateColumns="repeat(4,1fr)" gap={3} mt={3}>
-                {/* <GridItem
-                  border="1px solid #cecece"
-                  height="65px"
-                  borderRadius="10px"
-                  p="3px"
-                >
-                  <Img
-                    src={data.img2}
-                    alt=""
-                    width="100%"
-                    height="100%"
-                    borderRadius="10px"
-                    onClick={() => (ref.current.src = data.img2)}
-                  ></Img>
-                </GridItem> */}
-                {/* <GridItem
-                  border="1px solid #cecece"
-                  height="65px"
-                  borderRadius="10px"
-                  p="3px"
-                >
-                  <Img
-                    src={data.img3}
-                    alt=""
-                    width="100%"
-                    height="100%"
-                    borderRadius="10px"
-                    onClick={() => (ref.current.src = data.img3)}
-                  ></Img>
-                </GridItem> */}
-                {/* <GridItem
-                  border="1px solid #cecece"
-                  height="65px"
-                  borderRadius="10px"
-                  p="3px"
-                >
-                  <Img
-                    src={data.img2}
-                    alt=""
-                    width="100%"
-                    height="100%"
-                    borderRadius="10px"
-                    onClick={() => (ref.current.src = data.img2)}
-                  ></Img>
-                </GridItem> */}
-                {/* <GridItem
-                  border="1px solid #cecece"
-                  height="65px"
-                  borderRadius="10px"
-                  p="3px"
-                >
-                  <Img
-                    src={data.img2}
-                    alt=""
-                    width="100%"
-                    height="100%"
-                    borderRadius="10px"
-                    onClick={() => (ref.current.src = data.img2)}
-                  ></Img>
-                </GridItem> */}
                 <GridItem
                   border="1px solid #cecece"
                   height="65px"
@@ -187,9 +110,24 @@ const Product = (props) => {
                     onClick={() => (ref.current.src = data.img1)}
                   ></Img>
                 </GridItem>
+                <GridItem
+                  border="1px solid #cecece"
+                  height="65px"
+                  borderRadius="10px"
+                  p="3px"
+                >
+                  <Img
+                    src={data.img2}
+                    alt=""
+                    width="100%"
+                    height="100%"
+                    borderRadius="10px"
+                    onClick={() => (ref.current.src = data.img2)}
+                  ></Img>
+                </GridItem>
               </Grid>
             </Box>
-            <Box className="contentbox" p="0px 25px">
+            <Box className="contentbox" p="0px 25px" width="100%">
               <Heading fontSize="25px" color="#4F585E" mb={2}>
                 {data.title}
               </Heading>
@@ -425,7 +363,7 @@ const Product = (props) => {
           Product Details
         </Text>
         <Text color="#10847E" fontSize="19px" mb={2}>
-          Brand: {data.company}
+          Brand: {data.manufacturer}
         </Text>
         <Text fontSize="19px" color="gray" mb={2}>
           Expires on or After 30/10/2023

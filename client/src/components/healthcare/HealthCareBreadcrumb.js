@@ -6,7 +6,8 @@ import { Link } from "react-router-dom";
 function HealthCareBreadcrumb({ title }) {
   return (
     <Breadcrumb
-      fontSize="12px"
+      color="gray.600"
+      fontSize="14px"
       spacing="8px"
       separator={<ChevronRightIcon color="gray.500" />}
     >
