@@ -1,5 +1,5 @@
 const Cart = require("../models/cart");
-const Order = require("../models/order");
+const {Order} = require("../models/order");
 
 exports.createOrders = async (req, res) => {
   try {
@@ -26,9 +26,19 @@ exports.getOrders = async (req, res) => {
       path: "cartItems",
       populate: { path: "productId" },
     });
-
     return res.status(201).send({ data: orders });
   } catch (error) {
     return res.status(500).send({ message: error.message });
   }
 };
+
+exports.getAllOrders = async (req, res) => {
+  try {
+    const orders = await Order.find();
+    return res.status(201).send({ data: orders });
+  } catch (error) {
+    console.log(error)
+    return res.status(500).send({ message: error.message });
+  }
+};
+

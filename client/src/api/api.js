@@ -92,6 +92,18 @@ export async function createProduct(product) {
   return axios.post(`${process.env.REACT_APP_API}/products/create`, product);
 }
 
+export async function getAllProductsAdmin() {
+  return axios.get(`${process.env.REACT_APP_API}/products/all`);
+}
+
+export async function getAllUsersAdmin() {
+  return axios.get(`${process.env.REACT_APP_API}/admin/getUsers`);
+}
+
+export async function getAllOrdersAdmin() {
+  return axios.get(`${process.env.REACT_APP_API}/admin/getorders`);
+}
+
 export const isAuthenticated = () => {
   if (typeof window == "undefined") {
     return false;

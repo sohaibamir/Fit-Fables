@@ -1,220 +1,39 @@
 import "./list.scss"
+import { useEffect, useState } from "react"
 import Sidebar from "../../components/sidebar/Sidebar"
 import Datatable from "../../components/datatable/Datatable"
+import { getAllProductsAdmin } from "../../../../api/api"
 
 const ProductList = () => {
-  const productsData = {
-    tableHeader: ["Name", "Password", "Email Address"],
-    tableBody: [
-      {
-        name: "Product1",
-        pass: "0000",
-        email: "ha@123.gmail.com"
-      },
-      {
-        name: "Product2",
-        pass: "0000",
-        email: "ha@123.gmail.com"
-      },
-      {
-        name: "Product3",
-        pass: "0000",
-        email: "ha@123.gmail.com"
-      },
-      {
-        name: "Product4",
-        pass: "0000",
-        email: "ha@123.gmail.com"
-      },
-      {
-        name: "Product5",
-        pass: "0000",
-        email: "ha@123.gmail.com"
-      },
-      {
-        name: "Product6",
-        pass: "0000",
-        email: "ha@123.gmail.com"
-      },
-      {
-        name: "Product7",
-        pass: "0000",
-        email: "ha@123.gmail.com"
-      },
-      {
-        name: "Product8",
-        pass: "0000",
-        email: "ha@123.gmail.com"
-      },
-      {
-        name: "Product9",
-        pass: "0000",
-        email: "ha@123.gmail.com"
-      },
-      {
-        name: "Product10",
-        pass: "0000",
-        email: "ha@123.gmail.com"
-      },
-      {
-        name: "Product11",
-        pass: "0000",
-        email: "ha@123.gmail.com"
-      },
-      {
-        name: "Product12",
-        pass: "0000",
-        email: "ha@123.gmail.com"
-      },
-      {
-        name: "Product13",
-        pass: "0000",
-        email: "ha@123.gmail.com"
-      },
-      {
-        name: "Product14",
-        pass: "0000",
-        email: "ha@123.gmail.com"
-      },
-      {
-        name: "Product15",
-        pass: "0000",
-        email: "ha@123.gmail.com"
-      },
-      {
-        name: "Product16",
-        pass: "0000",
-        email: "ha@123.gmail.com"
-      },
-      {
-        name: "Product17",
-        pass: "0000",
-        email: "ha@123.gmail.com"
-      },
-      {
-        name: "Product18",
-        pass: "0000",
-        email: "ha@123.gmail.com"
-      },
-      {
-        name: "Product19",
-        pass: "0000",
-        email: "ha@123.gmail.com"
-      },
-      {
-        name: "Product20",
-        pass: "0000",
-        email: "ha@123.gmail.com"
-      },
-      {
-        name: "Product1",
-        pass: "0000",
-        email: "ha@123.gmail.com"
-      },
-      {
-        name: "Product2",
-        pass: "0000",
-        email: "ha@123.gmail.com"
-      },
-      {
-        name: "Product3",
-        pass: "0000",
-        email: "ha@123.gmail.com"
-      },
-      {
-        name: "Product4",
-        pass: "0000",
-        email: "ha@123.gmail.com"
-      },
-      {
-        name: "Product5",
-        pass: "0000",
-        email: "ha@123.gmail.com"
-      },
-      {
-        name: "Product6",
-        pass: "0000",
-        email: "ha@123.gmail.com"
-      },
-      {
-        name: "Product7",
-        pass: "0000",
-        email: "ha@123.gmail.com"
-      },
-      {
-        name: "Product8",
-        pass: "0000",
-        email: "ha@123.gmail.com"
-      },
-      {
-        name: "Product9",
-        pass: "0000",
-        email: "ha@123.gmail.com"
-      },
-      {
-        name: "Product10",
-        pass: "0000",
-        email: "ha@123.gmail.com"
-      },
-      {
-        name: "Product11",
-        pass: "0000",
-        email: "ha@123.gmail.com"
-      },
-      {
-        name: "Product12",
-        pass: "0000",
-        email: "ha@123.gmail.com"
-      },
-      {
-        name: "Product13",
-        pass: "0000",
-        email: "ha@123.gmail.com"
-      },
-      {
-        name: "Product14",
-        pass: "0000",
-        email: "ha@123.gmail.com"
-      },
-      {
-        name: "Product15",
-        pass: "0000",
-        email: "ha@123.gmail.com"
-      },
-      {
-        name: "Product16",
-        pass: "0000",
-        email: "ha@123.gmail.com"
-      },
-      {
-        name: "Product17",
-        pass: "0000",
-        email: "ha@123.gmail.com"
-      },
-      {
-        name: "Product18",
-        pass: "0000",
-        email: "ha@123.gmail.com"
-      },
-      {
-        name: "Product19",
-        pass: "0000",
-        email: "ha@123.gmail.com"
-      },
-      {
-        name: "Product20",
-        pass: "0000",
-        email: "ha@123.gmail.com"
-      },
-    ]
-  };
+  const [products,setProducts] = useState({
+    tableHeader: [],
+    tableBody: []
+  })
+
+
+  useEffect(()=>{
+    getAllProductsAdmin()
+    .then((res)=>{
+      if(res.data && res.data.data && res.data.data.length>0){
+        let fetchData = res.data.data.map(({img2,img3,createdAt,updatedAt,crossed_price,manufacturer,sub_category,country,__v,...rest})=>{return rest})
+        console.log(fetchData)
+        if(fetchData.length>0){
+          let tableHeader = Object.keys(fetchData[0])
+          let tableBody = fetchData 
+          setProducts({
+            tableHeader,tableBody
+          })
+        }
+      }
+    })
+    .catch((err)=>console.log(err))
+  },[])
 
   return (
     <div className="list">
       <Sidebar />
       <div className="listContainer">
-        {/* <Navbar/> */}
-        <Datatable tableTitle="Products" tableData={productsData}
+        <Datatable tableTitle="Products" tableData={products}
         />
       </div>
     </div>

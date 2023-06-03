@@ -7,7 +7,8 @@ const {
   getCategories,
   getAllProductsBySubCategory,
   getProductsBySearch,
-  uploadProduct
+  uploadProduct,
+  getAllProducts
 } = require("../controllers/product");
 
 router.get("/products/search", getProductsBySearch);
@@ -19,5 +20,6 @@ router.get(
 );
 router.get("/products", getCategories);
 router.post('/products/create',uploadProduct)
+router.get('/products/all',getAllProducts)
 
 module.exports = router;

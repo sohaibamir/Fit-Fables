@@ -1,119 +1,39 @@
 import "./list.scss"
 import Sidebar from "../../components/sidebar/Sidebar"
 import Datatable from "../../components/datatable/Datatable"
+import { getAllUsersAdmin } from "../../../../api/api";
+import { useEffect,useState } from "react";
 
 const List = () => {
-  const listData = {
-    tableHeader: ["Name", "Password", "Email Address"],
-    tableBody: [
-      {
-        name: "Haseeb1",
-        pass: "0000",
-        email: "ha@123.gmail.com"
-      },
-      {
-        name: "Haseeb2",
-        pass: "0000",
-        email: "ha@123.gmail.com"
-      },
-      {
-        name: "Haseeb3",
-        pass: "0000",
-        email: "ha@123.gmail.com"
-      },
-      {
-        name: "Haseeb4",
-        pass: "0000",
-        email: "ha@123.gmail.com"
-      },
-      {
-        name: "Haseeb5",
-        pass: "0000",
-        email: "ha@123.gmail.com"
-      },
-      {
-        name: "Haseeb6",
-        pass: "0000",
-        email: "ha@123.gmail.com"
-      },
-      {
-        name: "Haseeb7",
-        pass: "0000",
-        email: "ha@123.gmail.com"
-      },
-      {
-        name: "Haseeb8",
-        pass: "0000",
-        email: "ha@123.gmail.com"
-      },
-      {
-        name: "Haseeb9",
-        pass: "0000",
-        email: "ha@123.gmail.com"
-      },
-      {
-        name: "Haseeb10",
-        pass: "0000",
-        email: "ha@123.gmail.com"
-      },
-      {
-        name: "Haseeb11",
-        pass: "0000",
-        email: "ha@123.gmail.com"
-      },
-      {
-        name: "Haseeb12",
-        pass: "0000",
-        email: "ha@123.gmail.com"
-      },
-      {
-        name: "Haseeb13",
-        pass: "0000",
-        email: "ha@123.gmail.com"
-      },
-      {
-        name: "Haseeb14",
-        pass: "0000",
-        email: "ha@123.gmail.com"
-      },
-      {
-        name: "Haseeb15",
-        pass: "0000",
-        email: "ha@123.gmail.com"
-      },
-      {
-        name: "Haseeb16",
-        pass: "0000",
-        email: "ha@123.gmail.com"
-      },
-      {
-        name: "Haseeb17",
-        pass: "0000",
-        email: "ha@123.gmail.com"
-      },
-      {
-        name: "Haseeb18",
-        pass: "0000",
-        email: "ha@123.gmail.com"
-      },
-      {
-        name: "Haseeb19",
-        pass: "0000",
-        email: "ha@123.gmail.com"
-      },
-      {
-        name: "Haseeb20",
-        pass: "0000",
-        email: "ha@123.gmail.com"
-      }],
-  };
+  const [users,setUsers] = useState({
+    tableHeader: [],
+    tableBody: []
+  })
+
+  useEffect(()=>{
+    getAllUsersAdmin()
+    .then((res)=>{
+      console.log(res)
+      if(res.data && res.data.data && res.data.data.length>0){
+        let fetchData = res.data.data.map(({createdAt,updatedAt,password,role,authType,__v,...rest})=>{return rest})
+        if(fetchData.length>0){
+          let tableHeader = Object.keys(fetchData[0])
+          let tableBody = fetchData 
+          setUsers({
+            tableHeader,tableBody
+          })
+        }
+      }
+    })
+    .catch((err)=>console.log(err))
+  },[])
 
   return (
     <div className="list">
       <Sidebar />
       <div className="listContainer">
         {/* <Navbar/> */}
-        <Datatable tableTitle="Users" tableData={listData} />
+        <Datatable tableTitle="Users" tableData={users} />
       </div>
     </div>
   );

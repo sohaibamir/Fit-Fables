@@ -1,21 +1,27 @@
 import "./datatable.scss";
 import { userRows } from "../../datatablesource";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Table from "react-bootstrap/Table";
 import { PaginationControl } from "react-bootstrap-pagination-control";
+import { DeleteIcon, EditIcon } from '@chakra-ui/icons'
+
 
 const Datatable = ({ tableTitle, tableData }) => {
-  const [data, setData] = useState(userRows);
+  const [data, setData] = useState(tableData.tableBody);
   const [page, setPage] = useState(1);
-  const [renderData, setRenderData] = useState(data.slice(0, 10));
+
+  useEffect(() => {
+    onChangePage(page);
+  }, [data])
 
   const onChangePage = (page) => {
     const offset = (page - 1) * 10;
-    let changePage = data.slice(offset, offset + 10);
+    let changePage = tableData.tableBody.slice(offset, offset + 10);
     setPage(page);
-    setRenderData(changePage);
+    setData(changePage);
   };
+
 
   return (
     <div className="datatable">
@@ -32,25 +38,49 @@ const Datatable = ({ tableTitle, tableData }) => {
         ) : null}
       </div>
 
-      <Table striped>
+      <Table striped style={{ margin: "0px", padding: "0px" }}>
         <thead>
           {tableData?.tableHeader?.length > 0 && (
-            <tr>
+            <tr style={{ textAlign: "center" }}>
+              {
+                tableTitle != 'Users' && tableTitle != 'Orders' &&
+                <th></th>
+              }
               {tableData?.tableHeader?.map((value) => {
-                return <th>{value}</th>;
+                if (value != '_id' && value != 'img1') { return <td style={{ fontWeight: 'bold', fontSize: '14px' }}>{value.toUpperCase()}</td> };
               })}
+              <th></th>
             </tr>
           )}
         </thead>
 
-        {tableData?.tableBody?.length > 0 && (
+        {data.length > 0 && (
           <tbody>
-            {tableData?.tableBody?.map((eachRecord) => {
+            {data.map(({ _id, img1, ...eachRecord }) => {
               return (
-                <tr>
+                <tr style={{ textAlign: "center", alignItems: "center", paddingTop: "auto", paddingBottom: "auto" }}>
+                  {
+                    tableTitle != 'Users' && tableTitle != 'Orders' &&
+                    <td><img style={{ width: "40px", height: "40px", borderRadius: '50%' }} src={img1 ? img1 : null} /></td>
+                  }
                   {Object.values(eachRecord)?.map((value) => {
                     return <td>{value}</td>;
                   })}
+                  {
+                    tableTitle == 'Products' &&
+                    <td>
+                    <div style={{display:'flex',justifyContent:'center',alignItems:'center'}}>
+                      <Link to={`/admin/product/${_id}`} style={{marginRight:"7px",cursor:'pointer'}}>
+                        <EditIcon color="green.500" />
+                      </Link>
+                      <div style={{cursor:'pointer'}}>
+                        <DeleteIcon color="red.500" />
+                      </div>
+                    </div>
+                    </td>
+
+
+                  }
                 </tr>
               );
             })}
@@ -58,17 +88,20 @@ const Datatable = ({ tableTitle, tableData }) => {
         )}
       </Table>
 
-      <div className="pagination-div">
-        <PaginationControl
-          page={page}
-          next={true}
-          last={true}
-          total={data.length}
-          limit={10}
-          changePage={(page) => onChangePage(page)}
-          ellipsis={1}
-        />
-      </div>
+      {
+        tableData.tableBody.length > 10 &&
+        <div className="pagination-div">
+          <PaginationControl
+            page={page}
+            next={true}
+            last={true}
+            total={tableData.tableBody.length}
+            limit={10}
+            changePage={(page) => onChangePage(page)}
+            ellipsis={1}
+          />
+        </div>
+      }
     </div>
   );
 };
