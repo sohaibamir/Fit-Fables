@@ -4,11 +4,15 @@ import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUpload
 import { useEffect, useState } from "react";
 import { Carousel } from 'react-bootstrap'
 import { createProduct, getSingleProduct } from "../../../../api/api";
-import { useParams } from "react-router-dom";
+import { useParams,useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { Carousel } from "react-bootstrap";
+import { createProduct } from "../../../../api/api";
+
 
 const New = ({ inputs, title }) => {
-  const [images, setImages] = useState([])
-  const [imagePreview, setImagePreview] = useState([])
+  const [images, setImages] = useState([]);
+  const [imagePreview, setImagePreview] = useState([]);
   const [product, setProduct] = useState({
     id: '',
     title: '',
@@ -56,34 +60,49 @@ const New = ({ inputs, title }) => {
     }
   },[param])
 
+  const navigate = useNavigate();
+
   const handleProductChange = (e) => {
-    setProduct({ ...product, [e.target.name]: e.target.value })
-  }
+    setProduct({ ...product, [e.target.name]: e.target.value });
+  };
 
   const onSave = (e) => {
     e.preventDefault();
-    let newProduct = { ...product, id: Number(product.id), actual_price: Number(product.actual_price), crossed_price: Number(product.crossed_price), country: '',images}
+    let newProduct = {
+      ...product,
+      id: Number(product.id),
+      actual_price: Number(product.actual_price),
+      crossed_price: Number(product.crossed_price),
+      country: "",
+      images,
+    };
     createProduct(newProduct)
-      .then((res) => { console.log(res) })
-      .catch((error) => console.log(error))
-  }
+      .then((res) => {
+        console.log(res);
+        alert("Product added successfully");
+        navigate("/admin/products");
+      })
+      .catch((error) => {
+        console.log(error);
+        alert(error);
+      });
+  };
 
   const handleOnChange = (e) => {
     const files = Array.from(e.target.files);
-    setImagePreview([])
-    setImages([])
+    setImagePreview([]);
+    setImages([]);
     files.forEach((file) => {
       const reader = new FileReader();
       reader.onload = () => {
         if (reader.readyState === 2) {
-          setImagePreview(oldArray => [...oldArray, reader.result])
-          setImages(oldArray => [...oldArray, reader.result])
+          setImagePreview((oldArray) => [...oldArray, reader.result]);
+          setImages((oldArray) => [...oldArray, reader.result]);
         }
-      }
-      reader.readAsDataURL(file)
-    })
-  }
-
+      };
+      reader.readAsDataURL(file);
+    });
+  };
 
   return (
     <div className="new">
@@ -95,22 +114,19 @@ const New = ({ inputs, title }) => {
         <div className="bottom">
           <div className="left">
             <div id="product_image">
-            {
-              imagePreview && imagePreview.length>0 
-              ? 
-              <Carousel pause='hover'>
-                {
-                  imagePreview.map((url) => {
+              {imagePreview && imagePreview.length > 0 ? (
+                <Carousel pause="hover">
+                  {imagePreview.map((url) => {
                     return (
                       <Carousel.Item>
                         <img style={{objectFit:'contain'}} className='d-block w-100' src={url} />
                       </Carousel.Item>
-                    )
-                  })
-                }
-              </Carousel>
-              : <p>Please upload product images</p>
-            }
+                    );
+                  })}
+                </Carousel>
+              ) : (
+                <p>Please upload product images</p>
+              )}
             </div>
           </div>
           <div className="right">

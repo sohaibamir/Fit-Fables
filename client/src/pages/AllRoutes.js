@@ -16,6 +16,7 @@ import Cart from "./Cart";
 import Search from "./Search";
 import Delivery from "./Delivery";
 import Doctors from "../Admin/src/pages/doctors/Doctors";
+import Offers from "./Offers";
 
 function AllRoutes() {
   return (
@@ -51,12 +52,13 @@ function AllRoutes() {
       />
 
       <Route path="/healthcare" element={<Healthcare />} />
+      <Route path="/Offers" element={<Offers />} />
       <Route path="/healthcare/products/:cat" element={<Products />} />
       <Route path="/healthcare/product/:id" element={<SingleProduct />} />
-      <Route path="/cart" element={<Cart />}></Route>
-      <Route path="/delivery" element={<Delivery />}></Route>
+      <Route path="/cart" element={<Cart />} />
+      <Route path="/delivery" element={<Delivery />} />
       <Route path="/admin/orders" element={<Orders />} />
-      <Route path="/search/:name" element={<Search />}></Route>
+      <Route path="/search/:name" element={<Search />} />
       <Route path="/admin/doctors" element={<Doctors />} />
     </Routes>
   );

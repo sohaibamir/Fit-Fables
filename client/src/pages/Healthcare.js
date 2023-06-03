@@ -12,7 +12,7 @@ const Healthcare = () => {
     <>
       <Tabs />
 
-      <Box width={"85%"} margin="80px auto">
+      <Box width="85%" margin="80px auto">
         <HealthCareBreadcrumb title="Healthcare" />
 
         <Cards></Cards>

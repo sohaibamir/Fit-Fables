@@ -14,7 +14,7 @@ import {
   AccordionIcon,
   Hide,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useState } from "react";
 import { AiFillRightCircle } from "react-icons/ai";
 import { useSelector } from "react-redux";
 
@@ -22,6 +22,13 @@ function Delivery() {
   const { totalAmount, totalOriginalAmount } = useSelector(
     (state) => state.cart
   );
+
+  const [deliveryAmount, setDeliveryAmount] = useState(0);
+
+  const handleChange = (e) => {
+    setDeliveryAmount(e.target.value);
+    console.log(e.target.value);
+  };
 
   const handlePayment = async () => {
     console.log("Soon");
@@ -74,7 +81,11 @@ function Delivery() {
               border="1px solid #e4e7ea"
             >
               <Flex>
-                <Radio colorScheme="green" value="1"></Radio>
+                <Radio
+                  onChange={handleChange}
+                  colorScheme="green"
+                  value="200"
+                ></Radio>
                 <Box ml="20px">
                   <Heading fontSize="xl" color="#4f585e">
                     Tommorrow, before 10:00 pm{" "}
@@ -97,7 +108,11 @@ function Delivery() {
               border="1px solid #e4e7ea"
             >
               <Flex>
-                <Radio colorScheme="green" value="2"></Radio>
+                <Radio
+                  onChange={handleChange}
+                  colorScheme="green"
+                  value="100"
+                ></Radio>
                 <Box ml="20px">
                   <Heading fontSize="xl" color="#4f585e">
                     12 June - 14 June
@@ -159,7 +174,7 @@ function Delivery() {
               </Text>
 
               <Heading fontSize="md" color="#4f585e">
-                Rs 200.00{" "}
+                {deliveryAmount}
               </Heading>
             </Flex>
             <Flex
@@ -171,13 +186,13 @@ function Delivery() {
               <Text mb="0px" fontSize="l" color="#4f585e">
                 Cart Value
               </Text>
-              {Radio.value === "1" ? (
+              {deliveryAmount ? (
                 <Heading fontSize="md" color="#4f585e">
-                  Rs {totalAmount + 200}
+                  Rs {totalAmount + parseInt(deliveryAmount)}
                 </Heading>
               ) : (
                 <Heading fontSize="md" color="#4f585e">
-                  Rs {totalAmount + 100}
+                  Rs {totalAmount}
                 </Heading>
               )}
             </Flex>

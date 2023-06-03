@@ -64,7 +64,7 @@ const Datatable = ({ tableTitle, tableData }) => {
                     <td><img style={{ width: "40px", height: "40px", borderRadius: '50%' }} src={img1 ? img1 : null} /></td>
                   }
                   {Object.values(eachRecord)?.map((value) => {
-                    return <td>{value}</td>;
+                    return <td key={value}>{value}</td>;
                   })}
                   {
                     tableTitle == 'Products' &&

@@ -1,5 +1,5 @@
 const Product = require("../models/product");
-const cloudinary = require('cloudinary')
+const cloudinary = require("cloudinary");
 
 exports.getCategories = async (req, res) => {
   try {
@@ -147,6 +147,7 @@ exports.getAllProductsBySubCategory = async (req, res) => {
     });
   }
 };
+
 exports.getProductsBySearch = async (req, res) => {
   try {
     const { q } = req.query;
@@ -163,49 +164,99 @@ exports.getProductsBySearch = async (req, res) => {
   }
 };
 
+exports.getOfferProducts = async (req, res) => {
+  let { pageSize = 30, page = 1, sortBy = "_id", sortOrder = "" } = req.query;
+
+  try {
+    const offerProducts = await Product.find({
+      crossed_price: { $exists: true, $nin: [0, null] },
+    })
+      .sort({
+        [sortBy]: sortOrder === "asc" ? 1 : -1,
+      })
+      .limit(pageSize)
+      .skip(pageSize * (page - 1));
+
+    const totalProducts = offerProducts.length;
+    const totalBrands = await Product.distinct("manufacturer", {
+      manufacturer: { $ne: "" },
+      crossed_price: { $exists: true, $nin: [0, null] },
+    });
+
+    return res.status(201).send({
+      page,
+      pageSize,
+      totalBrands,
+      totalProducts,
+      offerProducts,
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).send({
+      status: "error",
+      message: "Something went wrong",
+    });
+  }
+};
 exports.uploadProduct = async (req, res) => {
   try {
     let images = [];
-    if (typeof (req.body.images) === 'string') {
-        images.push(req.body.images);
+    if (typeof req.body.images === "string") {
+      images.push(req.body.images);
     } else {
-        images = req.body.images;
+      images = req.body.images;
     }
-    let imagesLink = []
-    for(let i=0 ; i< images.length ; i++) {
-        let result = await cloudinary.v2.uploader.upload(images[i], {
-            folder: "products"
-        })
+    let imagesLink = [];
+    for (let i = 0; i < images.length; i++) {
+      let result = await cloudinary.v2.uploader.upload(images[i], {
+        folder: "products",
+        transformation: [{ width: 250, height: 250, crop: "fill" }],
+      });
 
-        imagesLink.push(
-            result.secure_url
-        )
+      imagesLink.push(result.secure_url);
     }
 
-    imagesLink = imagesLink.slice(0,3);
+    imagesLink = imagesLink.slice(0, 3);
 
-    let img1='';
-    let img2='';
-    let img3=''
+    let img1 = "";
+    let img2 = "";
+    let img3 = "";
 
-    for(let i=0; i<imagesLink.length;i++){
-      if(i==0){
-        img1 = imagesLink[i]
-      }
-      else if(i==1){
-        img2 = imagesLink[i]
-      }
-      else if(i==2){
-        img3 = imagesLink[i]
+    for (let i = 0; i < imagesLink.length; i++) {
+      if (i == 0) {
+        img1 = imagesLink[i];
+      } else if (i == 1) {
+        img2 = imagesLink[i];
+      } else if (i == 2) {
+        img3 = imagesLink[i];
       }
     }
-    
 
-    const {id,title,actual_price,crossed_price,manufacturer,country,category,sub_category}=req.body;
+    const {
+      id,
+      title,
+      actual_price,
+      crossed_price,
+      manufacturer,
+      country,
+      category,
+      sub_category,
+    } = req.body;
     await Product.create({
-      id,title,actual_price,crossed_price,manufacturer,country,category,sub_category,country:"Pakistan",img1,img2,img3
-    })
-    return res.status(201).send({ message: "success"});
+      id,
+      title,
+      actual_price,
+      crossed_price,
+      manufacturer,
+      country,
+      category,
+      sub_category,
+      country: "Pakistan",
+      img1,
+      img2,
+      img3,
+    });
+    return res.status(201).send({ message: "success" });
   } catch (error) {
     return res.status(500).send({ message: error.message });
   }
