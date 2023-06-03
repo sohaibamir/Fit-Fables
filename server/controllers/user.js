@@ -91,3 +91,22 @@ exports.getUserById = async (req, res, next, id) => {
     });
   }
 };
+
+exports.getAllUsers = async (req, res) => {
+  try {
+    const users = await User.find({'role':'user'});
+    if (users.length == 0) {
+      return res.status(400).json({
+        error: "Users not found",
+      });
+    }
+    return res.status(200).send({
+      data: users,
+    });
+  } catch (err) {
+    return res.status(400).json({
+      error: "User not found",
+    });
+  }
+};
+

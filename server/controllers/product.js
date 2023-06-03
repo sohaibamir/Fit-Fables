@@ -261,3 +261,30 @@ exports.uploadProduct = async (req, res) => {
     return res.status(500).send({ message: error.message });
   }
 };
+
+exports.getAllProducts = async (req, res) => {
+  try {
+    const products = await Product.find();
+    return res.status(201).send({ message: "success", data: products });
+  } catch (error) {
+    return res.status(500).send({ message: error.message });
+  }
+};
+
+exports.updateProduct = async (req, res) => {
+  try {
+    const products = await Product.findByIdAndUpdate({_id:req.params.id},{...req.body.product},{new:true})
+    return res.status(201).send({ message: "success", data: products });
+  } catch (error) {
+    return res.status(500).send({ message: error.message });
+  }
+};
+
+exports.deleteProduct = async (req, res) => {
+  try {
+    await Product.findByIdAndDelete(req.params.id)
+    return res.status(201).send({ message: "success"});
+  } catch (error) {
+    return res.status(500).send({ message: error.message });
+  }
+};

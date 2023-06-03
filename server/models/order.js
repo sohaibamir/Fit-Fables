@@ -13,6 +13,11 @@ const orderSchema = new mongoose.Schema(
         quantity: { type: Number, required: true },
       },
     ],
+    status:{
+      type:String,
+      enum:["Pending","In-Process","Delivered"],
+      default:"Pending"
+    }
   },
   {
     timestamps: true,
