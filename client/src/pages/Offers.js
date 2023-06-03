@@ -186,22 +186,6 @@ function Offer() {
                 mb="20px"
               >
                 <Text fontSize={"12px"}></Text>
-                {/* {value && (
-                  <Button
-                    key={value}
-                    size={"xs"}
-                    rightIcon={
-                      <CloseIcon
-                        onClick={() => setValue("")}
-                        fontSize={"8px"}
-                      />
-                    }
-                    variant={"outline"}
-                    colorScheme={"teal"}
-                  >
-                    {value}
-                  </Button>
-                )} */}
                 {filterArr.map((e) => {
                   return (
                     <Button
