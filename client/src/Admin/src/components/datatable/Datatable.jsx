@@ -76,10 +76,10 @@ const Datatable = ({ tableTitle, tableData }) => {
                   {Object.values(eachRecord)?.map((value) => {
                     return <td key={value}>{value}</td>;
                   })}
-                  {tableTitle === "Products" && (
+                  {tableTitle === "Products" ? (
                     <td>
                       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                        <Link to={`/admin/product/${_id?.$oid}`} style={{ marginRight: "7px", cursor: 'pointer' }}>
+                        <Link to={`/admin/product/${_id}`} style={{ marginRight: "7px", cursor: 'pointer' }}>
                           <EditIcon color="green.500" />
                         </Link>
                         <div style={{ cursor: "pointer" }}>
@@ -87,7 +87,19 @@ const Datatable = ({ tableTitle, tableData }) => {
                         </div>
                       </div>
                     </td>
-                  )}
+                  )
+                    : tableTitle === "Doctors" ?
+                      <td>
+                        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                          <Link to={`/admin/doctor/${_id}`} style={{ marginRight: "7px", cursor: 'pointer' }}>
+                            <EditIcon color="green.500" />
+                          </Link>
+                          <div style={{ cursor: 'pointer' }}>
+                            <DeleteIcon color="red.500" />
+                          </div>
+                        </div>
+                      </td>
+                      : null}
                   {tableTitle === "Users" && (
                     <td>
                       <div
@@ -107,19 +119,6 @@ const Datatable = ({ tableTitle, tableData }) => {
                     </td>
 
                   )}
-                  {
-                    tableTitle == 'Doctors' &&
-                    <td>
-                      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                        <Link to={`/admin/doctor/${_id}`} style={{ marginRight: "7px", cursor: 'pointer' }}>
-                          <EditIcon color="green.500" />
-                        </Link>
-                        <div style={{ cursor: 'pointer' }}>
-                          <DeleteIcon color="red.500" />
-                        </div>
-                      </div>
-                    </td>
-                  }
                 </tr>
               );
             })}
