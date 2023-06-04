@@ -10,7 +10,6 @@ import {
   DrawerOverlay,
   Flex,
   FormLabel,
-  Image,
   Input,
   Stack,
   useDisclosure,
@@ -19,11 +18,11 @@ import {
   Text,
   useToast,
   FormControl,
+  Image,
 } from "@chakra-ui/react";
 import { signupAPI } from "../../allApi";
 import { getSuccess } from "../../redux/auth/action";
 import { useDispatch } from "react-redux";
-// import GitAuthButton from "./GitAuthButton";
 
 const initState = {
   name: "",
@@ -49,7 +48,7 @@ export const QuickRegister = () => {
     const { name, value } = e.target;
     setUser({ ...user, [name]: value });
   };
-  // console.log(user);
+
   const handleReg = async (e) => {
     e.preventDefault();
     await fetch(signupAPI, {
@@ -125,7 +124,7 @@ export const QuickRegister = () => {
             left={{ lg: "-50px", xl: "-50px", xlg: "-25px" }}
             top="30px"
             bg="#1f6560"
-            p="28px"
+            py="20px"
             borderRadius="0"
             color="white"
             _hover={{ bg: "#1f6560" }}
@@ -135,8 +134,7 @@ export const QuickRegister = () => {
           <DrawerHeader
             borderBottomWidth="1px"
             bg="#1f6560"
-            minH="110px"
-            // border="1px solid red"
+            minH="90px"
             align="end"
             py="0"
             pr="40px"
@@ -144,20 +142,16 @@ export const QuickRegister = () => {
           >
             <Flex justify="space-between" h="100%" w="100%">
               <Flex
-                h="80%"
+                h="100%"
                 w="50%"
-                // border="1px solid red"
                 justify="start"
                 // py="10px"
                 align="end"
-              ></Flex>
-              <Flex
-                align="end"
-                w="50%"
-                h="100%"
-                // border="1px solid red"
-                justify="end"
-              ></Flex>
+                mt="20px"
+              >
+                <Image h="130px" src="/images/fit-fables-silver.png" />
+              </Flex>
+              <Flex align="end" w="50%" h="100%" justify="end"></Flex>
             </Flex>
           </DrawerHeader>
 
@@ -170,6 +164,7 @@ export const QuickRegister = () => {
             boxShadow="-2px 2px 40px -9px rgba(0,0,0,0.75);
 -webkit-box-shadow: -2px 2px 40px -9px rgba(0,0,0,0.75);
 -moz-box-shadow: -2px 2px 40px -9px rgba(0,0,0,0.75);"
+            overflow="hidden"
           >
             <Stack spacing="20px">
               <form onSubmit={handleReg}>
@@ -271,7 +266,6 @@ export const QuickRegister = () => {
                   Register
                 </Button>
               </form>
-              {/* <GitAuthButton></GitAuthButton> */}
             </Stack>
             <Text fontSize="12px" color="#4f585e" py="20px">
               By clicking continue, you agree with our{" "}

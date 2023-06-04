@@ -1,5 +1,4 @@
 import {
-  Button,
   Box,
   Drawer,
   DrawerBody,
@@ -18,13 +17,13 @@ import {
 } from "@chakra-ui/react";
 
 import React, { useEffect, useState } from "react";
-import { HiOutlineDeviceMobile, HiOutlineHome } from "react-icons/hi";
+import { HiOutlineHome } from "react-icons/hi";
 import { TbDiscount2 } from "react-icons/tb";
 import { GiMedicines, GiDoctorFace } from "react-icons/gi";
 import { AiOutlineQuestionCircle, AiOutlineUser } from "react-icons/ai";
 import { FiShoppingCart } from "react-icons/fi";
 import { RiHandSanitizerLine, RiMenuFoldFill } from "react-icons/ri";
-import { IoBagOutline, IoFlaskOutline, IoWalletOutline } from "react-icons/io5";
+import { IoBagOutline, IoWalletOutline } from "react-icons/io5";
 
 import { Link, useNavigate } from "react-router-dom";
 import NavSearch from "./NavSearch";
@@ -141,28 +140,26 @@ function Navbar() {
           )}
           {windowWidth < 1024 && scrollPosition < 101 && (
             <Box margin="auto">
-              <Text
-                _hover={{ cursor: "pointer" }}
-                onClick={() => navigate("/")}
-                color="#1f6560"
-                mt="8px"
-                fontWeight="400"
-              >
-                Fit Fables
-              </Text>
+              <Flex h="100%" w="100%" justify="start" align="end" mt="27px">
+                <Image
+                  _hover={{ cursor: "pointer" }}
+                  onClick={() => navigate("/")}
+                  h="100px"
+                  src="/images/512x512.png"
+                />
+              </Flex>
             </Box>
           )}
           {windowWidth > 1024 && (
             <Box>
-              <Text
-                _hover={{ cursor: "pointer" }}
-                onClick={() => navigate("/")}
-                color="#1f6560"
-                mt="8px"
-                fontWeight="400"
-              >
-                Fit Fables
-              </Text>
+              <Flex h="100%" w="100%" justify="start" align="end" mt="27px">
+                <Image
+                  _hover={{ cursor: "pointer" }}
+                  onClick={() => navigate("/")}
+                  h="100px"
+                  src="/images/512x512.png"
+                />
+              </Flex>
             </Box>
           )}
           {windowWidth > 1024 && (
@@ -180,7 +177,7 @@ function Navbar() {
                 mb="2px"
               >
                 <Box>
-                  <Image src="https://assets.pharmeasy.in/apothecary/images/ic_express%20delivery.svg?dim=16x0" />
+                  <Image src="/images/express-delivery.svg" />
                 </Box>
                 <Box>
                   <Text fontSize="13px" mb="2px">

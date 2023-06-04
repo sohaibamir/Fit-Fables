@@ -9,7 +9,6 @@ import {
   DrawerOverlay,
   Flex,
   FormLabel,
-  Image,
   Input,
   Stack,
   useDisclosure,
@@ -17,15 +16,14 @@ import {
   InputRightElement,
   Text,
   useToast,
+  Image,
 } from "@chakra-ui/react";
 import { useState, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { loginAPI } from "../../allApi";
 import { getUserCart } from "../../api/api";
 import { getSuccess } from "../../redux/auth/action";
-import { setLoggedInUser } from "../../redux/user/action";
 import { setCart } from "../../redux/Cart/action";
-//   import GitAuthButton from "./GitAuthButton";
 import { LogOut } from "./LogOut";
 import { QuickRegister } from "./QuickRegister";
 import { useNavigate } from "react-router-dom";
@@ -48,10 +46,7 @@ export function LoginIndividualSlider() {
 
   const [user, setUser] = useState(initState);
 
-  // const {isAuth} = useSelector((state) => state);
   const dispatch = useDispatch();
-  const { cartItems, totalCount } = useSelector((state) => state.cart);
-  // const { User } = useSelector((state) => state.user);
 
   function getCart() {
     getUserCart()
@@ -160,7 +155,7 @@ export function LoginIndividualSlider() {
             left={{ lg: "-50px", xl: "-50px", xlg: "-25px" }}
             top="30px"
             bg="#1f6560"
-            py="28px"
+            py="20px"
             borderRadius="0"
             color="white"
             _hover={{ bg: "#1f6560" }}
@@ -170,7 +165,7 @@ export function LoginIndividualSlider() {
           <DrawerHeader
             borderBottomWidth="1px"
             bg="#1f6560"
-            minH="110px"
+            minH="90px"
             align="end"
             py="0"
             pr="40px"
@@ -178,22 +173,14 @@ export function LoginIndividualSlider() {
           >
             <Flex justify="space-between" h="100%" w="100%">
               <Flex
-                h="80%"
-                w="50%"
-                // border="1px solid red"
+                h="100%"
+                w="100%"
                 justify="start"
                 // py="10px"
                 align="end"
+                mt="20px"
               >
-                <Text
-                  _hover={{ cursor: "pointer" }}
-                  onClick={() => navigate("/")}
-                  color="#1f6560"
-                  mt="8px"
-                  fontWeight="400"
-                >
-                  Fit Fables
-                </Text>
+                <Image h="130px" src="/images/fit-fables-silver.png" />
               </Flex>
               <Flex
                 align="end"
@@ -214,6 +201,7 @@ export function LoginIndividualSlider() {
             boxShadow="-2px 2px 40px -9px rgba(0,0,0,0.75);
 -webkit-box-shadow: -2px 2px 40px -9px rgba(0,0,0,0.75);
 -moz-box-shadow: -2px 2px 40px -9px rgba(0,0,0,0.75);"
+            overflow="hidden"
           >
             <Stack spacing="20px">
               <form onSubmit={handleLogin}>
@@ -276,7 +264,6 @@ export function LoginIndividualSlider() {
                   Login
                 </Button>
               </form>
-              {/* <GitAuthButton></GitAuthButton> */}
             </Stack>
             <Text fontSize="12px" color="#4f585e" p="20px 0px 0px">
               By clicking continue, you agree with our{" "}
