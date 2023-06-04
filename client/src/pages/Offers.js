@@ -53,7 +53,6 @@ function Offer() {
     }
   }
 
-  // console.log(filterArr);
   useEffect(() => {
     setLoading(true);
 
