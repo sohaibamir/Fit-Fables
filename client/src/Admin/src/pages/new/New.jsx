@@ -11,24 +11,24 @@ const New = ({ inputs, title }) => {
   const [images, setImages] = useState([]);
   const [imagePreview, setImagePreview] = useState([]);
   const [product, setProduct] = useState({
-    id: '',
-    title: '',
-    actual_price: '',
-    crossed_price: '',
-    manufacturer: '',
-    country: '',
-    category: '',
-    sub_category: ''
-  })
+    id: "",
+    title: "",
+    actual_price: "",
+    crossed_price: "",
+    manufacturer: "",
+    country: "",
+    category: "",
+    sub_category: "",
+  });
   const param = useParams();
 
   useEffect(() => {
-    if (title != 'Add New Product') {
+    if (title !== "Add New Product") {
       let id = param.productId;
       getSingleProduct(id)
         .then((res) => {
           if (res.data.product) {
-            let prod = res.data.product
+            let prod = res.data.product;
             setProduct({
               id: prod.id,
               title: prod.title,
@@ -65,13 +65,15 @@ const New = ({ inputs, title }) => {
 
   const onSave = (e) => {
     e.preventDefault();
-    if (title != 'Add New Product') {
+    if (title !== "Add New Product") {
       let id = param.productId;
       updateProduct(id, product)
         .then((res) => {
           console.log(res);
+          alert("Product Updated");
+          navigate("/admin/products");
         })
-        .catch((err) => console.log(err))
+        .catch((err) => console.log(err));
     } else {
       let newProduct = {
         ...product,
@@ -92,7 +94,7 @@ const New = ({ inputs, title }) => {
           alert(error);
         });
     }
-  }
+  };
 
   const handleOnChange = (e) => {
     const files = Array.from(e.target.files);
@@ -125,7 +127,12 @@ const New = ({ inputs, title }) => {
                   {imagePreview.map((url) => {
                     return (
                       <Carousel.Item>
-                        <img style={{ objectFit: 'contain' }} className='d-block w-100' src={url} />
+                        <img
+                          style={{ objectFit: "contain" }}
+                          className="d-block w-100"
+                          alt="img"
+                          src={url}
+                        />
                       </Carousel.Item>
                     );
                   })}
@@ -153,7 +160,13 @@ const New = ({ inputs, title }) => {
               {inputs.map((input) => (
                 <div className="formInput" key={input.id}>
                   <label>{input.label}</label>
-                  <input name={input.name} type={input.type} placeholder={input.placeholder} onChange={handleProductChange} value={product[input.name]} />
+                  <input
+                    name={input.name}
+                    type={input.type}
+                    placeholder={input.placeholder}
+                    onChange={handleProductChange}
+                    value={product[input.name]}
+                  />
                 </div>
               ))}
               <button onClick={onSave}>Save</button>

@@ -264,7 +264,7 @@ exports.uploadProduct = async (req, res) => {
 
 exports.getAllProducts = async (req, res) => {
   try {
-    const products = await Product.find();
+    const products = await Product.find().sort({ id: 1 });
     return res.status(201).send({ message: "success", data: products });
   } catch (error) {
     return res.status(500).send({ message: error.message });
@@ -273,7 +273,11 @@ exports.getAllProducts = async (req, res) => {
 
 exports.updateProduct = async (req, res) => {
   try {
-    const products = await Product.findByIdAndUpdate({_id:req.params.id},{...req.body.product},{new:true})
+    const products = await Product.findByIdAndUpdate(
+      { _id: req.params.id },
+      { ...req.body.product },
+      { new: true }
+    );
     return res.status(201).send({ message: "success", data: products });
   } catch (error) {
     return res.status(500).send({ message: error.message });
@@ -282,8 +286,8 @@ exports.updateProduct = async (req, res) => {
 
 exports.deleteProduct = async (req, res) => {
   try {
-    await Product.findByIdAndDelete(req.params.id)
-    return res.status(201).send({ message: "success"});
+    await Product.findByIdAndDelete(req.params.id);
+    return res.status(201).send({ message: "success" });
   } catch (error) {
     return res.status(500).send({ message: error.message });
   }

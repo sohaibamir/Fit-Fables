@@ -40,7 +40,6 @@ function Offer() {
   const [products, setProducts] = useState([]);
   const [search, setSearch] = useSearchParams();
   const [sortBy, setSortBy] = useState(search.get("sortBy") || "");
-  const [value, setValue] = useState(search.get("subCat") || "");
   const [page, setPage] = useState(getCurrPage(search.get("page")) || 1);
   const [filterArr, setFilterArr] = useState(search.getAll("brand") || []);
   const [filters, setFilters] = useState([]);
@@ -54,25 +53,20 @@ function Offer() {
     }
   }
 
-  // console.log(filterArr);
   useEffect(() => {
     setLoading(true);
 
-    if (value) {
-      // handleCategoryChange();
-    } else {
-      getAllOfferProducts(page, sortBy)
-        .then((res) => {
-          console.log(res.data);
-          setProducts(res.data.offerProducts);
-          setTotalProducts(res.data.totalProducts);
-          setFilters(res.data.totalBrands);
-          setTotalPages(Math.ceil(res.data.totalProducts / res.data.pageSize));
-        })
-        .catch((err) => console.log(err))
-        .finally(() => setLoading(false));
-    }
-  }, [page, filterArr, value, sortBy]);
+    getAllOfferProducts(page, sortBy)
+      .then((res) => {
+        console.log(res.data);
+        setProducts(res.data.offerProducts);
+        setTotalProducts(res.data.totalProducts);
+        setFilters(res.data.totalBrands);
+        setTotalPages(Math.ceil(res.data.totalProducts / res.data.pageSize));
+      })
+      .catch((err) => console.log(err))
+      .finally(() => setLoading(false));
+  }, [page, filterArr, sortBy]);
   if (page > totalPages) {
     setPage(totalPages);
   }
@@ -90,7 +84,7 @@ function Offer() {
     }
 
     setSearch(paramObj);
-  }, [page, value, filterArr, sortBy]);
+  }, [page, filterArr, sortBy]);
 
   for (let i = 0; i < totalPages; i++) arr[i] = i + 1;
 
@@ -191,22 +185,6 @@ function Offer() {
                 mb="20px"
               >
                 <Text fontSize={"12px"}></Text>
-                {value && (
-                  <Button
-                    key={value}
-                    size={"xs"}
-                    rightIcon={
-                      <CloseIcon
-                        onClick={() => setValue("")}
-                        fontSize={"8px"}
-                      />
-                    }
-                    variant={"outline"}
-                    colorScheme={"teal"}
-                  >
-                    {value}
-                  </Button>
-                )}
                 {filterArr.map((e) => {
                   return (
                     <Button

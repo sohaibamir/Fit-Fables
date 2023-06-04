@@ -1,11 +1,9 @@
 import "./datatable.scss";
-import { userRows } from "../../datatablesource";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Table from "react-bootstrap/Table";
 import { PaginationControl } from "react-bootstrap-pagination-control";
-import { DeleteIcon, EditIcon } from '@chakra-ui/icons'
-
+import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 
 const Datatable = ({ tableTitle, tableData }) => {
   const [data, setData] = useState(tableData.tableBody);
@@ -13,7 +11,7 @@ const Datatable = ({ tableTitle, tableData }) => {
 
   useEffect(() => {
     onChangePage(page);
-  }, [tableData])
+  }, [tableData]);
 
   const onChangePage = (page) => {
     const offset = (page - 1) * 10;
@@ -22,16 +20,15 @@ const Datatable = ({ tableTitle, tableData }) => {
     setData(changePage);
   };
 
-
   return (
     <div className="datatable">
       <div className="datatableTitle">
         {tableTitle}
-        {tableTitle == "Products" ? (
+        {tableTitle === "Products" ? (
           <Link to="/admin/new/product" className="link">
             Add New
           </Link>
-        ) : tableTitle == "Doctors" ? (
+        ) : tableTitle === "Doctors" ? (
           <Link to="/admin/new/doctor" className="link">
             Add New
           </Link>
@@ -47,7 +44,16 @@ const Datatable = ({ tableTitle, tableData }) => {
                 <th></th>
               }
               {tableData?.tableHeader?.map((value) => {
-                if (value != '_id' && value != 'img1') { return <td style={{ fontWeight: 'bold', fontSize: '14px' }}>{value.toUpperCase()}</td> };
+                if (value !== "_id" && value !== "img1") {
+                  return (
+                    <td
+                      key={value}
+                      style={{ fontWeight: "bold", fontSize: "14px" }}
+                    >
+                      {value.toUpperCase()}
+                    </td>
+                  );
+                }
               })}
               <th></th>
             </tr>
@@ -70,29 +76,37 @@ const Datatable = ({ tableTitle, tableData }) => {
                   {Object.values(eachRecord)?.map((value) => {
                     return <td key={value}>{value}</td>;
                   })}
-                  {
-                    tableTitle == 'Products' &&
+                  {tableTitle === "Products" && (
                     <td>
                       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                         <Link to={`/admin/product/${_id?.$oid}`} style={{ marginRight: "7px", cursor: 'pointer' }}>
                           <EditIcon color="green.500" />
                         </Link>
-                        <div style={{ cursor: 'pointer' }}>
+                        <div style={{ cursor: "pointer" }}>
                           <DeleteIcon color="red.500" />
                         </div>
                       </div>
                     </td>
-                  }
-                  {
-                    tableTitle == 'Users' &&
+                  )}
+                  {tableTitle === "Users" && (
                     <td>
-                      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                        <Link to={`/admin/${_id}`} style={{ marginRight: "7px", cursor: 'pointer' }}>
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                        }}
+                      >
+                        <Link
+                          to={`/admin/${_id}`}
+                          style={{ marginRight: "7px", cursor: "pointer" }}
+                        >
                           <EditIcon color="green.500" />
                         </Link>
                       </div>
                     </td>
-                  }
+
+                  )}
                   {
                     tableTitle == 'Doctors' &&
                     <td>
@@ -109,25 +123,26 @@ const Datatable = ({ tableTitle, tableData }) => {
                 </tr>
               );
             })}
-          </tbody>
+          </tbody >
         )}
-      </Table>
+      </Table >
 
       {
-        tableData.tableBody.length > 10 &&
-        <div className="pagination-div">
-          <PaginationControl
-            page={page}
-            next={true}
-            last={true}
-            total={tableData.tableBody.length}
-            limit={10}
-            changePage={(page) => onChangePage(page)}
-            ellipsis={1}
-          />
-        </div>
+        tableData.tableBody.length > 10 && (
+          <div className="pagination-div">
+            <PaginationControl
+              page={page}
+              next={true}
+              last={true}
+              total={tableData.tableBody.length}
+              limit={10}
+              changePage={(page) => onChangePage(page)}
+              ellipsis={1}
+            />
+          </div>
+        )
       }
-    </div>
+    </div >
   );
 };
 
