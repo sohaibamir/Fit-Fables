@@ -99,7 +99,7 @@ export const doctorInputs = [
     id: 1,
     label: "ID",
     type: "text",
-    placeholder: "101",
+    placeholder: "1",
     name: 'id'
   },
   {

@@ -72,8 +72,8 @@ export async function getUserCart(userId) {
   return axios.get(`${process.env.REACT_APP_API}/cart/${userId}`);
 }
 
-export async function updateProduct(id,product) {
-  return axios.put(`${process.env.REACT_APP_API}/update/product/${id}`,{product:product});
+export async function updateProduct(id, product) {
+  return axios.put(`${process.env.REACT_APP_API}/update/product/${id}`, { product: product });
 }
 
 export async function deleteProduct(id) {
@@ -118,6 +118,14 @@ export async function getAllOrdersAdmin() {
 
 export async function getUserById(id) {
   return axios.get(`${process.env.REACT_APP_API}/admin/getuser/${id}`);
+}
+
+// export async function createDoctor() {
+//   return axios.post(`${process.env.REACT_APP_API}/doctor/create`);
+// }
+
+export async function getAllDoctorsAdmin() {
+  return axios.get(`${process.env.REACT_APP_API}/doctors/all`);
 }
 
 export const isAuthenticated = () => {

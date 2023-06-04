@@ -43,7 +43,7 @@ const Datatable = ({ tableTitle, tableData }) => {
           {tableData?.tableHeader?.length > 0 && (
             <tr style={{ textAlign: "center" }}>
               {
-                tableTitle != 'Users' && tableTitle != 'Orders' &&
+                tableTitle == "Products" &&
                 <th></th>
               }
               {tableData?.tableHeader?.map((value) => {
@@ -54,14 +54,18 @@ const Datatable = ({ tableTitle, tableData }) => {
           )}
         </thead>
 
-        {data.length > 0 && (
+        {data?.length > 0 && (
           <tbody>
             {data.map(({ _id, img1, ...eachRecord }) => {
               return (
                 <tr style={{ textAlign: "center", alignItems: "center", paddingTop: "auto", paddingBottom: "auto" }}>
                   {
-                    tableTitle != 'Users' && tableTitle != 'Orders' &&
+                    tableTitle == "Products" &&
                     <td><img style={{ width: "40px", height: "40px", borderRadius: '50%' }} src={img1 ? img1 : null} /></td>
+                  }
+                  {
+                    tableTitle == "Doctors" &&
+                    <td>{_id}</td>
                   }
                   {Object.values(eachRecord)?.map((value) => {
                     return <td key={value}>{value}</td>;
@@ -70,7 +74,7 @@ const Datatable = ({ tableTitle, tableData }) => {
                     tableTitle == 'Products' &&
                     <td>
                       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                        <Link to={`/admin/product/${_id}`} style={{ marginRight: "7px", cursor: 'pointer' }}>
+                        <Link to={`/admin/product/${_id?.$oid}`} style={{ marginRight: "7px", cursor: 'pointer' }}>
                           <EditIcon color="green.500" />
                         </Link>
                         <div style={{ cursor: 'pointer' }}>
@@ -86,6 +90,19 @@ const Datatable = ({ tableTitle, tableData }) => {
                         <Link to={`/admin/${_id}`} style={{ marginRight: "7px", cursor: 'pointer' }}>
                           <EditIcon color="green.500" />
                         </Link>
+                      </div>
+                    </td>
+                  }
+                  {
+                    tableTitle == 'Doctors' &&
+                    <td>
+                      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                        <Link to={`/admin/doctor/${_id}`} style={{ marginRight: "7px", cursor: 'pointer' }}>
+                          <EditIcon color="green.500" />
+                        </Link>
+                        <div style={{ cursor: 'pointer' }}>
+                          <DeleteIcon color="red.500" />
+                        </div>
                       </div>
                     </td>
                   }

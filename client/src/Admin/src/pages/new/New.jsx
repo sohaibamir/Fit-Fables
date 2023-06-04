@@ -3,8 +3,8 @@ import Sidebar from "../../components/sidebar/Sidebar";
 import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
 import { useEffect, useState } from "react";
 import { Carousel } from 'react-bootstrap'
-import { createProduct, getSingleProduct,updateProduct } from "../../../../api/api";
-import { useParams,useNavigate } from "react-router-dom";
+import { createProduct, getSingleProduct, updateProduct } from "../../../../api/api";
+import { useParams, useNavigate } from "react-router-dom";
 
 
 const New = ({ inputs, title }) => {
@@ -22,40 +22,40 @@ const New = ({ inputs, title }) => {
   })
   const param = useParams();
 
-  useEffect(()=>{
-    if(title!='Add New Product'){
+  useEffect(() => {
+    if (title != 'Add New Product') {
       let id = param.productId;
       getSingleProduct(id)
-      .then((res)=>{
-        if(res.data.product){
-          let prod = res.data.product
-          setProduct({
-            id: prod.id,
-            title: prod.title,
-            actual_price: prod.actual_price,
-            crossed_price: prod.crossed_price,
-            manufacturer: prod.manufacturer,
-            country: prod.country ? prod.country : '',
-            category: prod.category,
-            sub_category: prod.sub_category
-          })
-          let img = [];
-          if(prod.img1){
-            img.push(prod.img1);
+        .then((res) => {
+          if (res.data.product) {
+            let prod = res.data.product
+            setProduct({
+              id: prod.id,
+              title: prod.title,
+              actual_price: prod.actual_price,
+              crossed_price: prod.crossed_price,
+              manufacturer: prod.manufacturer,
+              country: prod.country ? prod.country : '',
+              category: prod.category,
+              sub_category: prod.sub_category
+            })
+            let img = [];
+            if (prod.img1) {
+              img.push(prod.img1);
+            }
+            if (prod.img2) {
+              img.push(prod.img2);
+            }
+            if (prod.img3) {
+              img.push(prod.img3);
+            }
+            setImagePreview(img)
+            setImages(img)
           }
-          if(prod.img2){
-            img.push(prod.img2);
-          }
-          if(prod.img3){
-            img.push(prod.img3);
-          }
-          setImagePreview(img)
-          setImages(img)
-        }
-      })
-      .catch((err)=>{console.log(err)})
+        })
+        .catch((err) => { console.log(err) })
     }
-  },[])
+  }, [])
 
   const navigate = useNavigate();
 
@@ -63,17 +63,16 @@ const New = ({ inputs, title }) => {
     setProduct({ ...product, [e.target.name]: e.target.value });
   };
 
-  const onSave = (e) => 
-  {
+  const onSave = (e) => {
     e.preventDefault();
-    if(title!='Add New Product'){
+    if (title != 'Add New Product') {
       let id = param.productId;
-      updateProduct(id,product)
-      .then((res)=>{
-        console.log(res);
-      })
-      .catch((err)=>console.log(err))
-    }else{
+      updateProduct(id, product)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => console.log(err))
+    } else {
       let newProduct = {
         ...product,
         id: Number(product.id),
@@ -126,7 +125,7 @@ const New = ({ inputs, title }) => {
                   {imagePreview.map((url) => {
                     return (
                       <Carousel.Item>
-                        <img style={{objectFit:'contain'}} className='d-block w-100' src={url} />
+                        <img style={{ objectFit: 'contain' }} className='d-block w-100' src={url} />
                       </Carousel.Item>
                     );
                   })}

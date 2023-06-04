@@ -43,7 +43,12 @@ function AllRoutes() {
 
       <Route
         path="/admin/product/:productId"
-        element={<New inputs={productInputs} />}
+        element={<New inputs={productInputs} title="Edit Product Details" />}
+      />
+
+      <Route
+        path="/admin/doctor/:doctorId"
+        element={<New inputs={doctorInputs} title="Edit Doctor Details" />}
       />
       <Route
         exact
