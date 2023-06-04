@@ -2,13 +2,10 @@ import "./new.scss";
 import Sidebar from "../../components/sidebar/Sidebar";
 import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
 import { useEffect, useState } from "react";
-import { Carousel } from "react-bootstrap";
-import {
-  createProduct,
-  getSingleProduct,
-  updateProduct,
-} from "../../../../api/api";
+import { Carousel } from 'react-bootstrap'
+import { createProduct, getSingleProduct, updateProduct } from "../../../../api/api";
 import { useParams, useNavigate } from "react-router-dom";
+
 
 const New = ({ inputs, title }) => {
   const [images, setImages] = useState([]);
@@ -38,10 +35,10 @@ const New = ({ inputs, title }) => {
               actual_price: prod.actual_price,
               crossed_price: prod.crossed_price,
               manufacturer: prod.manufacturer,
-              country: prod.country ? prod.country : "",
+              country: prod.country ? prod.country : '',
               category: prod.category,
-              sub_category: prod.sub_category,
-            });
+              sub_category: prod.sub_category
+            })
             let img = [];
             if (prod.img1) {
               img.push(prod.img1);
@@ -52,15 +49,13 @@ const New = ({ inputs, title }) => {
             if (prod.img3) {
               img.push(prod.img3);
             }
-            setImagePreview(img);
-            setImages(img);
+            setImagePreview(img)
+            setImages(img)
           }
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        .catch((err) => { console.log(err) })
     }
-  }, []);
+  }, [])
 
   const navigate = useNavigate();
 
