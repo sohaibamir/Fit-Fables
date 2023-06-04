@@ -74,8 +74,10 @@ export async function getUserCart(userId) {
   return axios.get(`${process.env.REACT_APP_API}/cart/${userId}`);
 }
 
-export async function updateProduct(id,product) {
-  return axios.put(`${process.env.REACT_APP_API}/update/product/${id}`,{product:product});
+export async function updateProduct(id, product) {
+  return axios.put(`${process.env.REACT_APP_API}/update/product/${id}`, {
+    product: product,
+  });
 }
 
 export async function deleteProduct(id) {
@@ -135,4 +137,4 @@ export const isAuthenticated = () => {
 
 export const loginAPI = "http://localhost:8000/user/login";
 export const signupAPI = "http://localhost:8000/user/signup";
-export const checkLoggedInAPI = "http://localhost:8000/checkLoggedIn/";
+export const checkLoggedInAPI = "http://localhost:8000/checkLoggedIn";
