@@ -19,7 +19,9 @@ const ProductList = () => {
         console.log(fetchData)
         if(fetchData.length>0){
           let tableHeader = Object.keys(fetchData[0])
-          let tableBody = fetchData 
+          let tableBody = fetchData.map((data)=>{
+            return {img1:data.img1,id:data.id,title:data.title,actual_price:data.actual_price,category:data.category}
+          })
           setProducts({
             tableHeader,tableBody
           })

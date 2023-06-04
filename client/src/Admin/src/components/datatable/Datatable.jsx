@@ -69,17 +69,25 @@ const Datatable = ({ tableTitle, tableData }) => {
                   {
                     tableTitle == 'Products' &&
                     <td>
-                    <div style={{display:'flex',justifyContent:'center',alignItems:'center'}}>
-                      <Link to={`/admin/product/${_id}`} style={{marginRight:"7px",cursor:'pointer'}}>
-                        <EditIcon color="green.500" />
-                      </Link>
-                      <div style={{cursor:'pointer'}}>
-                        <DeleteIcon color="red.500" />
+                      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                        <Link to={`/admin/product/${_id}`} style={{ marginRight: "7px", cursor: 'pointer' }}>
+                          <EditIcon color="green.500" />
+                        </Link>
+                        <div style={{ cursor: 'pointer' }}>
+                          <DeleteIcon color="red.500" />
+                        </div>
                       </div>
-                    </div>
                     </td>
-
-
+                  }
+                  {
+                    tableTitle == 'Users' &&
+                    <td>
+                      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                        <Link to={`/admin/${_id}`} style={{ marginRight: "7px", cursor: 'pointer' }}>
+                          <EditIcon color="green.500" />
+                        </Link>
+                      </div>
+                    </td>
                   }
                 </tr>
               );

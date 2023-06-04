@@ -34,7 +34,7 @@ function AllRoutes() {
       /> */}
 
       <Route path="/admin/products" element={<ProductList />} />
-      <Route path="/admin/:productId" element={<Single />} />
+      {/* <Route path="/admin/:productId" element={<Single />} /> */}
 
       <Route
         path="/admin/new/product"

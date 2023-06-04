@@ -118,6 +118,10 @@ export async function getAllOrdersAdmin() {
   return axios.get(`${process.env.REACT_APP_API}/admin/getorders`);
 }
 
+export async function getUserById(id) {
+  return axios.get(`${process.env.REACT_APP_API}/admin/getuser/${id}`);
+}
+
 export const isAuthenticated = () => {
   if (typeof window == "undefined") {
     return false;
