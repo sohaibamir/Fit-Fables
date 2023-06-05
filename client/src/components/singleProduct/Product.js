@@ -19,7 +19,7 @@ import { ChevronDownIcon } from "@chakra-ui/icons";
 import { useDispatch, useSelector } from "react-redux";
 
 import { addToCart, getCartTotal, remove } from "../../redux/Cart/action";
-import { AddItemToCart, isAuthenticated } from "../../api/api";
+import { AddItemToCart, deleteCartItem, isAuthenticated } from "../../api/api";
 import HealthCareBreadcrumb from "../healthcare/HealthCareBreadcrumb";
 
 const Product = (props) => {
@@ -47,11 +47,7 @@ const Product = (props) => {
   }
 
   function removeItem(id) {
-    fetch(`https://pharmeasy-server1234.herokuapp.com/Cart/${id}`, {
-      method: "DELETE",
-
-      headers: { "content-type": "application/json" },
-    })
+    deleteCartItem(id, userId)
       .then((res) => res.json())
       .then(dispatch(remove(id)))
       .catch((err) => console.log(err));
@@ -217,8 +213,6 @@ const Product = (props) => {
                       <Button
                         ref={btnRef}
                         onClick={() => {
-                          //   onOpen();
-                          //   setmodalpos(true);
                           if (!isAuth) {
                             toast({
                               title: "User Not Logged in",
@@ -326,13 +320,17 @@ const Product = (props) => {
 
           <Button
             onClick={() => {
-              toast({
-                title: "User Not Logged in",
-                status: "error",
-                duration: 3000,
-                isClosable: true,
-                position: "top",
-              });
+              if (!isAuth) {
+                toast({
+                  title: "User Not Logged in",
+                  status: "error",
+                  duration: 3000,
+                  isClosable: true,
+                  position: "top",
+                });
+                navigate("/");
+              }
+
               navigate("/cart");
             }}
             variant="outline"

@@ -196,7 +196,7 @@ export function LoginIndividualSlider() {
             w="30vw"
             px="50px"
             m="auto"
-            mt="4rem"
+            mt="6.5rem"
             maxHeight="370px"
             boxShadow="-2px 2px 40px -9px rgba(0,0,0,0.75);
 -webkit-box-shadow: -2px 2px 40px -9px rgba(0,0,0,0.75);

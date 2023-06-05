@@ -14,7 +14,7 @@ const Footer = () => {
   return (
     <>
       {/* // for small screen code */}
-      <Box bg="#EEF4FF" p="3rem 0" mt="240px">
+      <Box bg="#EEF4FF" p="3rem 0" mt="150px">
         <Accordion
           display={{ sm: "block", md: "block", lg: "none" }}
           defaultIndex={[0]}
@@ -226,40 +226,18 @@ const Footer = () => {
               Follow us on
             </Heading>
             <Flex gap={4} flexWrap="wrap">
-              <Link>
-                <Box h="27px" w="27px">
-                  <Img
-                    src="https://assets.pharmeasy.in/apothecary/images/Instagram.svg?dim=32x0"
-                    w="100%"
-                    h="100%"
-                    alt=""
-                  ></Img>
+              <Link to="https://github.com/sohaibamir/ecommerce-project">
+                <Box h="30px" w="30px" mr="20px">
+                  <Img src="/images/github.svg" w="100%" h="100%" alt=""></Img>
                 </Box>
               </Link>
-              <Link>
-                <Box h="27px" w="27px">
+              <Link
+                to="https://www.linkedin.com/company/94789507/
+                "
+              >
+                <Box h="30px" w="30px">
                   <Img
-                    src="https://assets.pharmeasy.in/apothecary/images/facebook.svg?dim=32x0"
-                    w="100%"
-                    h="100%"
-                    alt=""
-                  ></Img>
-                </Box>
-              </Link>
-              <Link>
-                <Box h="27px" w="27px">
-                  <Img
-                    src="https://assets.pharmeasy.in/apothecary/images/Youtube.svg?dim=32x0"
-                    w="100%"
-                    h="100%"
-                    alt=""
-                  ></Img>
-                </Box>
-              </Link>
-              <Link>
-                <Box h="27px" w="27px">
-                  <Img
-                    src="https://assets.pharmeasy.in/apothecary/images/Twitter.svg?dim=32x0"
+                    src="/images/linkedin.svg"
                     w="100%"
                     h="100%"
                     alt=""

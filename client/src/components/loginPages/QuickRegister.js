@@ -159,7 +159,7 @@ export const QuickRegister = () => {
             w="30vw"
             px="50px"
             m="auto"
-            mt="3rem"
+            mt="4rem"
             maxHeight="520px"
             boxShadow="-2px 2px 40px -9px rgba(0,0,0,0.75);
 -webkit-box-shadow: -2px 2px 40px -9px rgba(0,0,0,0.75);
