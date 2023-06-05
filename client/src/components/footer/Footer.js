@@ -14,7 +14,7 @@ const Footer = () => {
   return (
     <>
       {/* // for small screen code */}
-      <Box bg="#EEF4FF" p="3rem 0" mt="120px">
+      <Box bg="#EEF4FF" p="4rem 1rem">
         <Accordion
           display={{ sm: "block", md: "block", lg: "none" }}
           defaultIndex={[0]}
@@ -72,13 +72,13 @@ const Footer = () => {
                     Order Medicine
                   </Text>
                 </Link>
-                <Link>
+                <Link to="/healthcare">
                   <Text color="#30363C" fontSize="14px" mb={3}>
                     Healthcare Products
                   </Text>
                 </Link>
 
-                <Link>
+                <Link to="/offers">
                   <Text color="#30363C" fontSize="14px" mb={3}>
                     Our Offers
                   </Text>
@@ -137,7 +137,7 @@ const Footer = () => {
                     Mother and Baby Care
                   </Text>
                 </Link>
-                <Link>
+                <Link to="/healthcare/products/Devices">
                   <Text color="#30363C" fontSize="14px" mb={3}>
                     Healthcare Devices
                   </Text>
@@ -166,12 +166,12 @@ const Footer = () => {
                     Browse All Medicines
                   </Text>
                 </Link>
-                <Link>
+                <Link to="/healthcare">
                   <Text color="#30363C" fontSize="14px" mb={3}>
                     Browse All Healthcare
                   </Text>
                 </Link>
-                <Link>
+                <Link to="/offers">
                   <Text color="#30363C" fontSize="14px" mb={3}>
                     Browse All Offers
                   </Text>
@@ -292,12 +292,12 @@ const Footer = () => {
                     Order Medicine
                   </Text>
                 </Link>
-                <Link>
+                <Link to="/healthcare">
                   <Text color="#30363C" fontSize="14px" mb={2}>
                     Healthcare Products
                   </Text>
                 </Link>
-                <Link>
+                <Link to="/offers">
                   <Text color="#30363C" fontSize="14px" mb={2}>
                     Our Offers
                   </Text>
@@ -350,7 +350,7 @@ const Footer = () => {
                   Mother and Baby Care
                 </Text>
               </Link>
-              <Link>
+              <Link to="/healthcare/products/Devices">
                 <Text color="#30363C" fontSize="14px" mb={2}>
                   Healthcare Devices
                 </Text>
@@ -372,12 +372,12 @@ const Footer = () => {
                   Browse All Medicines
                 </Text>
               </Link>
-              <Link>
+              <Link to="/healthcare">
                 <Text color="#30363C" fontSize="14px" mb={2}>
                   Browse All Healthcare
                 </Text>
               </Link>
-              <Link>
+              <Link to="/offers">
                 <Text color="#30363C" fontSize="14px" mb={2}>
                   Browse All Offers
                 </Text>
