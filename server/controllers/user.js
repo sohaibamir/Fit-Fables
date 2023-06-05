@@ -94,7 +94,7 @@ exports.getUserById = async (req, res, next, id) => {
 
 exports.getAllUsers = async (req, res) => {
   try {
-    const users = await User.find({'role':'user'});
+    const users = await User.find({ role: "user" });
     if (users.length == 0) {
       return res.status(400).json({
         error: "Users not found",
@@ -119,7 +119,7 @@ exports.getUserByIdAdmin = async (req, res) => {
       });
     }
     return res.status(200).json({
-      data:user,
+      data: user,
     });
     next();
   } catch (err) {

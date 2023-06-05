@@ -5,7 +5,7 @@ const cors = require("cors");
 const morgan = require("morgan");
 const { readdirSync } = require("fs");
 require("dotenv").config();
-const cloudinary = require('cloudinary')
+const cloudinary = require("cloudinary");
 
 // app
 const app = express();
@@ -18,8 +18,14 @@ mongoose
 
 // middleware
 app.use(morgan("dev"));
-app.use(bodyParser.json({limit: "500mb"}));
-app.use(bodyParser.urlencoded({limit: "50mb", extended: true, parameterLimit:50000}));
+app.use(bodyParser.json({ limit: "500mb" }));
+app.use(
+  bodyParser.urlencoded({
+    limit: "50mb",
+    extended: true,
+    parameterLimit: 50000,
+  })
+);
 app.use(cors());
 
 // routes middleware
@@ -33,7 +39,7 @@ app.listen(port, () => {
 });
 
 cloudinary.config({
-  cloud_name : process.env.CLOUDINARY_CLOUD_NAME,
-  api_key : process.env.CLOUDINARY_API_KEY,
-  api_secret : process.env.CLOUDINARY_API_SECRET,
-})
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
