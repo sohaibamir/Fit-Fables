@@ -11,7 +11,7 @@
 9) for the admin panel, enter the following url: localhost:3000/admin
 10) in the admin panel, sidebar appears in which multiple links are given that navigate to different pages of the admin panel.
 11) admin can also add new products to the database.
-12) the data in the tables in respective pages are being fetched from the database.
+12) the data in the tables in respective pages is being fetched from the database.
 13) the data is stored in mongoDB in the format of 'json' file.
 14) furthermore, user can also search for a particular product from the landing page and can add it in the cart.
 15) products added in the cart can be viewed also.

@@ -40,9 +40,9 @@ const Chart = ({ aspect, title }) => {
           <Area
             type="monotone"
             dataKey="Total"
-            stroke="#8884d8"
+            stroke="teal"
             fillOpacity={1}
-            fill="url(#total)"
+            fill="#c1f0f0"
           />
         </AreaChart>
       </ResponsiveContainer>

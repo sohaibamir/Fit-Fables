@@ -14,7 +14,7 @@ const Footer = () => {
   return (
     <>
       {/* // for small screen code */}
-      <Box bg="#EEF4FF" p="3rem 0" mt="150px">
+      <Box bg="#EEF4FF" p="3rem 0" mt="120px">
         <Accordion
           display={{ sm: "block", md: "block", lg: "none" }}
           defaultIndex={[0]}
