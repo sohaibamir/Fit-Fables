@@ -130,6 +130,10 @@ export async function getAllDoctorsAdmin() {
   return axios.get(`${process.env.REACT_APP_API}/doctors/all`);
 }
 
+export async function getLatestProducts() {
+  return axios.get(`${process.env.REACT_APP_API}/products/latest`);
+}
+
 export const isAuthenticated = () => {
   if (typeof window == "undefined") {
     return false;

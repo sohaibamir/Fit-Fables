@@ -292,3 +292,12 @@ exports.deleteProduct = async (req, res) => {
     return res.status(500).send({ message: error.message });
   }
 };
+
+exports.getLatestProducts = async (req, res) => {
+  try {
+    const latestProducts = await Product.find().sort({ createdAt: -1 }).limit(6);
+    res.status(201).send({ data: latestProducts });
+  } catch (error) {
+    res.status(500).send(error);
+  }
+}

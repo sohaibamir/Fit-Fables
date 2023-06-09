@@ -11,7 +11,8 @@ const {
   getAllProducts,
   getOfferProducts,
   updateProduct,
-  deleteProduct
+  deleteProduct,
+  getLatestProducts
 } = require("../controllers/product");
 
 router.get("/products/search", getProductsBySearch);
@@ -23,9 +24,11 @@ router.get(
   getAllProductsBySubCategory
 );
 router.get("/products", getCategories);
-router.post('/products/create',uploadProduct)
-router.get('/products/all',getAllProducts)
-router.put('/update/product/:id',updateProduct)
-router.delete('/delete/product/:id',deleteProduct)
+router.post('/products/create', uploadProduct);
+router.get('/products/all', getAllProducts);
+router.put('/update/product/:id', updateProduct);
+router.delete('/delete/product/:id', deleteProduct);
+router.get('/products/latest', getLatestProducts);
+
 
 module.exports = router;
