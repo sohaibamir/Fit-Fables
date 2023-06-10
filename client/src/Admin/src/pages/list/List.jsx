@@ -15,7 +15,7 @@ const List = () => {
       .then((res) => {
         console.log(res)
         if (res.data && res.data.data && res.data.data.length > 0) {
-          let fetchData = res.data.data.map(({ createdAt, updatedAt, password, role, username, authType, __v, ...rest }) => { return rest })
+          let fetchData = res.data.data.map(({ createdAt, updatedAt, password, gender,role, username, authType, __v, ...rest }) => { return rest })
           console.log(fetchData)
           if (fetchData.length > 0) {
             let tableHeader = Object.keys(fetchData[0])
