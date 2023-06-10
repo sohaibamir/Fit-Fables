@@ -202,6 +202,7 @@ export function LoginIndividualSlider() {
 -webkit-box-shadow: -2px 2px 40px -9px rgba(0,0,0,0.75);
 -moz-box-shadow: -2px 2px 40px -9px rgba(0,0,0,0.75);"
             overflow="hidden"
+            borderRadius="5px"
           >
             <Stack spacing="20px">
               <form onSubmit={handleLogin}>

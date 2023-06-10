@@ -63,6 +63,10 @@ export async function getSingleProduct(id) {
   return axios.get(`${process.env.REACT_APP_API}/products/single/${id}`);
 }
 
+export async function getLatestProducts() {
+  return axios.get(`${process.env.REACT_APP_API}/products/latest`);
+}
+
 export async function AddItemToCart(id, quantity, userId) {
   return axios.post(`${process.env.REACT_APP_API}/cart/${userId}`, {
     productId: id,
@@ -75,7 +79,9 @@ export async function getUserCart(userId) {
 }
 
 export async function updateProduct(id, product) {
-  return axios.put(`${process.env.REACT_APP_API}/update/product/${id}`, { product: product });
+  return axios.put(`${process.env.REACT_APP_API}/update/product/${id}`, {
+    product: product,
+  });
 }
 
 export async function deleteProduct(id) {

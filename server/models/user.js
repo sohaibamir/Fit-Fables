@@ -8,6 +8,7 @@ const userSchema = new mongoose.Schema(
     password: { type: String },
     phone: { type: Number },
     address: { type: String },
+    gender: { type: String },
     role: {
       type: String,
       enum: ["user", "admin", "doctor"],
@@ -16,7 +17,6 @@ const userSchema = new mongoose.Schema(
     image: String,
     authType: {
       type: String,
-      enum: ["github", "email-password"],
       default: "email-password",
     },
   },
