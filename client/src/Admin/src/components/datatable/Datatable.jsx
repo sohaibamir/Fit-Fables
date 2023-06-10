@@ -22,18 +22,21 @@ const Datatable = ({ tableTitle, tableData }) => {
 
   return (
     <div className="datatable">
-      <div className="datatableTitle">
-        {tableTitle}
-        {tableTitle === "Products" ? (
-          <Link to="/admin/new/product" className="link">
-            Add New
-          </Link>
-        ) : tableTitle === "Doctors" ? (
-          <Link to="/admin/new/doctor" className="link">
-            Add New
-          </Link>
-        ) : null}
-      </div>
+      {
+        tableTitle != "Last Transactions" &&
+        <div className="datatableTitle">
+          {tableTitle}
+          {tableTitle === "Products" ? (
+            <Link to="/admin/new/product" className="link">
+              Add New
+            </Link>
+          ) : tableTitle === "Doctors" ? (
+            <Link to="/admin/new/doctor" className="link">
+              Add New
+            </Link>
+          ) : null}
+        </div>
+      }
 
       <Table striped style={{ margin: "0px", padding: "0px" }}>
         <thead>
