@@ -16,6 +16,7 @@ import {
   InputGroup,
   InputRightElement,
   Text,
+  Select,
   useToast,
   FormControl,
   Image,
@@ -60,6 +61,7 @@ export const QuickRegister = () => {
         name: user.name,
         phone: user.phone,
         address: user.address,
+        gender: user.gender,
       }),
     })
       .then((response) => response.json())
@@ -156,15 +158,16 @@ export const QuickRegister = () => {
           </DrawerHeader>
 
           <DrawerBody
-            w="30vw"
+            w="55vw"
             px="50px"
             m="auto"
-            mt="4rem"
-            maxHeight="520px"
+            mt="5.5rem"
+            maxHeight="440px"
             boxShadow="-2px 2px 40px -9px rgba(0,0,0,0.75);
 -webkit-box-shadow: -2px 2px 40px -9px rgba(0,0,0,0.75);
 -moz-box-shadow: -2px 2px 40px -9px rgba(0,0,0,0.75);"
             overflow="hidden"
+            borderRadius="5px"
           >
             <Stack spacing="20px">
               <form onSubmit={handleReg}>
@@ -178,19 +181,38 @@ export const QuickRegister = () => {
                     Quick Register
                   </FormLabel>
                   <Stack spacing="20px">
-                    <Input
-                      h="2.8rem"
-                      ref={firstField}
-                      type="text"
-                      letterSpacing=".2px"
-                      outline=".1px solid #159a94"
-                      focusBorderColor="#159a94"
-                      placeholder="Enter your Name"
-                      name="name"
-                      value={user.name}
-                      onChange={handleChange}
-                      required
-                    />
+                    <Flex direction="row">
+                      <Input
+                        mr="6px"
+                        h="2.8rem"
+                        w="44.5rem"
+                        ref={firstField}
+                        type="text"
+                        letterSpacing=".2px"
+                        outline=".1px solid #159a94"
+                        focusBorderColor="#159a94"
+                        placeholder="Enter your Name"
+                        name="name"
+                        value={user.name}
+                        onChange={handleChange}
+                        required
+                      />
+                      <Input
+                        ml="6px"
+                        h="2.8rem"
+                        w="44.5rem"
+                        ref={firstField}
+                        type="number"
+                        letterSpacing=".2px"
+                        outline=".1px solid #159a94"
+                        focusBorderColor="#159a94"
+                        placeholder="Enter your Phone"
+                        name="phone"
+                        value={user.phone}
+                        onChange={handleChange}
+                        required
+                      />
+                    </Flex>
                     <Input
                       h="2.8rem"
                       ref={firstField}
@@ -219,38 +241,46 @@ export const QuickRegister = () => {
                         onChange={handleChange}
                         required
                       />
-                      <InputRightElement width="4.5rem">
+                      <InputRightElement mt="2px" width="5rem">
                         <Button h="2rem" size="sm" onClick={handleClick}>
                           {show ? "Hide" : "Show"}
                         </Button>
                       </InputRightElement>
                     </InputGroup>
-                    <Input
-                      h="2.8rem"
-                      ref={firstField}
-                      type="number"
-                      letterSpacing=".2px"
-                      outline=".1px solid #159a94"
-                      focusBorderColor="#159a94"
-                      placeholder="Enter your Phone"
-                      name="phone"
-                      value={user.phone}
-                      onChange={handleChange}
-                      required
-                    />
-                    <Input
-                      h="2.8rem"
-                      ref={firstField}
-                      type="text"
-                      letterSpacing=".2px"
-                      outline=".1px solid #159a94"
-                      focusBorderColor="#159a94"
-                      placeholder="Enter your Address"
-                      name="address"
-                      value={user.address}
-                      onChange={handleChange}
-                      required
-                    />
+
+                    <Flex direction="row">
+                      <Select
+                        mr="6px"
+                        h="2.8rem"
+                        ref={firstField}
+                        letterSpacing=".2px"
+                        outline=".1px solid #159a94"
+                        focusBorderColor="#159a94"
+                        placeholder="Select Gender"
+                        name="gender"
+                        value={user.gender}
+                        onChange={handleChange}
+                        required
+                      >
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                      </Select>
+                      <Input
+                        ml="6px"
+                        h="2.8rem"
+                        w="44.5rem"
+                        ref={firstField}
+                        type="text"
+                        letterSpacing=".2px"
+                        outline=".1px solid #159a94"
+                        focusBorderColor="#159a94"
+                        placeholder="Enter your Address"
+                        name="address"
+                        value={user.address}
+                        onChange={handleChange}
+                        required
+                      />
+                    </Flex>
                   </Stack>
                 </Box>
                 <Button

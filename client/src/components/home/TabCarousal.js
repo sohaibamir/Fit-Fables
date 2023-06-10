@@ -80,9 +80,7 @@ function TabCarousal() {
             left="-5"
             borderRadius="50%"
             icon={<AiOutlineLeft color="white" />}
-          >
-            L
-          </IconButton>
+          ></IconButton>
         )}
 
         <Flex
