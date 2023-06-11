@@ -14,7 +14,7 @@ const Doctors = () => {
         getAllDoctorsAdmin().then((res) => {
             console.log(res);
             let tableBody = res?.data?.data;
-            const tableHeader = ["ID", "Name", "Designation", "Email Address", "Timings", "Days", "Salary"];
+            const tableHeader = ["Name", "Designation", "Email Address", "Timings"];
             let reducedArr = [];
             tableBody?.forEach((obj) => {
                 if (obj?.appointments?.length == 0 && obj?.completedAppointments?.length == 0) {
@@ -33,7 +33,7 @@ const Doctors = () => {
                     tableBody = reducedArr;
                 }
                 else {
-                    console.log("original response array not modified");
+                    console.log("original array not modified");
                 }
             });
 
