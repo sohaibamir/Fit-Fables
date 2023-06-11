@@ -146,7 +146,7 @@ const Datatable = ({ tableTitle, tableData }) => {
                           to={`/admin/${_id}`}
                           style={{ marginRight: "7px", cursor: "pointer" }}
                         >
-                          <EditIcon color="green.500" />
+                          <AiFillEye style={{ color: "#38A169", fontSize: "18px" }} />
                         </Link>
                       </div>
                     </td>

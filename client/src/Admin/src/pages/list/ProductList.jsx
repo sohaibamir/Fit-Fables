@@ -24,6 +24,7 @@ const ProductList = () => {
               manufacturer,
               sub_category,
               country,
+              quantity,
               __v,
               ...rest
             }) => {
