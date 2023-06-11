@@ -4,13 +4,13 @@ import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import MonetizationOnOutlinedIcon from "@mui/icons-material/MonetizationOnOutlined";
+// import { Link } from "@mui/material";
+import { Link } from "react-router-dom";
 
-const Widget = ({ type }) => {
+const Widget = ({ type,amount }) => {
   let data;
 
   //temporary
-  const amount = 100;
-  const diff = 20;
 
   switch (type) {
     case "user":
@@ -83,15 +83,15 @@ const Widget = ({ type }) => {
       <div className="left">
         <span className="title">{data.title}</span>
         <span className="counter">
-          {data.isMoney && "$"} {amount}
+          {amount}{data.isMoney && " Rs"} 
         </span>
-        <span className="link">{data.link}</span>
+        <Link className="link" to={data.title=='USERS'?'/admin/users':'/admin/orders'}  style={{visibility:(data.link == 'View net earnings' || data.link == 'See details') &&'hidden'}}>{data.link}</Link>
       </div>
       <div className="right">
-        <div className="percentage positive">
+        {/* <div className="percentage positive">
           <KeyboardArrowUpIcon />
           {diff} %
-        </div>
+        </div> */}
         {data.icon}
       </div>
     </div>

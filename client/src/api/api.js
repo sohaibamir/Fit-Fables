@@ -141,6 +141,10 @@ export async function getcustomerOrders(id) {
   return axios.get(`${process.env.REACT_APP_API}/admin/getcustomerOrders/${id}`);
 }
 
+export async function getDashboardData(id) {
+  return axios.get(`${process.env.REACT_APP_API}/admin/getDashboardData`);
+}
+
 export const isAuthenticated = () => {
   if (typeof window == "undefined") {
     return false;

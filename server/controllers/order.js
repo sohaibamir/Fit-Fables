@@ -1,6 +1,7 @@
 const Cart = require("../models/cart");
 const { Order } = require("../models/order");
-const Product = require("../models/product");
+// const Product = require("../models/product");
+const User = require("../models/user");
 
 exports.createOrders = async (req, res) => {
   try {
@@ -56,9 +57,9 @@ exports.getAllCustomerOrders = async (req, res) => {
 
     // Set the date to six months earlier
     var sixMonthsAgo = new Date();
-    sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6);
+    sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 5);
     sixMonthsAgo.setDate(1); // Set the day to 1
-    sixMonthsAgo.setHours(0, 0, 0, 0)
+    // sixMonthsAgo.setHours(0, 0, 0, 0)
 
     const customerOrders = await Order.find({ 'userId': customerID, 'createdAt': { '$gte': new Date(sixMonthsAgo), '$lte': new Date(currentDate) } }).sort({ 'createdAt': 1 });
 
@@ -94,3 +95,100 @@ exports.getAllCustomerOrders = async (req, res) => {
   }
 };
 
+exports.getSixMonthsRevenue = async (req, res) => {
+  try {
+    // Get current date
+    var currentDate = new Date();
+
+    // Set the date to the last day of the current month
+    var endOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+    endOfMonth.setHours(24, 59, 59, 999)
+
+
+    // Set the date to six months earlier
+    var sixMonthsAgo = new Date();
+    sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 5);
+    sixMonthsAgo.setDate(1); // Set the day to 1
+    // sixMonthsAgo.setHours(0, 0, 0, 0)
+
+    const customerOrders = await Order.find({ 'createdAt': { '$gte': new Date(sixMonthsAgo), '$lte': new Date(currentDate) } }).sort({ 'createdAt': 1 });
+
+    let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+    let dataForChart = []
+
+    if (customerOrders.length > 0) {
+      customerOrders.map((order) => {
+        if (order.createdAt) {
+          let date = new Date(order.createdAt);
+          let month = months[date.getMonth()];
+          let ind = dataForChart.findIndex((data) => data.name == month);
+          let Total = 0;
+          Total = order.totalPrice;
+          if (ind == -1) {
+            dataForChart.push({ name: month, Total: Total });
+          } else {
+            dataForChart[ind] =
+            {
+              name: dataForChart[ind].name,
+              Total: (dataForChart[ind].Total + Total)
+            }
+          }
+        }
+      })
+    }
+
+    // get todays sale
+    let todayDateStart = new Date(Date.now());
+    todayDateStart.setHours(0, 0, 0, 0)
+
+    let todayDateEnd = new Date(Date.now());
+    todayDateEnd.setHours(24, 59, 59, 999)
+
+    const todayOrders = await Order.find({ 'createdAt': { '$gte': new Date(todayDateStart), '$lte': new Date(todayDateEnd) } }).sort({ 'createdAt': 1 });
+
+    let todaySales = todayOrders.reduce((acc, current) => { return acc + current.totalPrice }, 0)
+
+    // get this week sale
+    let weekStart = new Date(Date.now());
+    weekStart.setDate(weekStart.getDate() - 7)
+    weekStart.setHours(0, 0, 0, 0)
+
+    let weekEnd = new Date(Date.now());
+    weekEnd.setHours(24, 59, 59, 999)
+
+    const weekOrders = await Order.find({ 'createdAt': { '$gte': new Date(weekStart), '$lte': new Date(weekEnd) } }).sort({ 'createdAt': 1 });
+
+    let weekSales = weekOrders.reduce((acc, current) => { return acc + current.totalPrice }, 0)
+
+    // get this month sale
+    let monthStart = new Date(Date.now());
+    monthStart.setDate(monthStart.getDate() - 30)
+    monthStart.setHours(0, 0, 0, 0)
+
+    let monthEnd = new Date(Date.now());
+    monthEnd.setHours(24, 59, 59, 999)
+
+    const monthOrders = await Order.find({ 'createdAt': { '$gte': new Date(monthStart), '$lte': new Date(monthEnd) } }).sort({ 'createdAt': 1 });
+
+    let monthSales = monthOrders.reduce((acc, current) => { return acc + current.totalPrice }, 0)
+
+    let totalOrders = await Order.countDocuments();
+
+    let totalUsers =await User.countDocuments()
+
+    const totalOrdersInDB = await Order.find();
+    let totalOrdersAmount = totalOrdersInDB.reduce((acc, current) => { return acc + current.totalPrice }, 0)
+
+
+    return res.status(201).
+    send({ dataForChart: dataForChart,
+       todaySales: todaySales ? todaySales : 0,
+        weekSales: weekSales ? weekSales : 0,
+        monthSales: monthSales ? monthSales : 0,
+      totalOrders,totalUsers,totalOrdersAmount: totalOrdersAmount ? totalOrdersAmount: 0});
+
+  } catch (error) {
+    console.log(error)
+    return res.status(500).send({ message: error.message });
+  }
+};
