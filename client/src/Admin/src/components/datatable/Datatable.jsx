@@ -23,27 +23,26 @@ const Datatable = ({ tableTitle, tableData }) => {
 
   return (
     <div className="datatable">
-      <div className="datatableTitle">
-        {tableTitle}
-        {tableTitle === "Products" ? (
-          <Link to="/admin/new/product" className="link">
-            Add New
-          </Link>
-        ) : tableTitle === "Doctors" ? (
-          <Link to="/admin/new/doctor" className="link">
-            Add New
-          </Link>
-        ) : null}
-      </div>
+      {tableTitle !== "Last Transactions" && (
+        <div className="datatableTitle">
+          {tableTitle}
+          {tableTitle === "Products" ? (
+            <Link to="/admin/new/product" className="link">
+              Add New
+            </Link>
+          ) : tableTitle === "Doctors" ? (
+            <Link to="/admin/new/doctor" className="link">
+              Add New
+            </Link>
+          ) : null}
+        </div>
+      )}
 
       <Table striped style={{ margin: "0px", padding: "0px" }}>
         <thead>
           {tableData?.tableHeader?.length > 0 && (
             <tr style={{ textAlign: "center" }}>
-              {
-                tableTitle == "Products" &&
-                <th></th>
-              }
+              {tableTitle === "Products" && <th></th>}
               {tableData?.tableHeader?.map((value) => {
                 if (value !== "_id" && value !== "img1") {
                   return (
@@ -65,22 +64,44 @@ const Datatable = ({ tableTitle, tableData }) => {
           <tbody>
             {data.map(({ _id, img1, ...eachRecord }) => {
               return (
-                <tr style={{ textAlign: "center", alignItems: "center", paddingTop: "auto", paddingBottom: "auto" }}>
-                  {
-                    tableTitle == "Products" &&
-                    <td><img style={{ width: "40px", height: "40px", borderRadius: '50%' }} src={img1 ? img1 : null} /></td>
-                  }
-                  {
-                    tableTitle == "Doctors" &&
-                    <td>{_id}</td>
-                  }
+                <tr
+                  style={{
+                    textAlign: "center",
+                    alignItems: "center",
+                    paddingTop: "auto",
+                    paddingBottom: "auto",
+                  }}
+                >
+                  {tableTitle === "Products" && (
+                    <td>
+                      <img
+                        style={{
+                          width: "40px",
+                          height: "40px",
+                          borderRadius: "50%",
+                        }}
+                        src={img1 ? img1 : null}
+                        alt="products"
+                      />
+                    </td>
+                  )}
+                  {tableTitle === "Doctors" && <td>{_id}</td>}
                   {Object.values(eachRecord)?.map((value) => {
                     return <td>{value}</td>
                   })}
                   {tableTitle === "Products" ? (
                     <td>
-                      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                        <Link to={`/admin/product/${_id}`} style={{ marginRight: "7px", cursor: 'pointer' }}>
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                        }}
+                      >
+                        <Link
+                          to={`/admin/product/${_id}`}
+                          style={{ marginRight: "7px", cursor: "pointer" }}
+                        >
                           <EditIcon color="green.500" />
                         </Link>
                         <div style={{ cursor: "pointer" }}>
@@ -129,31 +150,28 @@ const Datatable = ({ tableTitle, tableData }) => {
                         </Link>
                       </div>
                     </td>
-
                   )}
                 </tr>
               );
             })}
-          </tbody >
+          </tbody>
         )}
-      </Table >
+      </Table>
 
-      {
-        tableData.tableBody.length > 10 && (
-          <div className="pagination-div">
-            <PaginationControl
-              page={page}
-              next={true}
-              last={true}
-              total={tableData.tableBody.length}
-              limit={10}
-              changePage={(page) => onChangePage(page)}
-              ellipsis={1}
-            />
-          </div>
-        )
-      }
-    </div >
+      {tableData.tableBody.length > 10 && (
+        <div className="pagination-div">
+          <PaginationControl
+            page={page}
+            next={true}
+            last={true}
+            total={tableData.tableBody.length}
+            limit={10}
+            changePage={(page) => onChangePage(page)}
+            ellipsis={1}
+          />
+        </div>
+      )}
+    </div>
   );
 };
 

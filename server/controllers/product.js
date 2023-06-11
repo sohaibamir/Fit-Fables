@@ -10,11 +10,9 @@ exports.getCategories = async (req, res) => {
         el === "Ayush" ||
         el === "Covid Essentials" ||
         el === "Devices" ||
-        el === "Fitness" ||
         el === "Mom & Baby" ||
         el === "Personal Care" ||
         el === "Skin Care" ||
-        el === "Surgical" ||
         el === "Treatments" ||
         el === "Tools & Appliances" ||
         el === "Eyewear" ||
@@ -271,6 +269,15 @@ exports.getAllProducts = async (req, res) => {
   }
 };
 
+exports.getLatestProducts = async (req, res) => {
+  try {
+    const products = await Product.find().sort({ createdAt: -1 }).limit(14);
+    return res.status(201).send(products);
+  } catch (error) {
+    return res.status(500).send({ message: error.message });
+  }
+};
+
 exports.updateProduct = async (req, res) => {
   try {
     const products = await Product.findByIdAndUpdate(
@@ -292,12 +299,3 @@ exports.deleteProduct = async (req, res) => {
     return res.status(500).send({ message: error.message });
   }
 };
-
-exports.getLatestProducts = async (req, res) => {
-  try {
-    const latestProducts = await Product.find().sort({ createdAt: -1 }).limit(6);
-    res.status(201).send({ data: latestProducts });
-  } catch (error) {
-    res.status(500).send(error);
-  }
-}

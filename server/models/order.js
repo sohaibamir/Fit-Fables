@@ -10,14 +10,15 @@ const orderSchema = new mongoose.Schema(
     cartItems: [
       {
         productId: { type: ObjectId, ref: "Product" },
-        quantity: { type: Number, required: true },
+        quantity: { type: Number, required: true }
       },
     ],
     status:{
       type:String,
       enum:["Pending","In-Process","Delivered"],
       default:"Pending"
-    }
+    },
+    totalPrice:{ type: Number, required: true }
   },
   {
     timestamps: true,

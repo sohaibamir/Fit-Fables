@@ -74,7 +74,7 @@ function Search() {
               border="1px solid #a7bdd3"
               borderRadius="10px"
               cursor="pointer"
-              onClick={() => navigate(`/healthcare/product/${el._id}`)}
+              onClick={() => navigate(`/product/${el._id}`)}
             >
               <Box mr="20px">
                 <Image mr="20px" w="50px" p="5px" src={el.img1} alt="" />
