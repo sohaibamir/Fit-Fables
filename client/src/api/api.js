@@ -108,6 +108,14 @@ export async function getOrders() {
   return axios.get(`${process.env.REACT_APP_API}/orders`);
 }
 
+export async function getOrderById(id) {
+  return axios.get(`${process.env.REACT_APP_API}/admin/orders/${id}`);
+}
+
+export async function updateOrderById(id, status) {
+  return axios.patch(`${process.env.REACT_APP_API}/admin/update-order/${id}`, { status });
+}
+
 export async function createProduct(product) {
   return axios.post(`${process.env.REACT_APP_API}/products/create`, product);
 }
@@ -121,7 +129,7 @@ export async function getAllUsersAdmin() {
 }
 
 export async function getAllOrdersAdmin() {
-  return axios.get(`${process.env.REACT_APP_API}/admin/getorders`);
+  return axios.get(`${process.env.REACT_APP_API}/admin/getAllOrders`);
 }
 
 export async function getUserById(id) {
@@ -129,8 +137,12 @@ export async function getUserById(id) {
 }
 
 // export async function createDoctor() {
-//   return axios.post(`${process.env.REACT_APP_API}/doctor/create`);
+//   return axios.post(`${process.env.REACT_APP_API}/doctor/create`, {doctor});
 // }
+
+export async function getDoctorById(id) {
+  return axios.get(`${process.env.REACT_APP_API}/admin/doctors/${id}`);
+}
 
 export async function getAllDoctorsAdmin() {
   return axios.get(`${process.env.REACT_APP_API}/doctors/all`);

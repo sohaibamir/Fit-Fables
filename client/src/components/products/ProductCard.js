@@ -20,7 +20,7 @@ function ProductCard({
       borderRadius="10px"
       _hover={{ border: "1px solid #10847E " }}
     >
-      <Link className="noHover" to={`/healthcare/product/${id}`}>
+      <Link className="noHover" to={`/product/${id}`}>
         <Box height="216px">
           <Image height="100%" src={image} margin="0 auto"></Image>
         </Box>

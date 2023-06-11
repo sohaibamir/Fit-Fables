@@ -24,7 +24,7 @@ exports.getOrders = async (req, res) => {
   try {
     const { user } = req;
 
-    const orders = await Order.find({ userId: user._id }).populate({
+    const orders = await Order.find({ userId: user?._id }).populate({
       path: "cartItems",
       populate: { path: "productId" },
     });
@@ -44,6 +44,25 @@ exports.getAllOrders = async (req, res) => {
   }
 };
 
+exports.getOrderById = async (req, res) => {
+  try {
+    const { orderId } = req.params;
+    const order = await Order.findOne({ _id: orderId });
+    res.status(201).send({ data: order });
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
+exports.updateOrderById = async (req, res) => {
+  try {
+    const { orderId } = req.params;
+    const order = await Order.findByIdAndUpdate({ _id: orderId }, { $set: { status: req.body.status } }, { new: true });
+    res.status(201).send({ data: order });
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
 exports.getAllCustomerOrders = async (req, res) => {
   try {
     const { customerID } = req.params;

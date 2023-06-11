@@ -10,11 +10,9 @@ exports.getCategories = async (req, res) => {
         el === "Ayush" ||
         el === "Covid Essentials" ||
         el === "Devices" ||
-        el === "Fitness" ||
         el === "Mom & Baby" ||
         el === "Personal Care" ||
         el === "Skin Care" ||
-        el === "Surgical" ||
         el === "Treatments" ||
         el === "Tools & Appliances" ||
         el === "Eyewear" ||

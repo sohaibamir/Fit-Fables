@@ -94,27 +94,58 @@ export const productInputs = [
   },
 ];
 
+export const orderInputs = [
+  {
+    id: 1,
+    label: "Order ID",
+    type: "text",
+    placeholder: "1",
+    name: "_id"
+  },
+  {
+    id: 2,
+    label: "Customer ID",
+    type: "text",
+    placeholder: "1",
+    name: "userId"
+  },
+  {
+    id: 3,
+    label: "Items In Cart",
+    type: "text",
+    placeholder: "1",
+    name: "cartItems"
+  },
+  {
+    id: 4,
+    label: "Order Status",
+    type: "text",
+    placeholder: "Pending",
+    name: "status"
+  },
+];
+
 export const doctorInputs = [
   {
     id: 1,
     label: "ID",
     type: "text",
     placeholder: "1",
-    name: 'id'
+    name: '_id'
   },
   {
     id: 2,
     label: "Name",
     type: "text",
     placeholder: "Hussain",
-    name: 'name'
+    name: 'doctorName'
   },
   {
     id: 3,
     label: "Designation",
     type: "text",
     placeholder: "Surgeon",
-    name: 'desingation'
+    name: 'designation'
   },
   {
     id: 4,
