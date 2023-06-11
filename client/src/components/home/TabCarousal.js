@@ -20,7 +20,7 @@ export const tabCards = [
   },
   {
     title: "Health Blogs",
-    path: "/",
+    path: "/health-blogs",
     img: "/images/healthblogs.webp",
   },
   {

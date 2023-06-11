@@ -3,7 +3,7 @@ import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-function Popular({ products }) {
+function ShowProducts({ products, title }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const navigate = useNavigate();
   const productsPerPage = 7;
@@ -33,7 +33,7 @@ function Popular({ products }) {
     <Box px="2rem" py="2rem">
       <Flex px="10px" justifyContent="space-between" mt="50px" mb="20px">
         <Text fontSize="xl" fontWeight="600">
-          Latest Products
+          {title}
         </Text>
         <span>
           <IconButton
@@ -91,4 +91,4 @@ function Popular({ products }) {
   );
 }
 
-export default Popular;
+export default ShowProducts;

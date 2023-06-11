@@ -278,6 +278,17 @@ exports.getLatestProducts = async (req, res) => {
   }
 };
 
+exports.getMostSellingProducts = async (req, res) => {
+  try {
+    const products = await Product.find({ quantity: { $gt: 0 } })
+      .sort({ quantity: 1 })
+      .limit(14);
+    return res.status(200).send(products);
+  } catch (error) {
+    return res.status(500).send({ message: error.message });
+  }
+};
+
 exports.updateProduct = async (req, res) => {
   try {
     const products = await Product.findByIdAndUpdate(

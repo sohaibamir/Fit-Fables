@@ -11,6 +11,7 @@ const {
   getAllProducts,
   getOfferProducts,
   getLatestProducts,
+  getMostSellingProducts,
   updateProduct,
   deleteProduct,
 } = require("../controllers/product");
@@ -19,6 +20,7 @@ router.get("/products/search", getProductsBySearch);
 router.get("/products/single/:id", getProductById);
 router.get("/products/offer", getOfferProducts);
 router.get("/products/latest", getLatestProducts);
+router.get("/products/mostselling", getMostSellingProducts);
 router.get("/products/category/:category", getAllProductsByCategory);
 router.get(
   "/products/category/:category/:sub_category",

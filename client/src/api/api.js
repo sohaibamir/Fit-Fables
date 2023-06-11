@@ -67,6 +67,10 @@ export async function getLatestProducts() {
   return axios.get(`${process.env.REACT_APP_API}/products/latest`);
 }
 
+export async function getMostSellingProducts() {
+  return axios.get(`${process.env.REACT_APP_API}/products/mostselling`);
+}
+
 export async function AddItemToCart(id, quantity, userId) {
   return axios.post(`${process.env.REACT_APP_API}/cart/${userId}`, {
     productId: id,
@@ -148,9 +152,10 @@ export async function getAllDoctorsAdmin() {
   return axios.get(`${process.env.REACT_APP_API}/doctors/all`);
 }
 
-
 export async function getcustomerOrders(id) {
-  return axios.get(`${process.env.REACT_APP_API}/admin/getcustomerOrders/${id}`);
+  return axios.get(
+    `${process.env.REACT_APP_API}/admin/getcustomerOrders/${id}`
+  );
 }
 
 export async function getDashboardData(id) {
