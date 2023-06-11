@@ -13,25 +13,65 @@ import {
   AccordionButton,
   AccordionIcon,
   Hide,
+  useToast,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { AiFillRightCircle } from "react-icons/ai";
 import { useSelector } from "react-redux";
+import StripeCheckout from 'react-stripe-checkout';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 function Delivery() {
   const { totalAmount, totalOriginalAmount } = useSelector(
     (state) => state.cart
   );
 
+  const toast = useToast();
+
+  const navigate = useNavigate();
+
   const [deliveryAmount, setDeliveryAmount] = useState(0);
+  const [amountToPay, setAmountToPay] = useState(0);
+
+  const [dollarPrice, setDollarPrice] = useState(280);
 
   const handleChange = (e) => {
     setDeliveryAmount(e.target.value);
+    setAmountToPay(totalAmount + parseInt(e.target.value));
     console.log(e.target.value);
   };
 
-  const handlePayment = async () => {
-    console.log("Soon");
+  const handlePayment = async (token) => {
+    try {
+      const response = await axios({
+        url: 'http://localhost:8000/api/payment',
+        method: 'POST',
+        data: {
+          amount: amountToPay,
+          token,
+        },
+      });
+      if (response.status === 200) {
+        toast({
+          title: "Payment Was Successful!",
+          status: "success",
+          duration: 3500,
+          isClosable: true,
+          position: "top"
+        });
+        navigate("/");
+      }
+    } catch (error) {
+      toast({
+        title: "Payment Was Not Successful!",
+        status: "error",
+        duration: 3500,
+        isClosable: true,
+        position: "top"
+      });
+      console.log(error);
+    }
   };
 
   return (
@@ -134,22 +174,18 @@ function Delivery() {
         w={{ base: "90%", sm: "90%", md: "90%", lg: "90%", xl: "30%" }}
         mt={{ base: "20px", sm: "20px", md: "20px", lg: "20px", xl: "1px" }}
       >
-        <Button
-          onClick={handlePayment}
-          w="100%"
-          display="flex"
-          bg="#10847e"
-          color="white"
-          fontSize="xl"
-          p="25px"
-          _hover={{ border: "1px solid #159a94" }}
-        >
-          <Text mb="0px" mr="10px">
-            {" "}
-            Proceed to Pay{" "}
-          </Text>{" "}
-          <AiFillRightCircle w="50px" />
-        </Button>
+
+        <StripeCheckout
+          stripeKey={"pk_test_51NHrzDESxeXqLxczuBm1MLWgFZZKFQj5zaH2HwXDmfluNP3mrR8gdh2z8l6ZVInWVoma6Gu4yP9nchi8JTWrNQan006l7Bdd1T"}
+          label="Proceed To Pay"
+          name="Pay With Credit Card"
+          billingAddress
+          shippingAddress
+          amount={(amountToPay * 100) / dollarPrice}
+          description={`Your total is Rs. ${amountToPay}`}
+          token={handlePayment}
+          className="stripe-pay-btn"
+        />
         <Hide below="lg">
           <Box>
             <Heading mb="0px" fontSize="xl" color="#889dad" p="10px">

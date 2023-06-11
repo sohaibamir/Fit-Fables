@@ -29,6 +29,7 @@
     "react-router-dom": "^6.11.1",
     "react-scripts": "5.0.1",
     "react-slick": "^0.29.0",
+    "react-stripe-checkout": "^2.6.3",
     "recharts": "^2.1.9",
     "redux": "^4.2.1",
     "redux-logger": "^3.0.6",

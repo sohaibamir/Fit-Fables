@@ -112,3 +112,21 @@ code {
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
 }
+
+.stripe-pay-btn {
+  width: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background-color: #10847e !important;
+  background-image: none !important;
+  color: white !important;
+  height: 2.5rem !important;
+}
+
+.stripe-pay-btn span {
+  background-image: none !important;
+  box-shadow: none !important;
+  font-size: 1rem !important;
+  font-family: sans-serif !important;
+}
