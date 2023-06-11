@@ -7,7 +7,7 @@ exports.orderPayment = async (req, res) => {
         await Stripe.charges.create({
             source: token.id,
             amount,
-            currency: 'pkr',
+            currency: 'usd',
         });
         status = 'success';
     } catch (error) {
