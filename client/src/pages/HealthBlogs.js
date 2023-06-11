@@ -44,7 +44,7 @@ const HealthBlogs = () => {
             {loading &&
               arr.map((el) => (
                 <Skeleton key={el} borderRadius={"10px"}>
-                  <Box width={"250px"} height="470px"></Box>
+                  <Box width={"250px"} height="474px"></Box>
                 </Skeleton>
               ))}
             {!loading &&

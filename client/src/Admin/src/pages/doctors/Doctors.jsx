@@ -13,13 +13,31 @@ const Doctors = () => {
     useEffect(() => {
         getAllDoctorsAdmin().then((res) => {
             console.log(res);
-            const tableBody = res?.data?.data;
+            let tableBody = res?.data?.data;
             const tableHeader = ["ID", "Name", "Designation", "Email Address", "Timings", "Days", "Salary"];
-            tableBody?.forEach(() => {
-                setDoctors({
-                    tableHeader, tableBody
-                })
-            })
+            let reducedArr = [];
+            tableBody?.forEach((obj) => {
+                if (obj?.appointments?.length == 0 && obj?.completedAppointments?.length == 0) {
+                    const { appointments, completedAppointments, ...remainingObj } = obj;
+                    reducedArr.push(remainingObj);
+                    tableBody = reducedArr;
+                }
+                else if (obj?.appointments?.length == 0) {
+                    const { appointments, ...remainingObj } = obj;
+                    reducedArr.push(remainingObj);
+                    tableBody = reducedArr;
+                }
+                else if (obj?.completedAppointments?.length == 0) {
+                    const { completedAppointments, ...remainingObj } = obj;
+                    reducedArr.push(remainingObj);
+                    tableBody = reducedArr;
+                }
+                else {
+                    console.log("original response array not modified");
+                }
+            });
+
+            setDoctors({ tableHeader, tableBody });
         }).catch((error) => console.log(error));
     }, []);
 

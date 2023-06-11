@@ -5,7 +5,7 @@ import "react-circular-progressbar/dist/styles.css";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpOutlinedIcon from "@mui/icons-material/KeyboardArrowUpOutlined";
 
-const Featured = () => {
+const Featured = ({todaySale,weekSale,monthSale}) => {
   return (
     <div className="featured">
       <div className="top">
@@ -14,33 +14,45 @@ const Featured = () => {
       </div>
       <div className="bottom">
         <div className="featuredChart">
-          <CircularProgressbar value={70} text={"70%"} strokeWidth={5} />
+          <CircularProgressbar value={(todaySale/10000)*100} text={`${(todaySale/10000)*100}%`} strokeWidth={5} />
         </div>
         <p className="title">Total sales made today</p>
-        <p className="amount">$420</p>
+        <p className="amount">{`${todaySale} Rs`}</p>
         <p className="desc">
           Previous transactions processing. Last payments may not be included.
         </p>
         <div className="summary">
+        {
+          (10000 - todaySale)>0 ?
           <div className="item">
             <div className="itemTitle">Target</div>
             <div className="itemResult negative">
               <KeyboardArrowDownIcon fontSize="small"/>
-              <div className="resultAmount">$12.4k</div>
+              <div className="resultAmount">{`${10000-todaySale} Rs`}</div>
+            </div>
+          </div> :
+
+          <div className="item">
+            <div className="itemTitle">Target</div>
+            <div className="itemResult positive">
+              <KeyboardArrowUpOutlinedIcon fontSize="small"/>
+              <div className="resultAmount">{`${10000-todaySale} Rs`}</div>
             </div>
           </div>
+
+        }
           <div className="item">
             <div className="itemTitle">Last Week</div>
             <div className="itemResult positive">
               <KeyboardArrowUpOutlinedIcon fontSize="small"/>
-              <div className="resultAmount">$12.4k</div>
+              <div className="resultAmount">{`${weekSale} Rs`}</div>
             </div>
           </div>
           <div className="item">
             <div className="itemTitle">Last Month</div>
             <div className="itemResult positive">
               <KeyboardArrowUpOutlinedIcon fontSize="small"/>
-              <div className="resultAmount">$12.4k</div>
+              <div className="resultAmount">{`${monthSale} Rs`}</div>
             </div>
           </div>
         </div>

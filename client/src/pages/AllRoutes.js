@@ -3,11 +3,15 @@ import Login from "../Admin/src/pages/login/Login";
 import List from "../Admin/src/pages/list/List";
 import ProductList from "../Admin/src/pages/list/ProductList";
 import Single from "../Admin/src/pages/single/Single";
-import New from "../Admin/src/pages/new/New";
+import NewOrEditProduct from "../Admin/src/pages/newOrEditProduct/NewOrEditProduct";
 import HomeUser from "../components/home/HomeUser";
 import { Route, Routes } from "react-router-dom";
 import Home from "../Admin/src/pages/home/Home";
-import { doctorInputs, productInputs } from "../Admin/src/formSource";
+import {
+  doctorInputs,
+  orderInputs,
+  productInputs,
+} from "../Admin/src/formSource";
 import Healthcare from "./Healthcare";
 import Products from "./Products";
 import SingleProduct from "./SingleProduct";
@@ -18,6 +22,8 @@ import Delivery from "./Delivery";
 import Doctors from "../Admin/src/pages/doctors/Doctors";
 import Offers from "./Offers";
 import HealthBlogs from "./HealthBlogs";
+import NewOrEditDoctor from "../Admin/src/pages/newOrEditDoctor/NewOrEditDoctor";
+import ViewOrderDetails from "../Admin/src/pages/viewOrderDetails/ViewOrderDetails";
 import ProductsByCategory from "./ProductsByCategory";
 
 function AllRoutes() {
@@ -36,26 +42,43 @@ function AllRoutes() {
       /> */}
 
       <Route path="/admin/products" element={<ProductList />} />
-      {/* <Route path="/admin/:productId" element={<Single />} /> */}
 
       <Route
         path="/admin/new/product"
-        element={<New inputs={productInputs} title="Add New Product" />}
+        element={
+          <NewOrEditProduct inputs={productInputs} title="Add New Product" />
+        }
       />
 
       <Route
         path="/admin/product/:productId"
-        element={<New inputs={productInputs} title="Edit Product Details" />}
+        element={
+          <NewOrEditProduct
+            inputs={productInputs}
+            title="Edit Product Details"
+          />
+        }
       />
 
       <Route
-        path="/admin/doctor/:doctorId"
-        element={<New inputs={doctorInputs} title="Edit Doctor Details" />}
-      />
-      <Route
         exact
         path="/admin/new/doctor"
-        element={<New inputs={doctorInputs} title="Add New Doctor" />}
+        element={
+          <NewOrEditDoctor inputs={doctorInputs} title="Add New Doctor" />
+        }
+      />
+      <Route
+        path="/admin/doctors/:doctorId"
+        element={
+          <NewOrEditDoctor inputs={doctorInputs} title="Edit Doctor Details" />
+        }
+      />
+
+      <Route
+        path="/admin/orders/:orderId"
+        element={
+          <ViewOrderDetails inputs={orderInputs} title="Order Details" />
+        }
       />
 
       <Route path="/healthcare" element={<Healthcare />} />
