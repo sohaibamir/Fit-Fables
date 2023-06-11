@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Table from "react-bootstrap/Table";
 import { PaginationControl } from "react-bootstrap-pagination-control";
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
+import { AiFillEye } from "react-icons/ai";
 
 const Datatable = ({ tableTitle, tableData }) => {
   const [data, setData] = useState(tableData.tableBody);
@@ -74,7 +75,7 @@ const Datatable = ({ tableTitle, tableData }) => {
                     <td>{_id}</td>
                   }
                   {Object.values(eachRecord)?.map((value) => {
-                    return <td key={value}>{value}</td>;
+                    return <td>{value}</td>
                   })}
                   {tableTitle === "Products" ? (
                     <td>
@@ -91,7 +92,7 @@ const Datatable = ({ tableTitle, tableData }) => {
                     : tableTitle === "Doctors" ?
                       <td>
                         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                          <Link to={`/admin/doctor/${_id}`} style={{ marginRight: "7px", cursor: 'pointer' }}>
+                          <Link to={`/admin/doctors/${_id}`} style={{ marginRight: "7px", cursor: 'pointer' }}>
                             <EditIcon color="green.500" />
                           </Link>
                           <div style={{ cursor: 'pointer' }}>
@@ -99,7 +100,18 @@ const Datatable = ({ tableTitle, tableData }) => {
                           </div>
                         </div>
                       </td>
-                      : null}
+                      :
+                      tableTitle === "Orders" ?
+                        <td>
+                          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                            <Link to={`/admin/orders/${eachRecord?.orderId}`} style={{ marginRight: "7px", cursor: 'pointer' }}>
+                              <AiFillEye style={{ color: "#38A169", fontSize: "18px" }} />
+                            </Link>
+                          </div>
+                        </td>
+                        : null
+                  }
+
                   {tableTitle === "Users" && (
                     <td>
                       <div

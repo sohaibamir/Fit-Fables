@@ -1,4 +1,4 @@
-import "./new.scss";
+import "./newOrEditProduct.scss";
 import Sidebar from "../../components/sidebar/Sidebar";
 import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
 import { useEffect, useState } from "react";
@@ -7,7 +7,7 @@ import { createProduct, getSingleProduct, updateProduct } from "../../../../api/
 import { useParams, useNavigate } from "react-router-dom";
 
 
-const New = ({ inputs, title }) => {
+const NewOrEditProduct = ({ inputs, title }) => {
   const [images, setImages] = useState([]);
   const [imagePreview, setImagePreview] = useState([]);
   const [product, setProduct] = useState({
@@ -178,4 +178,4 @@ const New = ({ inputs, title }) => {
   );
 };
 
-export default New;
+export default NewOrEditProduct;

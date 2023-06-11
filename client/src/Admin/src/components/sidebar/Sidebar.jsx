@@ -11,55 +11,85 @@ import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import { Link } from "react-router-dom";
 
-const Sidebar = () => {
+const Sidebar = ({ isDoctorPanel }) => {
   return (
     <div className="sidebar">
       <hr />
-      <div className="center">
-        <ul>
-          <p className="title">MAIN</p>
-          <li>
-            <DashboardIcon className="icon" />
-            <Link to="/admin">
-              <span>Dashboard</span>
+      {!isDoctorPanel ?
+        <div className="center">
+          <ul>
+            <p className="title">MAIN</p>
+            <li>
+              <DashboardIcon className="icon" />
+              <Link to="/admin">
+                <span>Dashboard</span>
+              </Link>
+            </li>
+            <p className="title">LISTS</p>
+            <Link to="/admin/users" style={{ textDecoration: "none" }}>
+              <li>
+                <PersonOutlineIcon className="icon" />
+                <span>Users</span>
+              </li>
             </Link>
-          </li>
-          <p className="title">LISTS</p>
-          <Link to="/admin/users" style={{ textDecoration: "none" }}>
+            <Link to="/admin/products" style={{ textDecoration: "none" }}>
+              <li>
+                <StoreIcon className="icon" />
+                <span>Products</span>
+              </li>
+            </Link>
+            <Link to="/admin/orders" style={{ textDecoration: "none" }}>
+              <li>
+                <CreditCardIcon className="icon" />
+                <span>Orders</span>
+              </li>
+            </Link>
+            <Link to="/admin/doctors">
+              <li>
+                <MedicalInformationIcon className="icon" style={{ textDecoration: "none" }} />
+                <span>Doctors</span>
+              </li>
+            </Link>
+            <p className="title">USER</p>
             <li>
-              <PersonOutlineIcon className="icon" />
-              <span>Users</span>
+              <AccountCircleOutlinedIcon className="icon" />
+              <span>Profile</span>
             </li>
-          </Link>
-          <Link to="/admin/products" style={{ textDecoration: "none" }}>
             <li>
-              <StoreIcon className="icon" />
-              <span>Products</span>
+              <ExitToAppIcon className="icon" />
+              <span>Logout</span>
             </li>
-          </Link>
-          <Link to="/admin/orders" style={{ textDecoration: "none" }}>
+          </ul>
+        </div>
+        :
+        <div className="center">
+          <ul>
+            <p className="title">MAIN</p>
             <li>
-              <CreditCardIcon className="icon" />
-              <span>Orders</span>
+              <AccountCircleOutlinedIcon className="icon" />
+              <span>Profile</span>
             </li>
-          </Link>
-          <Link to="/admin/doctors">
+            <p className="title">LISTS</p>
+            <Link to="/admin/users" style={{ textDecoration: "none" }}>
+              <li>
+                <PersonOutlineIcon className="icon" />
+                <span>Remaining Appointments</span>
+              </li>
+            </Link>
+            <Link to="/admin/products" style={{ textDecoration: "none" }}>
+              <li>
+                <StoreIcon className="icon" />
+                <span>Completed Appointments</span>
+              </li>
+            </Link>
+            <p className="title">USER</p>
             <li>
-              <MedicalInformationIcon className="icon" style={{ textDecoration: "none" }} />
-              <span>Doctors</span>
+              <ExitToAppIcon className="icon" />
+              <span>Logout</span>
             </li>
-          </Link>
-          <p className="title">USER</p>
-          <li>
-            <AccountCircleOutlinedIcon className="icon" />
-            <span>Profile</span>
-          </li>
-          <li>
-            <ExitToAppIcon className="icon" />
-            <span>Logout</span>
-          </li>
-        </ul>
-      </div>
+          </ul>
+        </div>
+      }
     </div>
   );
 };
