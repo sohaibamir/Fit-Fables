@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 export const tabCards = [
   {
     title: "Medicine",
-    path: "/medicines",
+    path: "/Medicine",
     img: "/images/medicine.webp",
   },
   {
@@ -30,12 +30,12 @@ export const tabCards = [
   },
   {
     title: "Surgical",
-    path: "/surgical",
+    path: "/Surgical",
     img: "/images/surgical.webp",
   },
   {
-    title: "Vitamins",
-    path: "/vitamins",
+    title: "Fitness",
+    path: "/Fitness",
     img: "/images/vitamins.png",
   },
 ];

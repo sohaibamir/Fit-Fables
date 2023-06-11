@@ -66,7 +66,7 @@ function Popular({ products }) {
             key={product._id}
             width={productWidth}
             textAlign="center"
-            onClick={() => navigate(`/healthcare/product/${product._id}`)}
+            onClick={() => navigate(`/product/${product._id}`)}
             mb="4"
           >
             <Image

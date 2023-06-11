@@ -17,6 +17,7 @@ import Search from "./Search";
 import Delivery from "./Delivery";
 import Doctors from "../Admin/src/pages/doctors/Doctors";
 import Offers from "./Offers";
+import ProductsByCategory from "./ProductsByCategory";
 
 function AllRoutes() {
   return (
@@ -57,9 +58,10 @@ function AllRoutes() {
       />
 
       <Route path="/healthcare" element={<Healthcare />} />
-      <Route path="/Offers" element={<Offers />} />
+      <Route path="/offers" element={<Offers />} />
+      <Route path="/:cat" element={<ProductsByCategory />} />
       <Route path="/healthcare/products/:cat" element={<Products />} />
-      <Route path="/healthcare/product/:id" element={<SingleProduct />} />
+      <Route path="/product/:id" element={<SingleProduct />} />
       <Route path="/cart" element={<Cart />} />
       <Route path="/delivery" element={<Delivery />} />
       <Route path="/admin/orders" element={<Orders />} />
