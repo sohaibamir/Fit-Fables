@@ -120,6 +120,10 @@ export async function updateOrderById(id, status) {
   return axios.patch(`${process.env.REACT_APP_API}/admin/update-order/${id}`, { status });
 }
 
+export async function getProductsOfSingleOrder(id) {
+  return axios.get(`${process.env.REACT_APP_API}/admin/orders/getProducts/${id}`);
+}
+
 export async function createProduct(product) {
   return axios.post(`${process.env.REACT_APP_API}/products/create`, product);
 }

@@ -3,13 +3,16 @@ import Sidebar from "../../components/sidebar/Sidebar";
 import { Col, Row } from 'react-bootstrap'
 import DropDown from "../../components/dropdown/DropDown";
 import { useEffect, useState } from "react";
-import { getOrderById, updateOrderById } from "../../../../api/api";
+import { getOrderById, getProductsOfSingleOrder, updateOrderById } from "../../../../api/api";
 import { useNavigate, useParams } from "react-router-dom";
-import { useToast } from "@chakra-ui/react";
+import { Heading, useToast } from "@chakra-ui/react";
+import { Box, Image, Text } from "@chakra-ui/react";
+
 
 const ViewOrderDetails = ({ inputs, title }) => {
   const { orderId } = useParams();
   const [order, setOrder] = useState({});
+  const [products, setProducts] = useState([]);
   const [status, setStatus] = useState("");
 
   const toast = useToast();
@@ -21,6 +24,11 @@ const ViewOrderDetails = ({ inputs, title }) => {
       setOrder(res?.data?.data);
     })
       .catch((error) => console.log(error));
+
+    getProductsOfSingleOrder(orderId).then((res) => {
+      console.log('res', res);
+      setProducts(res?.data?.products);
+    })
   }, []);
 
   const { cartItems, ...remainingObj } = order;
@@ -76,6 +84,46 @@ const ViewOrderDetails = ({ inputs, title }) => {
                   </Col>
                 )
               })}
+
+              <Row style={{ margin: "10px 0px 20px" }}>
+                <Heading size="md" m="1rem 0rem" style={{ color: "#55585e" }}>Products Ordered</Heading>
+                {products?.map((product) => {
+                  return (
+                    <Col lg={2}>
+                      <Box
+                        _hover={{
+                          lg: {
+                            boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;",
+                            borderRadius: "10px",
+                          },
+                        }}
+                        cursor="pointer"
+                        key={product?._id}
+                        textAlign="center"
+                        mb="4"
+                      >
+                        <Image
+                          px="2.2rem"
+                          height="130px"
+                          src={product?.img1}
+                          alt={"Sorry! Image Not Available"}
+                        />
+                        <Text mb="0px" px="4px" mt="2" fontWeight="500">
+                          {product?.title?.length > 40
+                            ? product?.title.substr(0, 40) + "..."
+                            : product?.title.substr(0, 40)}
+                        </Text>
+
+                        <Text fontSize="18px" mb="0px" mt="1" fontWeight="500">
+                          Rs. {product?.actual_price}
+                        </Text>
+                      </Box>
+                    </Col>
+                  )
+                })}
+              </Row>
+
+
               <Col lg={12}>
                 <button style={{ width: "150px" }} onClick={handleSave}>Save</button>
               </Col>

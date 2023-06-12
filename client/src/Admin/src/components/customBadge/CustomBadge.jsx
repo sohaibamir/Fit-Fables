@@ -4,7 +4,7 @@ import Badge from 'react-bootstrap/Badge';
 const CustomBadge = ({ bgColor, badgeText }) => {
     return (
         <div>
-            <Badge bg={bgColor} style={{ width: "80px" }}>{badgeText}</Badge>
+            <Badge bg={bgColor} style={{ width: "75px" }}>{badgeText}</Badge>
         </div>
     )
 }

@@ -1,7 +1,7 @@
 const Cart = require("../models/cart");
 const { Order } = require("../models/order");
-// const Product = require("../models/product");
 const User = require("../models/user");
+const Product = require('../models/product');
 
 exports.createOrders = async (req, res) => {
   try {
@@ -193,21 +193,48 @@ exports.getSixMonthsRevenue = async (req, res) => {
 
     let totalOrders = await Order.countDocuments();
 
-    let totalUsers =await User.countDocuments()
+    let totalUsers = await User.countDocuments()
 
     const totalOrdersInDB = await Order.find();
     let totalOrdersAmount = totalOrdersInDB.reduce((acc, current) => { return acc + current.totalPrice }, 0)
 
 
     return res.status(201).
-    send({ dataForChart: dataForChart,
-       todaySales: todaySales ? todaySales : 0,
+      send({
+        dataForChart: dataForChart,
+        todaySales: todaySales ? todaySales : 0,
         weekSales: weekSales ? weekSales : 0,
         monthSales: monthSales ? monthSales : 0,
-      totalOrders,totalUsers,totalOrdersAmount: totalOrdersAmount ? totalOrdersAmount: 0});
+        totalOrders, totalUsers, totalOrdersAmount: totalOrdersAmount ? totalOrdersAmount : 0
+      });
 
   } catch (error) {
     console.log(error)
     return res.status(500).send({ message: error.message });
+  }
+};
+
+exports.getProductsOfSingleOrder = async (req, res) => {
+  try {
+    const { orderId } = req.params;
+    const order = await Order.findOne({ _id: orderId });
+
+    if (order) {
+      let arrLength = order?.cartItems?.length;
+      let productsArr = [];
+      order?.cartItems?.forEach(async (item) => {
+        const product = await Product.findOne({ _id: item?.productId });
+        productsArr.push(product);
+
+        if (arrLength == productsArr?.length) {
+          res.status(201).send({ products: productsArr });
+        }
+      });
+    }
+    else {
+      res.status(500).send({ message: "order id is incorrect" });
+    }
+  } catch (error) {
+    res.status(500).send(error);
   }
 };
