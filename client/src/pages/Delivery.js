@@ -24,10 +24,11 @@ function Delivery() {
   );
 
   const [deliveryAmount, setDeliveryAmount] = useState(0);
+  const [amountToPay, setAmountToPay] = useState(0);
 
   const handleChange = (e) => {
     setDeliveryAmount(e.target.value);
-    console.log(e.target.value);
+    setAmountToPay(totalAmount + parseInt(e.target.value));
   };
 
   const handlePayment = async () => {
