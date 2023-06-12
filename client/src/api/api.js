@@ -104,12 +104,14 @@ export async function deleteCartItem(id, userId) {
 export async function getSearchProducts(q) {
   return axios.get(`${process.env.REACT_APP_API}/products/search?q=${q}`);
 }
-export async function createOrder() {
-  return axios.get(`${process.env.REACT_APP_API}/orders/create`);
+export async function createOrder(userId, totalPrice) {
+  return axios.post(`${process.env.REACT_APP_API}/orders/create/${userId}`, {
+    totalPrice,
+  });
 }
 
-export async function getOrders() {
-  return axios.get(`${process.env.REACT_APP_API}/orders`);
+export async function getOrders(userId) {
+  return axios.get(`${process.env.REACT_APP_API}/orders/${userId}`);
 }
 
 export async function getOrderById(id) {
@@ -117,7 +119,9 @@ export async function getOrderById(id) {
 }
 
 export async function updateOrderById(id, status) {
-  return axios.patch(`${process.env.REACT_APP_API}/admin/update-order/${id}`, { status });
+  return axios.patch(`${process.env.REACT_APP_API}/admin/update-order/${id}`, {
+    status,
+  });
 }
 
 export async function getProductsOfSingleOrder(id) {

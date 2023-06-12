@@ -8,12 +8,18 @@ import { getLatestProducts, getMostSellingProducts } from "../../api/api";
 
 function HomeUser() {
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [mostSellingproducts, setmostSellingproducts] = useState([]);
 
   const latestProducts = () => {
     getLatestProducts()
-      .then((res) => setProducts(res.data))
-      .catch((err) => console.log(err));
+      .then((res) => {
+        setProducts(res.data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const sellingProducts = () => {
@@ -24,6 +30,7 @@ function HomeUser() {
 
   useEffect(() => {
     // window.scrollTo(0, 0);
+    setLoading(true);
     latestProducts();
     sellingProducts();
   }, []);
@@ -31,9 +38,14 @@ function HomeUser() {
     <Box bg="radial-gradient(150px 150px at 95% 0%, rgba(253, 186, 43, 0.3) 0%, rgba(253, 186, 43, 0) 100%), radial-gradient(150px 150px at 5% 0%, rgba(120, 213, 242, 0.3) 0%, rgba(253, 186, 43, 0) 100%)">
       <SearchBar />
       <TabCarousal />
-      <ShowProducts products={products} title="Latest Products" />
+      <ShowProducts
+        loading={loading}
+        products={products}
+        title="Latest Products"
+      />
 
       <ShowProducts
+        loading={loading}
         products={mostSellingproducts}
         title="Most Selling Products"
       />

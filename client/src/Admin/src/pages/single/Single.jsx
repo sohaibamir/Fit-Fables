@@ -1,13 +1,12 @@
 import "./single.scss";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Chart from "../../components/chart/Chart";
-import List from "../../components/table/Table";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getUserById, getcustomerOrders } from "../../../../api/api";
 import Datatable from "../../components/datatable/Datatable";
-import ManAvatar from '../../../avatars/man.png'
-import WomanAvatar from '../../../avatars/woman.png'
+import ManAvatar from "../../../avatars/man.png";
+import WomanAvatar from "../../../avatars/woman.png";
 
 const Single = () => {
   const params = useParams();
@@ -15,14 +14,14 @@ const Single = () => {
     address: "Elton St. 234 Garden Yd. NewYork",
     email: "",
     name: "iPhone",
-    phone: '-',
-    gender:'Female'
+    phone: "-",
+    gender: "female",
   });
-  const [orders, setOrders] = useState({tableHeader:[], tableBody:[]})
-  const [chartData, setchartData] = useState([])
+  const [orders, setOrders] = useState({ tableHeader: [], tableBody: [] });
+  const [chartData, setchartData] = useState([]);
 
   useEffect(() => {
-    let userId = params.userId
+    let userId = params.userId;
     getUserById(userId)
       .then((res) => {
         if (res.data.data) {
@@ -31,35 +30,35 @@ const Single = () => {
             email: res.data.data.email,
             name: res.data.data.name,
             phone: res.data.data.phone,
-            gender: res.data.data.gender ? res.data.data.gender : 'Female' 
-          })
+            gender: res.data.data.gender ? res.data.data.gender : "female",
+          });
         }
       })
-      .catch((err) => console.log(err))
+      .catch((err) => console.log(err));
 
     getcustomerOrders(userId)
       .then((response) => {
         let fetchData = response.data.data;
         if (fetchData.length > 0) {
-          let tableHeader = ['Order ID', 'Quantity', 'Status', 'Total']
-          let tableBody = []
+          let tableHeader = ["Order ID", "Quantity", "Status", "Total"];
+          let tableBody = [];
           fetchData.map((order) => {
             tableBody.push({
               orderId: order._id,
               quantity: order.cartItems ? order.cartItems.length : 0,
-              status: order.status ? order.status : 'Pending',
-              total: 500
-            })
-          })
+              status: order.status ? order.status : "Pending",
+              total: 500,
+            });
+          });
           setOrders({
-            tableHeader, tableBody
-          })
+            tableHeader,
+            tableBody,
+          });
         }
-        setchartData(response.data.dataForChart)
+        setchartData(response.data.dataForChart);
       })
-      .catch((err) => console.log(err))
-  }, [params])
-
+      .catch((err) => console.log(err));
+  }, [params]);
 
   return (
     <div className="single">
@@ -73,7 +72,7 @@ const Single = () => {
             <div className="item">
               <img
                 // src="https://images.pexels.com/photos/733872/pexels-photo-733872.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260"
-                src={info.gender == 'Female' ? WomanAvatar : ManAvatar }
+                src={info.gender === "female" ? WomanAvatar : ManAvatar}
                 // src={ManAvatar}
                 alt=""
                 className="itemImg"
@@ -86,13 +85,13 @@ const Single = () => {
                 </div>
                 <div className="detailItem">
                   <span className="itemKey">Phone:</span>
-                  <span className="itemValue">{info.phone ? info.phone : '-'}</span>
+                  <span className="itemValue">
+                    {info.phone ? info.phone : "-"}
+                  </span>
                 </div>
                 <div className="detailItem">
                   <span className="itemKey">Address:</span>
-                  <span className="itemValue">
-                    {info.address}
-                  </span>
+                  <span className="itemValue">{info.address}</span>
                 </div>
                 {/* <div className="detailItem">
                   <span className="itemKey">Country:</span>
@@ -102,7 +101,11 @@ const Single = () => {
             </div>
           </div>
           <div className="right">
-            <Chart aspect={3 / 1} title={`${info.name}'s Spending ( Last 6 Months)`} data={chartData} />
+            <Chart
+              aspect={3 / 1}
+              title={`${info.name}'s Spending ( Last 6 Months)`}
+              data={chartData}
+            />
           </div>
         </div>
         <div className="bottom">

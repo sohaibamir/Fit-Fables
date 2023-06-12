@@ -1,6 +1,7 @@
+import axios from "axios";
+import React, { useState } from "react";
 import {
   Box,
-  Button,
   Flex,
   Heading,
   Image,
@@ -15,17 +16,21 @@ import {
   Hide,
   useToast,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
 import { AiFillRightCircle } from "react-icons/ai";
-import { useSelector } from "react-redux";
-import StripeCheckout from 'react-stripe-checkout';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { useDispatch, useSelector } from "react-redux";
+import StripeCheckout from "react-stripe-checkout";
+import { useNavigate } from "react-router-dom";
+import { createOrder, isAuthenticated } from "../api/api";
+import { clearCart } from "../redux/Cart/action";
 
 function Delivery() {
   const { totalAmount, totalOriginalAmount } = useSelector(
     (state) => state.cart
   );
+
+  const dispatch = useDispatch();
+
+  const userId = isAuthenticated()._id;
 
   const toast = useToast();
 
@@ -34,7 +39,7 @@ function Delivery() {
   const [deliveryAmount, setDeliveryAmount] = useState(0);
   const [amountToPay, setAmountToPay] = useState(0);
 
-  const [dollarPrice, setDollarPrice] = useState(280);
+  const dollarPrice = 286;
 
   const handleChange = (e) => {
     setDeliveryAmount(e.target.value);
@@ -45,22 +50,27 @@ function Delivery() {
   const handlePayment = async (token) => {
     try {
       const response = await axios({
-        url: 'http://localhost:8000/api/payment',
-        method: 'POST',
+        url: "http://localhost:8000/api/payment",
+        method: "POST",
         data: {
           amount: amountToPay,
           token,
         },
       });
       if (response.status === 200) {
-        toast({
-          title: "Payment Was Successful!",
-          status: "success",
-          duration: 3500,
-          isClosable: true,
-          position: "top"
-        });
-        navigate("/");
+        createOrder(userId, amountToPay)
+          .then((res) => dispatch(clearCart()))
+          .catch((err) => console.log(err))
+          .finally((res) => {
+            toast({
+              title: "Order Placed Successfully",
+              status: "success",
+              duration: 3000,
+              isClosable: true,
+              position: "top",
+            });
+            navigate("/");
+          });
       }
     } catch (error) {
       toast({
@@ -68,7 +78,7 @@ function Delivery() {
         status: "error",
         duration: 3500,
         isClosable: true,
-        position: "top"
+        position: "top",
       });
       console.log(error);
     }
@@ -174,10 +184,16 @@ function Delivery() {
         w={{ base: "90%", sm: "90%", md: "90%", lg: "90%", xl: "30%" }}
         mt={{ base: "20px", sm: "20px", md: "20px", lg: "20px", xl: "1px" }}
       >
-
         <StripeCheckout
-          stripeKey={"pk_test_51NHrzDESxeXqLxczuBm1MLWgFZZKFQj5zaH2HwXDmfluNP3mrR8gdh2z8l6ZVInWVoma6Gu4yP9nchi8JTWrNQan006l7Bdd1T"}
-          label="Proceed To Pay"
+          stripeKey={
+            "pk_test_51NHrzDESxeXqLxczuBm1MLWgFZZKFQj5zaH2HwXDmfluNP3mrR8gdh2z8l6ZVInWVoma6Gu4yP9nchi8JTWrNQan006l7Bdd1T"
+          }
+          label={
+            <span>
+              Proceed to Pay{" "}
+              <AiFillRightCircle style={{ marginLeft: "10px" }} />
+            </span>
+          }
           name="Pay With Credit Card"
           billingAddress
           shippingAddress
@@ -185,6 +201,7 @@ function Delivery() {
           description={`Your total is Rs. ${amountToPay}`}
           token={handlePayment}
           className="stripe-pay-btn"
+          disabled={!deliveryAmount}
         />
         <Hide below="lg">
           <Box>
