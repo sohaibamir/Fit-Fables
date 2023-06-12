@@ -168,11 +168,4 @@ export const doctorInputs = [
     placeholder: "Monday - Friday",
     name: 'days'
   },
-  {
-    id: 7,
-    label: "Salary",
-    type: "text",
-    placeholder: "200,000 PKR",
-    name: 'salary'
-  },
 ];

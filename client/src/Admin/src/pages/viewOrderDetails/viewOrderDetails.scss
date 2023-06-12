@@ -51,6 +51,21 @@
           outline: none;
           border-bottom: 1px solid gray;
         }
+
+        .price-and-quantity-div {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 0px 10px;
+          margin: 5px 0px;
+        }
+
+        .price-and-quantity-div span {
+          border: 1px solid #ccc;
+          border-radius: 6px;
+          padding: 3px 10.5px;
+          text-align: center;
+        }
       }
 
       button {

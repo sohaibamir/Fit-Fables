@@ -103,7 +103,7 @@ const ViewOrderDetails = ({ inputs, title }) => {
                 );
               })}
 
-              <Row style={{ margin: "10px 0px 20px" }}>
+              <Row style={{ margin: "10px 0px 15px" }}>
                 <Heading size="md" m="1rem 0rem" style={{ color: "#55585e" }}>
                   Products Ordered
                 </Heading>
@@ -122,6 +122,7 @@ const ViewOrderDetails = ({ inputs, title }) => {
                         key={product?._id}
                         textAlign="center"
                         mb="4"
+                        pb="4px"
                       >
                         <Image
                           px="2.2rem"
@@ -135,9 +136,12 @@ const ViewOrderDetails = ({ inputs, title }) => {
                             : product?.title.substr(0, 35)}
                         </Text>
 
-                        <Text fontSize="18px" mb="0px" mt="1" fontWeight="500">
-                          Rs. {product?.actual_price}
-                        </Text>
+                        <div className="price-and-quantity-div">
+                          <Text fontSize="18px" mb="0px" mt="1" fontWeight="500">
+                            Rs. {product?.actual_price}
+                          </Text>
+                          <span>{product?.quantity}</span>
+                        </div>
                       </Box>
                     </Col>
                   );

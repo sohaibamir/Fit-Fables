@@ -282,10 +282,12 @@ exports.getProductsOfSingleOrder = async (req, res) => {
 
     if (order) {
       let arrLength = order?.cartItems?.length;
-      let productsArr = [];
+      let productsArr = [], intialProduct = {}, finalProduct = {};
       order?.cartItems?.forEach(async (item) => {
-        const product = await Product.findOne({ _id: item?.productId });
-        productsArr.push(product);
+        const actualProduct = await Product.findOne({ _id: item?.productId });
+        intialProduct = { ...actualProduct, quantity: item?.quantity };
+        finalProduct = { ...intialProduct?._doc, quantity: intialProduct?.quantity };
+        productsArr.push(finalProduct);
 
         if (arrLength == productsArr?.length) {
           res.status(201).send({ products: productsArr });
