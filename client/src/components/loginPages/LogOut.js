@@ -39,17 +39,20 @@ export function LogOut() {
 
   return (
     <>
-      <Button
-        color="black"
-        bg={"transparent"}
-        _hover={{ backgroundColor: "transparent", color: "teal" }}
-        p="4px"
-        onClick={onOpen}
-        display="flex"
-        mt="14px"
-      >
-        {username}
-      </Button>
+      {isAuthenticated().role !== "admin" && (
+        <Button
+          color="black"
+          bg={"transparent"}
+          _hover={{ backgroundColor: "transparent", color: "teal" }}
+          p="4px"
+          onClick={onOpen}
+          display="flex"
+          mt="14px"
+        >
+          {username}
+        </Button>
+      )}
+
       <AlertDialog
         motionPreset="slideInBottom"
         leastDestructiveRef={cancelRef}

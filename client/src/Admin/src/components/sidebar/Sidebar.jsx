@@ -9,13 +9,27 @@ import StoreIcon from "@mui/icons-material/Store";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
+import { useToast } from "@chakra-ui/react";
+
+import { useDispatch } from "react-redux";
+import { logoutUser } from "../../../../redux/user/action";
 
 const Sidebar = ({ isDoctorPanel }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const toast = useToast();
+
+  const clearSession = () => {
+    localStorage.clear();
+    dispatch(logoutUser());
+  };
+
   return (
     <div className="sidebar">
       <hr />
-      {!isDoctorPanel ?
+      {!isDoctorPanel ? (
         <div className="center">
           <ul>
             <p className="title">MAIN</p>
@@ -46,7 +60,10 @@ const Sidebar = ({ isDoctorPanel }) => {
             </Link>
             <Link to="/admin/doctors">
               <li>
-                <MedicalInformationIcon className="icon" style={{ textDecoration: "none" }} />
+                <MedicalInformationIcon
+                  className="icon"
+                  style={{ textDecoration: "none" }}
+                />
                 <span>Doctors</span>
               </li>
             </Link>
@@ -57,11 +74,25 @@ const Sidebar = ({ isDoctorPanel }) => {
             </li>
             <li>
               <ExitToAppIcon className="icon" />
-              <span>Logout</span>
+              <span
+                onClick={() => {
+                  clearSession();
+                  toast({
+                    title: "Logged out Successfully",
+                    status: "success",
+                    duration: 3000,
+                    isClosable: true,
+                    position: "top",
+                  });
+                  navigate("/");
+                }}
+              >
+                Logout
+              </span>
             </li>
           </ul>
         </div>
-        :
+      ) : (
         <div className="center">
           <ul>
             <p className="title">MAIN</p>
@@ -89,7 +120,7 @@ const Sidebar = ({ isDoctorPanel }) => {
             </li>
           </ul>
         </div>
-      }
+      )}
     </div>
   );
 };

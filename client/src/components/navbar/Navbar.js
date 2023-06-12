@@ -116,7 +116,7 @@ function Navbar() {
   }, []);
   return (
     <Box position={"relative"}>
-      {scrollPosition > 200 && <Tabs />}
+      {scrollPosition > 200 && role !== "admin" && <Tabs />}
       <Box
         p="12px 40px 10px 40px"
         position="fixed"
@@ -166,13 +166,13 @@ function Navbar() {
               </Flex>
             </Box>
           )}
-          {role === "user" && windowWidth > 1024 && (
+          {role !== "admin" && windowWidth > 1024 && (
             <Center pl="30px" pr="30px">
               <Divider orientation="vertical" />
             </Center>
           )}
 
-          {role === "user" && windowWidth > 1024 && (
+          {role !== "admin" && windowWidth > 1024 && (
             <Box>
               <Box
                 display="flex"
@@ -199,8 +199,8 @@ function Navbar() {
         </Flex>
 
         <Flex align="center" justifyContent="end" gap="20px">
-          {scrollPosition > 100 && <NavSearch />}
-          {windowWidth > 1024 && (
+          {scrollPosition > 100 && role !== "admin" && <NavSearch />}
+          {windowWidth > 1024 && role !== "admin" && (
             <Link className="hover_green">
               <Box display="flex" fontSize="14px">
                 <Box display="flex" alignItems="center" mr="10px">
@@ -214,7 +214,7 @@ function Navbar() {
               </Box>
             </Link>
           )}
-          {token && (
+          {role !== "admin" && token && (
             <Link className="hover_green" to={"/orders"}>
               <Box display="flex" fontSize="14px">
                 <Box display="flex" alignItems="center" mr="5px">
@@ -233,7 +233,7 @@ function Navbar() {
               </Box>
             </Link>
           )}
-          {token && (
+          {role !== "admin" && token && (
             <Link className="hover_green" to={"/cart"}>
               <Box display="flex" fontSize="14px" pos={"relative"}>
                 {

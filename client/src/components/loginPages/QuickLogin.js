@@ -21,7 +21,7 @@ import {
 import { useState, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { loginAPI } from "../../allApi";
-import { getUserCart } from "../../api/api";
+import { getUserCart, isAuthenticated } from "../../api/api";
 import { getSuccess } from "../../redux/auth/action";
 import { setCart } from "../../redux/Cart/action";
 import { LogOut } from "./LogOut";
@@ -36,6 +36,7 @@ const initState = {
 export function LoginIndividualSlider() {
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
+  const role = isAuthenticated().role;
 
   const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -81,16 +82,19 @@ export function LoginIndividualSlider() {
           localStorage.setItem("token", jsonresponse.token);
           console.log(jsonresponse);
           toast({
-            title: "User Logged in Successfully",
+            title: "Logged in Successfully",
             status: "success",
             duration: 3000,
             isClosable: true,
             position: "top",
           });
-          onClose();
-          if (localStorage.getItem("jwt").role === "admin") {
+          const jwt = JSON.parse(localStorage.getItem("jwt"));
+          if (jwt.role === "admin") {
             navigate("/admin");
+          } else if (jwt.role === "doctor") {
+            navigate("/doctor");
           }
+          onClose();
         } else {
           console.log(
             "error message",

@@ -1,5 +1,4 @@
 import React from "react";
-import Login from "../Admin/src/pages/login/Login";
 import List from "../Admin/src/pages/list/List";
 import ProductList from "../Admin/src/pages/list/ProductList";
 import Single from "../Admin/src/pages/single/Single";
@@ -27,6 +26,7 @@ import NewOrEditDoctor from "../Admin/src/pages/newOrEditDoctor/NewOrEditDoctor"
 import ViewOrderDetails from "../Admin/src/pages/viewOrderDetails/ViewOrderDetails";
 import ProductsByCategory from "./ProductsByCategory";
 import AdminRoute from "../auth/AdminRoute";
+import Consultation from "./Consultation";
 
 function AllRoutes() {
   return (
@@ -41,8 +41,6 @@ function AllRoutes() {
           </AdminRoute>
         }
       />
-
-      <Route exact path="/admin/login" element={<Login />} />
 
       <Route
         path="/admin/users"
@@ -152,6 +150,7 @@ function AllRoutes() {
       <Route path="/product/:id" element={<SingleProduct />} />
       <Route path="/cart" element={<Cart />} />
       <Route path="/delivery" element={<Delivery />} />
+      <Route path="/consultation" element={<Consultation />} />
       <Route path="/orders" element={<MyOrders />} />
       <Route path="/search/:name" element={<Search />} />
     </Routes>
