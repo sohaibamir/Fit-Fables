@@ -125,7 +125,9 @@ export async function updateOrderById(id, status) {
 }
 
 export async function getProductsOfSingleOrder(id) {
-  return axios.get(`${process.env.REACT_APP_API}/admin/orders/getProducts/${id}`);
+  return axios.get(
+    `${process.env.REACT_APP_API}/admin/orders/getProducts/${id}`
+  );
 }
 
 export async function createProduct(product) {
@@ -148,9 +150,9 @@ export async function getUserById(id) {
   return axios.get(`${process.env.REACT_APP_API}/admin/getuser/${id}`);
 }
 
-// export async function createDoctor() {
-//   return axios.post(`${process.env.REACT_APP_API}/doctor/create`, {doctor});
-// }
+export async function createDoctor(doctor) {
+  return axios.post(`${process.env.REACT_APP_API}/doctor/create`, { doctor });
+}
 
 export async function getDoctorById(id) {
   return axios.get(`${process.env.REACT_APP_API}/admin/doctors/${id}`);
