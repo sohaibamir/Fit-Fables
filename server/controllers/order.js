@@ -5,16 +5,23 @@ const User = require("../models/user");
 
 exports.createOrders = async (req, res) => {
   try {
-    const { user } = req;
+    const user = req.profile;
+    const { totalPrice } = req.body;
     const cart = await Cart.findOne({ userId: user._id });
-    const newCart = {
-      userId: cart.userId,
-      cartItems: cart.cartItems,
+
+    const newOrder = {
+      userId: user._id,
+      cartItems: cart.cartItems.map((item) => ({
+        productId: item.productId,
+        quantity: item.quantity,
+      })),
+      totalPrice,
     };
-    const order = await Order.create(newCart);
+
+    const order = await Order.create(newOrder);
     const deleteCart = await Cart.findByIdAndDelete(cart._id);
 
-    return res.status(201).send({ message: cart });
+    return res.status(201).send({ message: order });
   } catch (error) {
     return res.status(500).send({ message: error.message });
   }
@@ -22,9 +29,9 @@ exports.createOrders = async (req, res) => {
 
 exports.getOrders = async (req, res) => {
   try {
-    const { user } = req;
+    const user = req.profile;
 
-    const orders = await Order.find({ userId: user?._id }).populate({
+    const orders = await Order.find({ userId: user._id }).populate({
       path: "cartItems",
       populate: { path: "productId" },
     });
@@ -39,7 +46,7 @@ exports.getAllOrders = async (req, res) => {
     const orders = await Order.find();
     return res.status(201).send({ data: orders });
   } catch (error) {
-    console.log(error)
+    console.log(error);
     return res.status(500).send({ message: error.message });
   }
 };
@@ -57,7 +64,11 @@ exports.getOrderById = async (req, res) => {
 exports.updateOrderById = async (req, res) => {
   try {
     const { orderId } = req.params;
-    const order = await Order.findByIdAndUpdate({ _id: orderId }, { $set: { status: req.body.status } }, { new: true });
+    const order = await Order.findByIdAndUpdate(
+      { _id: orderId },
+      { $set: { status: req.body.status } },
+      { new: true }
+    );
     res.status(201).send({ data: order });
   } catch (error) {
     res.status(500).send(error);
@@ -70,9 +81,12 @@ exports.getAllCustomerOrders = async (req, res) => {
     var currentDate = new Date();
 
     // Set the date to the last day of the current month
-    var endOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
-    endOfMonth.setHours(24, 59, 59, 999)
-
+    var endOfMonth = new Date(
+      currentDate.getFullYear(),
+      currentDate.getMonth() + 1,
+      0
+    );
+    endOfMonth.setHours(24, 59, 59, 999);
 
     // Set the date to six months earlier
     var sixMonthsAgo = new Date();
@@ -80,10 +94,26 @@ exports.getAllCustomerOrders = async (req, res) => {
     sixMonthsAgo.setDate(1); // Set the day to 1
     // sixMonthsAgo.setHours(0, 0, 0, 0)
 
-    const customerOrders = await Order.find({ 'userId': customerID, 'createdAt': { '$gte': new Date(sixMonthsAgo), '$lte': new Date(currentDate) } }).sort({ 'createdAt': 1 });
+    const customerOrders = await Order.find({
+      userId: customerID,
+      createdAt: { $gte: new Date(sixMonthsAgo), $lte: new Date(currentDate) },
+    }).sort({ createdAt: 1 });
 
-    let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-    let dataForChart = []
+    let months = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+    let dataForChart = [];
 
     if (customerOrders.length > 0) {
       customerOrders.map((order) => {
@@ -96,20 +126,20 @@ exports.getAllCustomerOrders = async (req, res) => {
           if (ind == -1) {
             dataForChart.push({ name: month, Total: Total });
           } else {
-            dataForChart[ind] =
-            {
+            dataForChart[ind] = {
               name: dataForChart[ind].name,
-              Total: (dataForChart[ind].Total + Total)
-            }
+              Total: dataForChart[ind].Total + Total,
+            };
           }
         }
-      })
+      });
     }
 
-    return res.status(201).send({ data: customerOrders, dataForChart: dataForChart });
-
+    return res
+      .status(201)
+      .send({ data: customerOrders, dataForChart: dataForChart });
   } catch (error) {
-    console.log(error)
+    console.log(error);
     return res.status(500).send({ message: error.message });
   }
 };
@@ -120,9 +150,12 @@ exports.getSixMonthsRevenue = async (req, res) => {
     var currentDate = new Date();
 
     // Set the date to the last day of the current month
-    var endOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
-    endOfMonth.setHours(24, 59, 59, 999)
-
+    var endOfMonth = new Date(
+      currentDate.getFullYear(),
+      currentDate.getMonth() + 1,
+      0
+    );
+    endOfMonth.setHours(24, 59, 59, 999);
 
     // Set the date to six months earlier
     var sixMonthsAgo = new Date();
@@ -130,10 +163,25 @@ exports.getSixMonthsRevenue = async (req, res) => {
     sixMonthsAgo.setDate(1); // Set the day to 1
     // sixMonthsAgo.setHours(0, 0, 0, 0)
 
-    const customerOrders = await Order.find({ 'createdAt': { '$gte': new Date(sixMonthsAgo), '$lte': new Date(currentDate) } }).sort({ 'createdAt': 1 });
+    const customerOrders = await Order.find({
+      createdAt: { $gte: new Date(sixMonthsAgo), $lte: new Date(currentDate) },
+    }).sort({ createdAt: 1 });
 
-    let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-    let dataForChart = []
+    let months = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+    let dataForChart = [];
 
     if (customerOrders.length > 0) {
       customerOrders.map((order) => {
@@ -146,68 +194,85 @@ exports.getSixMonthsRevenue = async (req, res) => {
           if (ind == -1) {
             dataForChart.push({ name: month, Total: Total });
           } else {
-            dataForChart[ind] =
-            {
+            dataForChart[ind] = {
               name: dataForChart[ind].name,
-              Total: (dataForChart[ind].Total + Total)
-            }
+              Total: dataForChart[ind].Total + Total,
+            };
           }
         }
-      })
+      });
     }
 
     // get todays sale
     let todayDateStart = new Date(Date.now());
-    todayDateStart.setHours(0, 0, 0, 0)
+    todayDateStart.setHours(0, 0, 0, 0);
 
     let todayDateEnd = new Date(Date.now());
-    todayDateEnd.setHours(24, 59, 59, 999)
+    todayDateEnd.setHours(24, 59, 59, 999);
 
-    const todayOrders = await Order.find({ 'createdAt': { '$gte': new Date(todayDateStart), '$lte': new Date(todayDateEnd) } }).sort({ 'createdAt': 1 });
+    const todayOrders = await Order.find({
+      createdAt: {
+        $gte: new Date(todayDateStart),
+        $lte: new Date(todayDateEnd),
+      },
+    }).sort({ createdAt: 1 });
 
-    let todaySales = todayOrders.reduce((acc, current) => { return acc + current.totalPrice }, 0)
+    let todaySales = todayOrders.reduce((acc, current) => {
+      return acc + current.totalPrice;
+    }, 0);
 
     // get this week sale
     let weekStart = new Date(Date.now());
-    weekStart.setDate(weekStart.getDate() - 7)
-    weekStart.setHours(0, 0, 0, 0)
+    weekStart.setDate(weekStart.getDate() - 7);
+    weekStart.setHours(0, 0, 0, 0);
 
     let weekEnd = new Date(Date.now());
-    weekEnd.setHours(24, 59, 59, 999)
+    weekEnd.setHours(24, 59, 59, 999);
 
-    const weekOrders = await Order.find({ 'createdAt': { '$gte': new Date(weekStart), '$lte': new Date(weekEnd) } }).sort({ 'createdAt': 1 });
+    const weekOrders = await Order.find({
+      createdAt: { $gte: new Date(weekStart), $lte: new Date(weekEnd) },
+    }).sort({ createdAt: 1 });
 
-    let weekSales = weekOrders.reduce((acc, current) => { return acc + current.totalPrice }, 0)
+    let weekSales = weekOrders.reduce((acc, current) => {
+      return acc + current.totalPrice;
+    }, 0);
 
     // get this month sale
     let monthStart = new Date(Date.now());
-    monthStart.setDate(monthStart.getDate() - 30)
-    monthStart.setHours(0, 0, 0, 0)
+    monthStart.setDate(monthStart.getDate() - 30);
+    monthStart.setHours(0, 0, 0, 0);
 
     let monthEnd = new Date(Date.now());
-    monthEnd.setHours(24, 59, 59, 999)
+    monthEnd.setHours(24, 59, 59, 999);
 
-    const monthOrders = await Order.find({ 'createdAt': { '$gte': new Date(monthStart), '$lte': new Date(monthEnd) } }).sort({ 'createdAt': 1 });
+    const monthOrders = await Order.find({
+      createdAt: { $gte: new Date(monthStart), $lte: new Date(monthEnd) },
+    }).sort({ createdAt: 1 });
 
-    let monthSales = monthOrders.reduce((acc, current) => { return acc + current.totalPrice }, 0)
+    let monthSales = monthOrders.reduce((acc, current) => {
+      return acc + current.totalPrice;
+    }, 0);
 
     let totalOrders = await Order.countDocuments();
 
-    let totalUsers =await User.countDocuments()
+    let totalUsers = await User.countDocuments();
 
     const totalOrdersInDB = await Order.find();
-    let totalOrdersAmount = totalOrdersInDB.reduce((acc, current) => { return acc + current.totalPrice }, 0)
+    let totalOrdersAmount = totalOrdersInDB.reduce((acc, current) => {
+      return acc + current.totalPrice;
+    }, 0);
 
-
-    return res.status(201).
-    send({ dataForChart: dataForChart,
-       todaySales: todaySales ? todaySales : 0,
-        weekSales: weekSales ? weekSales : 0,
-        monthSales: monthSales ? monthSales : 0,
-      totalOrders,totalUsers,totalOrdersAmount: totalOrdersAmount ? totalOrdersAmount: 0});
-
+    return res.status(201).send({
+      dataForChart: dataForChart,
+      todaySales: todaySales ? todaySales : 0,
+      weekSales: weekSales ? weekSales : 0,
+      monthSales: monthSales ? monthSales : 0,
+      totalOrders,
+      totalUsers,
+      totalOrdersAmount: totalOrdersAmount ? totalOrdersAmount : 0,
+    });
   } catch (error) {
-    console.log(error)
+    console.log(error);
     return res.status(500).send({ message: error.message });
   }
 };
