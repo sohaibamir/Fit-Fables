@@ -31,11 +31,13 @@ import Tabs from "./Tabs";
 import { LoginIndividualSlider } from "../loginPages/QuickLogin";
 import { useDispatch, useSelector } from "react-redux";
 import { getCartTotal } from "../../redux/Cart/action";
+import { isAuthenticated } from "../../api/api";
 
 function Navbar() {
   const token = localStorage.getItem("token") || false;
   const dispatch = useDispatch();
   const { cartItems, totalCount } = useSelector((state) => state.cart);
+  const role = isAuthenticated().role;
 
   useEffect(() => {
     dispatch(getCartTotal());
@@ -155,20 +157,22 @@ function Navbar() {
               <Flex h="100%" w="100%" justify="start" align="end" mt="27px">
                 <Image
                   _hover={{ cursor: "pointer" }}
-                  onClick={() => navigate("/")}
+                  onClick={() =>
+                    role === "user" ? navigate("/") : navigate(`/${role}`)
+                  }
                   h="100px"
                   src="/images/512x512.png"
                 />
               </Flex>
             </Box>
           )}
-          {windowWidth > 1024 && (
+          {role === "user" && windowWidth > 1024 && (
             <Center pl="30px" pr="30px">
               <Divider orientation="vertical" />
             </Center>
           )}
 
-          {windowWidth > 1024 && (
+          {role === "user" && windowWidth > 1024 && (
             <Box>
               <Box
                 display="flex"
