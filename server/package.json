@@ -13,7 +13,8 @@
     "mongodb": "^2.2.12",
     "mongoose": "^7.1.0",
     "morgan": "^1.10.0",
-    "nodemon": "^2.0.22"
+    "nodemon": "^2.0.22",
+    "stripe": "^12.9.0"
   },
   "name": "server",
   "version": "1.0.0",

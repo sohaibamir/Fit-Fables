@@ -26,9 +26,9 @@ const ViewOrderDetails = ({ inputs, title }) => {
   const { cartItems, ...remainingObj } = order;
 
   const options = [
-    { value: "pending", label: "pending" },
-    { value: "in-process", label: "in-process" },
-    { value: "delivered", label: "delivered" },
+    { value: "Pending", label: "Pending" },
+    { value: "In-process", label: "In-process" },
+    { value: "Delivered", label: "Delivered" },
   ];
 
   const handleSave = () => {

@@ -14,14 +14,15 @@ import {
 } from "../Admin/src/formSource";
 import Healthcare from "./Healthcare";
 import Products from "./Products";
+import MyOrders from "./MyOrders";
 import SingleProduct from "./SingleProduct";
-import Orders from "../Admin/src/pages/orders/Orders";
 import Cart from "./Cart";
 import Search from "./Search";
 import Delivery from "./Delivery";
-import Doctors from "../Admin/src/pages/doctors/Doctors";
-import Offers from "./Offers";
 import HealthBlogs from "./HealthBlogs";
+import Offers from "./Offers";
+import Orders from "../Admin/src/pages/orders/Orders";
+import Doctors from "../Admin/src/pages/doctors/Doctors";
 import NewOrEditDoctor from "../Admin/src/pages/newOrEditDoctor/NewOrEditDoctor";
 import ViewOrderDetails from "../Admin/src/pages/viewOrderDetails/ViewOrderDetails";
 import ProductsByCategory from "./ProductsByCategory";
@@ -151,6 +152,7 @@ function AllRoutes() {
       <Route path="/product/:id" element={<SingleProduct />} />
       <Route path="/cart" element={<Cart />} />
       <Route path="/delivery" element={<Delivery />} />
+      <Route path="/orders" element={<MyOrders />} />
       <Route path="/search/:name" element={<Search />} />
     </Routes>
   );
