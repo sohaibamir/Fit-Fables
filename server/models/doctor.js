@@ -2,11 +2,7 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const doctorSchema = new Schema({
-    name: {
-        type: String,
-        required: true
-    },
-    designation: {
+    doctorName: {
         type: String,
         required: true
     },
@@ -14,6 +10,14 @@ const doctorSchema = new Schema({
         type: String,
         required: true,
         unique: true
+    },
+    password: {
+        type: String,
+        required: true,
+    },
+    designation: {
+        type: String,
+        required: true
     },
     timings: {
         type: String,
@@ -24,11 +28,6 @@ const doctorSchema = new Schema({
         type: String,
         required: true,
         default: "Monday - Friday"
-    },
-    salary: {
-        type: String,
-        required: true,
-        default: "150,000 PKR"
     },
     appointments: {
         type: Array,

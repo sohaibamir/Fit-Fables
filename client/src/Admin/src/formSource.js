@@ -142,27 +142,34 @@ export const doctorInputs = [
   },
   {
     id: 3,
-    label: "Designation",
-    type: "text",
-    placeholder: "Surgeon",
-    name: 'designation'
-  },
-  {
-    id: 4,
     label: "Email Address",
     type: "email",
     placeholder: "hussain@gmail.com",
     name: 'email'
   },
   {
+    id: 4,
+    label: "Password",
+    type: "password",
+    placeholder: "sohaib123",
+    name: 'password'
+  },
+  {
     id: 5,
+    label: "Designation",
+    type: "text",
+    placeholder: "Surgeon",
+    name: 'designation'
+  },
+  {
+    id: 6,
     label: "Timings",
     type: "text",
     placeholder: "1:00 P.M. - 5:00 P.M.",
     name: 'timings'
   },
   {
-    id: 6,
+    id: 7,
     label: "Days",
     type: "text",
     placeholder: "Monday - Friday",

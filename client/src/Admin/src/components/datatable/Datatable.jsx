@@ -63,7 +63,7 @@ const Datatable = ({ tableTitle, tableData }) => {
 
         {data?.length > 0 && (
           <tbody>
-            {data?.map(({ _id, img1, days, salary, ...eachRecord }) => {
+            {data?.map(({ _id, img1, password, days, __v, ...eachRecord }) => {
               return (
                 <tr
                   style={{
@@ -86,6 +86,7 @@ const Datatable = ({ tableTitle, tableData }) => {
                       />
                     </td>
                   )}
+                  {console.log('each record', eachRecord)}
                   {Object.values(eachRecord)?.map((value) => {
                     return (
                       <td>{(value == "Pending" || value == "In-process" || value == "Delivered") ? <CustomBadge bgColor={value == "Pending" ? "danger" : value == "In-process" ? "primary" : "success"} badgeText={value} /> : value}</td>
