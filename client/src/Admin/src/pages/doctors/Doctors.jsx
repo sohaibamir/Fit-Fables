@@ -10,6 +10,8 @@ const Doctors = () => {
         tableBody: []
     });
 
+    const [isDataUpdated, setIsDataUpdated] = useState(false);
+
     useEffect(() => {
         getAllDoctorsAdmin().then((res) => {
             console.log(res);
@@ -39,13 +41,13 @@ const Doctors = () => {
 
             setDoctors({ tableHeader, tableBody });
         }).catch((error) => console.log(error));
-    }, []);
+    }, [isDataUpdated]);
 
     return (
         <div className="doctors">
             <Sidebar />
             <div className="doctorsContainer">
-                <Datatable tableTitle="Doctors" tableData={doctors} />
+                <Datatable tableTitle="Doctors" tableData={doctors} setIsDataUpdated={setIsDataUpdated} />
             </div>
         </div>
     )

@@ -304,7 +304,8 @@ exports.updateProduct = async (req, res) => {
 
 exports.deleteProduct = async (req, res) => {
   try {
-    await Product.findByIdAndDelete(req.params.id);
+    const { productId } = req.params;
+    await Product.findByIdAndDelete({ _id: productId });
     return res.status(201).send({ message: "success" });
   } catch (error) {
     return res.status(500).send({ message: error.message });
