@@ -5,7 +5,7 @@ import Table from "react-bootstrap/Table";
 import { PaginationControl } from "react-bootstrap-pagination-control";
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import { AiFillEye } from "react-icons/ai";
-import CustomBadge from "../customBadge/CustomBadge";
+// import CustomBadge from "../customBadge/CustomBadge";
 import { deleteDoctor, deleteProduct } from "../../../../api/api";
 
 import {
@@ -143,7 +143,7 @@ const Datatable = ({ tableTitle, tableData, setIsDataUpdated }) => {
                     )}
                     {Object.values(eachRecord)?.map((value) => {
                       return (
-                        <td>{(value == "Pending" || value == "In-process" || value == "Delivered") ? <CustomBadge bgColor={value == "Pending" ? "danger" : value == "In-process" ? "primary" : "success"} badgeText={value} /> : value}</td>
+                        <td>{value}</td>
                       )
                     })}
                     {tableTitle === "Products" ? (

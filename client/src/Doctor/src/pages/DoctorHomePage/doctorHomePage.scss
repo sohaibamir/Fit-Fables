@@ -1,0 +1,64 @@
+.doctor-profile {
+    width: 100%;
+    display: flex;
+
+    .doctorProfileContainer {
+        flex: 6;
+
+        .top {
+            -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
+            box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
+            padding: 10px 20px;
+            margin: 20px;
+            display: flex;
+
+            h1 {
+                color: lightgray;
+                font-size: 20px;
+            }
+        }
+
+        .right {
+            -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
+            box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
+            padding: 15px 20px;
+            margin: 20px 20px 50px;
+            display: flex;
+
+            .doctor-avatar-container {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                margin-bottom: 6px;
+
+                img {
+                    width: 100px;
+                    border-radius: 50%;
+                    padding: 8px;
+                    margin-bottom: 4px;
+                    border: 1px solid #ccc;
+                }
+            }
+
+            .inputsOfDoctorProfileInfo {
+                width: 100%;
+                padding: 5px;
+                border: none;
+                outline: none;
+                border-bottom: 1px solid gray;
+            }
+
+            button {
+                width: 150px;
+                padding: 10px;
+                border: none;
+                background-color: teal;
+                color: white;
+                font-weight: bold;
+                cursor: pointer;
+                margin-top: 10px;
+            }
+        }
+    }
+}

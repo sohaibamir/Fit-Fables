@@ -128,7 +128,7 @@ const NewOrEditDoctor = ({ inputs, title }) => {
                   })}
                 </Carousel>
               ) : (
-                <p>Please upload product images</p>
+                <p>Please upload your image</p>
               )}
             </div>
           </div>
@@ -160,7 +160,10 @@ const NewOrEditDoctor = ({ inputs, title }) => {
                         title === "Edit Doctor Details" &&
                         (input.name === "_id" ||
                           input.name === "name" ||
-                          input.name === "email")
+                          input.name === "email" ||
+                          input.name === "phone" ||
+                          input.name === "address"
+                        )
                       }
                       className="inputsOfDoctorInfo"
                       name={input.name}
@@ -179,7 +182,10 @@ const NewOrEditDoctor = ({ inputs, title }) => {
                         title === "Edit Doctor Details" &&
                         (input.name === "_id" ||
                           input.name === "name" ||
-                          input.name === "email")
+                          input.name === "email" ||
+                          input.name === "phone" ||
+                          input.name === "address"
+                        )
                       }
                       className="inputsOfDoctorInfo"
                       name={input.name}
