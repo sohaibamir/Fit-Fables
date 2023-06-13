@@ -158,6 +158,10 @@ export async function getDoctorById(id) {
   return axios.get(`${process.env.REACT_APP_API}/admin/doctors/${id}`);
 }
 
+export async function deleteDoctor(id) {
+  return axios.delete(`${process.env.REACT_APP_API}/admin/delete/doctor/${id}`);
+}
+
 export async function getAllDoctorsAdmin() {
   return axios.get(`${process.env.REACT_APP_API}/doctors/all`);
 }

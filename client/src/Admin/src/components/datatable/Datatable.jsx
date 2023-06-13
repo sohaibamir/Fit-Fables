@@ -6,6 +6,7 @@ import { PaginationControl } from "react-bootstrap-pagination-control";
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import { AiFillEye } from "react-icons/ai";
 import CustomBadge from "../customBadge/CustomBadge";
+import { deleteDoctor } from "../../../../api/api";
 
 const Datatable = ({ tableTitle, tableData }) => {
   const [data, setData] = useState(tableData.tableBody);
@@ -20,6 +21,16 @@ const Datatable = ({ tableTitle, tableData }) => {
     let changePage = tableData.tableBody.slice(offset, offset + 10);
     setPage(page);
     setData(changePage);
+  };
+
+  const handleDelete = (id) => {
+    console.log('id', id)
+    if (tableTitle === "Doctors") {
+      deleteDoctor(id).then((res) => {
+        console.log('res', res);
+      })
+        .catch((error) => console.log(error));
+    }
   };
 
   return (
@@ -120,7 +131,7 @@ const Datatable = ({ tableTitle, tableData }) => {
                             <EditIcon color="green.500" />
                           </Link>
                           <div style={{ cursor: 'pointer' }}>
-                            <DeleteIcon color="red.500" />
+                            <DeleteIcon color="red.500" onClick={() => handleDelete(_id)} />
                           </div>
                         </div>
                       </td>
