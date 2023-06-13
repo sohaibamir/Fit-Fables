@@ -89,7 +89,7 @@ export async function updateProduct(id, product) {
 }
 
 export async function deleteProduct(id) {
-  return axios.delete(`${process.env.REACT_APP_API}/delete/product/${id}`);
+  return axios.delete(`${process.env.REACT_APP_API}/admin/delete/product/${id}`);
 }
 
 export async function updateCartItem(id, quantity, userId) {

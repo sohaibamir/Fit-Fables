@@ -30,6 +30,6 @@ router.get("/products", getCategories);
 router.post("/products/create", uploadProduct);
 router.get("/products/all", getAllProducts);
 router.put("/update/product/:id", updateProduct);
-router.delete("/delete/product/:id", deleteProduct);
+router.delete("/admin/delete/product/:productId", deleteProduct);
 
 module.exports = router;

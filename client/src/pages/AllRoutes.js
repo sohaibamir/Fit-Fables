@@ -27,6 +27,10 @@ import ViewOrderDetails from "../Admin/src/pages/viewOrderDetails/ViewOrderDetai
 import ProductsByCategory from "./ProductsByCategory";
 import AdminRoute from "../auth/AdminRoute";
 import Consultation from "./Consultation";
+import DoctorHomePage from '../Doctor/src/pages/DoctorHomePage/DoctorHomePage';
+import { doctorPanelInputs } from "../Doctor/src/formSource";
+import CompletedAppointments from "../Doctor/src/pages/CompletedAppointments/CompletedAppoinments";
+import RemainingAppointments from "../Doctor/src/pages/RemainingAppointments/RemainingAppoinments";
 
 function AllRoutes() {
   return (
@@ -141,6 +145,10 @@ function AllRoutes() {
           </AdminRoute>
         }
       />
+
+      <Route path="/doctor" element={<DoctorHomePage inputs={doctorPanelInputs} />} />
+      <Route path="/doctor/completed-appointments" element={<CompletedAppointments />} />
+      <Route path="/doctor/remaining-appointments" element={<RemainingAppointments />} />
 
       <Route path="/healthcare" element={<Healthcare />} />
       <Route path="/offers" element={<Offers />} />

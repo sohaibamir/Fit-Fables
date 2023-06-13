@@ -48,49 +48,49 @@ export const productInputs = [
     label: "ID",
     type: "text",
     placeholder: "101",
-    name: 'id'
+    name: "id",
   },
   {
     id: 2,
     label: "Title",
     type: "text",
     placeholder: "Apple Macbook Pro",
-    name: 'title'
+    name: "title",
   },
   {
     id: 3,
     label: "Actual Price",
     type: "text",
     placeholder: "1000",
-    name: 'actual_price'
+    name: "actual_price",
   },
   {
     id: 4,
     label: "Category",
     type: "text",
     placeholder: "Computers",
-    name: 'category'
+    name: "category",
   },
   {
     id: 5,
     label: "Sub Category",
     type: "text",
     placeholder: "Computers",
-    name: 'sub_category'
+    name: "sub_category",
   },
   {
     id: 6,
     label: "Crossed Price",
     type: "text",
     placeholder: "100",
-    name: 'crossed_price'
+    name: "crossed_price",
   },
   {
     id: 7,
     label: "Manufacturer",
     type: "text",
     placeholder: "ABC Company",
-    name: 'manufacturer'
+    name: "manufacturer",
   },
 ];
 
@@ -100,28 +100,28 @@ export const orderInputs = [
     label: "Order ID",
     type: "text",
     placeholder: "1",
-    name: "_id"
+    name: "_id",
   },
   {
     id: 2,
     label: "Customer ID",
     type: "text",
     placeholder: "1",
-    name: "userId"
+    name: "userId",
   },
   {
     id: 3,
     label: "Items In Cart",
     type: "text",
     placeholder: "1",
-    name: "cartItems"
+    name: "cartItems",
   },
   {
     id: 4,
     label: "Order Status",
     type: "text",
     placeholder: "Pending",
-    name: "status"
+    name: "status",
   },
 ];
 
@@ -131,48 +131,73 @@ export const doctorInputs = [
     label: "ID",
     type: "text",
     placeholder: "1",
-    name: '_id'
+    name: "_id",
   },
   {
     id: 2,
     label: "Name",
     type: "text",
     placeholder: "Hussain",
-    name: 'doctorName'
+    name: "name",
   },
   {
     id: 3,
     label: "Email Address",
     type: "email",
     placeholder: "hussain@gmail.com",
-    name: 'email'
+    name: "email",
   },
   {
     id: 4,
     label: "Password",
     type: "password",
     placeholder: "sohaib123",
-    name: 'password'
+    name: "password",
   },
   {
     id: 5,
-    label: "Designation",
+    label: "Address",
     type: "text",
-    placeholder: "Surgeon",
-    name: 'designation'
+    placeholder: "House 20 Karachi",
+    name: "address",
   },
   {
     id: 6,
-    label: "Timings",
-    type: "text",
-    placeholder: "1:00 P.M. - 5:00 P.M.",
-    name: 'timings'
+    label: "Phone",
+    type: "number",
+    placeholder: "0331 1235125",
+    name: "phone",
   },
   {
     id: 7,
+    label: "Designation",
+    type: "text",
+    placeholder: "Surgeon",
+    name: "designation",
+  },
+  {
+    id: 8,
+    label: "Timings",
+    type: "text",
+    placeholder: "1:00 P.M. - 5:00 P.M.",
+    name: "timings",
+  },
+  {
+    id: 9,
     label: "Days",
     type: "text",
     placeholder: "Monday - Friday",
-    name: 'days'
+    name: "days",
+  },
+  {
+    id: 10,
+    label: "Gender",
+    type: "select",
+    placeholder: "Please select",
+    name: "gender",
+    options: [
+      { label: "Male", value: "male" },
+      { label: "Female", value: "female" },
+    ],
   },
 ];

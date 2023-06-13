@@ -10,6 +10,8 @@ const ProductList = () => {
     tableBody: [],
   });
 
+  const [isDataUpdated, setIsDataUpdated] = useState(false);
+
   useEffect(() => {
     getAllProductsAdmin()
       .then((res) => {
@@ -52,13 +54,13 @@ const ProductList = () => {
         }
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [isDataUpdated]);
 
   return (
     <div className="list">
       <Sidebar />
       <div className="listContainer">
-        <Datatable tableTitle="Products" tableData={products} />
+        <Datatable tableTitle="Products" tableData={products} setIsDataUpdated={setIsDataUpdated} />
       </div>
     </div>
   );
