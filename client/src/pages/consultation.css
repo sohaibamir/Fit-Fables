@@ -1,8 +1,9 @@
 .wow{
     box-shadow: -6px 6px 20px -2px rgba(168,155,155,0.65);
-    -webkit-box-shadow: -6px 6px 20px -2px rgba(168,155,155,0.65);
-    -moz-box-shadow: -6px 6px 20px -2px rgba(168,155,155,0.65);
+-webkit-box-shadow: -6px 6px 20px -2px rgba(168,155,155,0.65);
+-moz-box-shadow: -6px 6px 20px -2px rgba(168,155,155,0.65);
 }
+
 #team {
     position: relative;
     padding-top: 100px;
@@ -14,16 +15,15 @@
 }
 
 .team-contact-info {
-    border-top: 1px solid #c9c4c4;
+    border-top: 1px solid #e9e9e9;
     padding-top: 1.2em;
     margin-top: 1.5em;
 }
 
 .team-contact-info p {
     margin-bottom: 2px;
-    color: #858080;
   }
 
   .team-contact-info a {
-    color: #858080;
+    color: #757575;
   }
