@@ -33,6 +33,7 @@ import DoctorHomePage from "../Doctor/src/pages/DoctorHomePage/DoctorHomePage";
 import { doctorPanelInputs } from "../Doctor/src/formSource";
 import CompletedAppointments from "../Doctor/src/pages/CompletedAppointments/CompletedAppoinments";
 import RemainingAppointments from "../Doctor/src/pages/RemainingAppointments/RemainingAppoinments";
+import PrivacyPolicy from "./PrivacyPolicy";
 
 function AllRoutes() {
   return (
@@ -257,6 +258,7 @@ function AllRoutes() {
           </PrivateRoute>
         }
       />
+      <Route path="/privacy-policy" element={<PrivacyPolicy />} />
       <Route
         path="/search/:name"
         element={
