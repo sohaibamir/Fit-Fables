@@ -1,10 +1,29 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Sidebar from '../../components/sidebar/Sidebar';
 import './remainingAppointments.scss';
 import { Col, Row } from 'react-bootstrap';
 import Datatable from '../../components/datatable/Datatable';
+import { getRemainingAppointments } from '../../../../api/api';
 
 const RemainingAppointments = () => {
+    const [remAppointments, setRemAppointments] = useState({
+        tableHeader: [],
+        tableBody: [],
+    });
+
+    const doctor = JSON.parse(localStorage.getItem("jwt"));
+    const doctorId = doctor?._id;
+
+    useEffect(() => {
+        getRemainingAppointments(doctorId).then((res) => {
+            console.log('rem appointment', res);
+            let tableBody = [];
+            let tableHeader = ["Name", "Email", "Phone", "Address", "Gender", "Status"];
+            tableBody = res?.data?.data;
+            setRemAppointments({ tableHeader, tableBody });
+        }).catch((error) => console.log(error));
+    }, []);
+
     return (
         <div className="CompletedAppointments">
             <Sidebar />
@@ -14,7 +33,7 @@ const RemainingAppointments = () => {
                 </div>
 
                 <div className="right">
-                    {/* <Datatable /> */}
+                    <Datatable tableData={remAppointments} />
                 </div>
             </div>
         </div>
