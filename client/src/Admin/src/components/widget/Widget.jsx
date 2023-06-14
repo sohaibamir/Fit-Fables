@@ -1,16 +1,12 @@
 import "./widget.scss";
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import MonetizationOnOutlinedIcon from "@mui/icons-material/MonetizationOnOutlined";
-// import { Link } from "@mui/material";
 import { Link } from "react-router-dom";
 
-const Widget = ({ type,amount }) => {
+const Widget = ({ type, amount }) => {
   let data;
-
-  //temporary
 
   switch (type) {
     case "user":
@@ -47,7 +43,7 @@ const Widget = ({ type,amount }) => {
       break;
     case "earning":
       data = {
-        title: "EARNINGS",
+        title: "EARNINGS (Last 24 Hours)",
         isMoney: true,
         link: "View net earnings",
         icon: (
@@ -81,19 +77,27 @@ const Widget = ({ type,amount }) => {
   return (
     <div className="widget">
       <div className="left">
-        <span className="title">{data.title} {data.title=='EARNINGS' && <p style={{display:'inline-block'}}>(Last 24 Hours)</p>}</span>
-        <span className="counter">
-        {data.isMoney && "Rs "}{amount} 
+        <span className="title">
+          {data.title} {data.title === "EARNINGS (Last 24 Hours)"}
         </span>
-        <Link className="link" to={data.title=='USERS'?'/admin/users':'/admin/orders'}  style={{visibility:(data.link == 'View net earnings' || data.link == 'See details') &&'hidden'}}>{data.link}</Link>
+        <span className="counter">
+          {data.isMoney && "Rs "}
+          {amount}
+        </span>
+        <Link
+          className="link"
+          to={data.title === "USERS" ? "/admin/users" : "/admin/orders"}
+          style={{
+            visibility:
+              (data.link === "View net earnings" ||
+                data.link === "See details") &&
+              "hidden",
+          }}
+        >
+          {data.link}
+        </Link>
       </div>
-      <div className="right">
-        {/* <div className="percentage positive">
-          <KeyboardArrowUpIcon />
-          {diff} %
-        </div> */}
-        {data.icon}
-      </div>
+      <div className="right">{data.icon}</div>
     </div>
   );
 };
