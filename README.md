@@ -1,4 +1,4 @@
-# ecommerce-project
+# Ecommerce-project
 This is an e-commerce project developed using the MERN stack (MongoDB, Express.js, React.js, Node.js). It provides a platform for buying and selling products online as well consulatancy services.
 
 ## Technologies Used
