@@ -7,6 +7,7 @@ import img3 from './images/team-image3.jpg'
 import './consultation.css'
 import { useEffect, useState } from "react";
 import { getAllDoctorsAdmin } from "../api/api";
+import { AiFillClockCircle, AiTwotoneCalendar, AiOutlineMail, AiOutlineArrowRight } from "react-icons/ai";
 
 const Consultation = () => {
 
@@ -14,6 +15,7 @@ const Consultation = () => {
 
   useEffect(() => {
     getAllDoctorsAdmin().then((res) => {
+      console.log(res)
       setDoctors(res.data.data)
     })
       .catch((err) => console.log(err))
@@ -28,31 +30,44 @@ const Consultation = () => {
         color={"rgba(0,0,0,0.7)"}
       >
         <HealthCareBreadcrumb title="Consultation" />
-        <section id="team" data-stellar-background-ratio="1">
+        <section id="team" style={{ marginTop: '-60px' }} data-stellar-background-ratio="1">
+          <div className="col-md-6 col-sm-6">
+            <div className="about-info">
+              <h2 className="fadeInUp" style={{ marginLeft: '14px', color: '#858080' }} data-wow-delay="0.1s">Consult Our Doctors</h2>
+            </div>
+          </div>
           <div className="container">
+
             <div className="row">
-
-              {/* <div className="col-md-6 col-sm-6">
-                <div className="about-info">
-                  <h2 className="wow fadeInUp" data-wow-delay="0.1s">Our Doctors</h2>
-                </div>
-              </div> */}
-
               {
-                doctors.map((doctor,index) => (
-                  <div className="col-md-3 col-sm-4 mt-5" key={index}>
+                doctors.map((doctor, index) => (
+                  <div className="col-md-3 col-sm-4 mt-5" key={index} style={{ color: '#f5f5f5' }}>
                     <div className="team-thumb wow fadeInUp" data-wow-delay="0.2s">
-                      <img src={img3} className="img-responsive" alt="" />
-
+                      <img src={img3}
+                        // className="img-responsive" 
+                        style={{ height: '240px', width: '100%', objectFit: 'cover' }}
+                        alt="" />
                       <div className="team-info">
-                        <h3>{doctor.doctorName}</h3>
-                        <p>{doctor.designation}</p>
+                        <h3 style={{ color: '#858080' }}>{doctor.name.length <= 10 ? doctor.name : doctor.name.slice(0, 10)}</h3>
+                        <p style={{ color: '#858080' }}>{doctor.designation}</p>
                         <div className="team-contact-info">
-                          <p><i className="fa fa-phone"></i>{doctor.days}</p>
-                          <p><i className="fa fa-phone"></i>{doctor.timings}</p>
-                          <p className="mt-3" ><i className="fa fa-envelope-o"></i> <a href="#">{doctor.email}</a></p>
+                          <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+                            <AiTwotoneCalendar style={{ color: "#c9c4c4", fontSize: "15px", marginRight: '3px' }} />
+                            <p>{doctor.days}</p>
+                          </div>
+                          <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+                            <AiFillClockCircle style={{ color: "#c9c4c4", fontSize: "15px", marginRight: '3px' }} />
+                            <p>{doctor.timings}</p>
+                          </div>
+                          <div className="mt-3" style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+                            <AiOutlineMail style={{ color: "#c9c4c4", fontSize: "15px", marginRight: '3px' }} />
+                            <p ><i className="fa fa-envelope-o"></i> <a href="#">{doctor.email}</a></p>
+                          </div>
                         </div>
-                        <p style={{ marginTop: '15px', color: 'rgba(66, 153, 225, 0.6)', marginLeft: 'auto', marginRight: 'auto', fontWeight: 'bold' }}>Book Appointment</p>
+                        <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+                          <p style={{ marginTop: '15px', color: 'rgba(66, 153, 225, 0.6)', marginLeft: 'auto', marginRight: 'auto', fontWeight: 'bold', cursor: 'pointer' }}>Book Appointment</p>
+                          <AiOutlineArrowRight style={{ color: 'rgba(66, 153, 225, 0.6)', fontSize: "17px", fontWeight: 'bold' }} />
+                        </div>
                       </div>
                     </div>
                   </div>
