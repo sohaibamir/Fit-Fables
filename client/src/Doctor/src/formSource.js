@@ -1,67 +1,51 @@
 export const doctorPanelInputs = [
   {
     id: 1,
-    label: "ID",
-    type: "text",
-    name: "_id",
-  },
-  {
-    id: 2,
     label: "Name",
     type: "text",
     name: "name",
   },
   {
-    id: 3,
+    id: 2,
     label: "Email Address",
     type: "email",
     name: "email",
   },
+
   {
-    id: 4,
-    label: "Password",
-    type: "password",
-    placeholder: "sohaib123",
-    name: "password",
-  },
-  {
-    id: 5,
+    id: 3,
     label: "Address",
     type: "text",
     name: "address",
   },
   {
-    id: 6,
+    id: 4,
     label: "Phone",
     type: "number",
     name: "phone",
   },
   {
-    id: 7,
+    id: 5,
     label: "Designation",
     type: "text",
     name: "designation",
   },
   {
-    id: 8,
+    id: 6,
     label: "Timings",
     type: "text",
     name: "timings",
   },
   {
-    id: 9,
+    id: 7,
     label: "Days",
     type: "text",
     name: "days",
   },
   {
-    id: 10,
+    id: 8,
     label: "Gender",
     type: "select",
     name: "gender",
-    options: [
-      { label: "Male", value: "male" },
-      { label: "Female", value: "female" },
-    ],
   },
 ];
