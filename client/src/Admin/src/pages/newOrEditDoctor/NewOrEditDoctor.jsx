@@ -3,7 +3,7 @@ import Sidebar from "../../components/sidebar/Sidebar";
 import { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
-import { createDoctor, getDoctorById } from "../../../../api/api";
+import { createDoctor, getDoctorById, updateDoctor } from "../../../../api/api";
 import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
 import { Carousel } from "react-bootstrap";
 import { useToast } from "@chakra-ui/react";
@@ -21,6 +21,7 @@ const NewOrEditDoctor = ({ inputs, title }) => {
     timings: "",
     days: "",
     gender: "",
+    price: "",
   });
   const [images, setImages] = useState([]);
   const [imagePreview, setImagePreview] = useState([]);
@@ -29,20 +30,39 @@ const NewOrEditDoctor = ({ inputs, title }) => {
   const toast = useToast();
 
   useEffect(() => {
-    if (title == "Edit Doctor Details") {
+    if (title === "Edit Doctor Details") {
       getDoctorById(doctorId)
         .then((res) => {
           console.log("res", res);
-          setDoctor(res?.data?.data);
+          let doc = res?.data?.data;
+          setDoctor({
+            _id: doc._id,
+            name: doc.name,
+            email: doc.email,
+            address: doc.address,
+            phone: doc.phone,
+            designation: doc.designation,
+            timings: doc.timings,
+            days: doc.days,
+            gender: doc.gender,
+            price: doc.price,
+          });
+          let img = [];
+          if (doc.img1) {
+            img.push(doc.img1);
+          }
+          if (doc.img2) {
+            img.push(doc.img2);
+          }
+          setImagePreview(img);
+          setImages(img);
         })
         .catch((error) => console.log(error));
     }
   }, []);
 
   const handleDoctorChange = (e) => {
-    if (title === "Add New Doctor") {
-      setDoctor({ ...doctor, [e.target.name]: e.target.value });
-    }
+    setDoctor({ ...doctor, [e.target.name]: e.target.value });
   };
 
   const handleOnChange = (e) => {
@@ -89,6 +109,20 @@ const NewOrEditDoctor = ({ inputs, title }) => {
             position: "top",
           });
         });
+    } else {
+      updateDoctor(doctorId, doctor)
+        .then((res) => {
+          console.log(res);
+          toast({
+            title: "Doctor Updated Successfully!",
+            status: "success",
+            duration: 3000,
+            isClosable: true,
+            position: "top",
+          });
+          navigate("/admin/doctors");
+        })
+        .catch((err) => console.log(err));
     }
   };
 
@@ -97,7 +131,7 @@ const NewOrEditDoctor = ({ inputs, title }) => {
     const [id, ...restArr] = inputs;
     remainingArr = restArr;
   } else {
-    let [id, name, email, password, ...restArr] = inputs;
+    let [id, name, email, ...restArr] = inputs;
     restArr = [id, name, email, ...restArr];
     remainingArr = restArr;
   }
@@ -135,7 +169,7 @@ const NewOrEditDoctor = ({ inputs, title }) => {
           <div className="right">
             <Row>
               <div className="formInput">
-                <label htmlFor="file">
+                <label style={{ cursor: "pointer" }} htmlFor="file">
                   Image: <DriveFolderUploadOutlinedIcon className="icon" />
                 </label>
                 <input
@@ -156,15 +190,6 @@ const NewOrEditDoctor = ({ inputs, title }) => {
                   <label className="labelsOfDoctorInfo">{input.label}</label>
                   {input.type === "select" ? (
                     <select
-                      disabled={
-                        title === "Edit Doctor Details" &&
-                        (input.name === "_id" ||
-                          input.name === "name" ||
-                          input.name === "email" ||
-                          input.name === "phone" ||
-                          input.name === "address"
-                        )
-                      }
                       className="inputsOfDoctorInfo"
                       name={input.name}
                       value={doctor[input.name]}
@@ -183,9 +208,9 @@ const NewOrEditDoctor = ({ inputs, title }) => {
                         (input.name === "_id" ||
                           input.name === "name" ||
                           input.name === "email" ||
+                          input.name === "password" ||
                           input.name === "phone" ||
-                          input.name === "address"
-                        )
+                          input.name === "address")
                       }
                       className="inputsOfDoctorInfo"
                       name={input.name}

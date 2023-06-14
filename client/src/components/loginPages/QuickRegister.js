@@ -24,6 +24,7 @@ import {
 import { signupAPI } from "../../allApi";
 import { getSuccess } from "../../redux/auth/action";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const initState = {
   name: "",
@@ -34,6 +35,7 @@ const initState = {
 };
 
 export const QuickRegister = () => {
+  const navigate = useNavigate();
   const auth = localStorage.getItem("isAuth");
   const dispatch = useDispatch();
 
@@ -299,7 +301,13 @@ export const QuickRegister = () => {
             </Stack>
             <Text fontSize="12px" color="#4f585e" py="20px">
               By clicking continue, you agree with our{" "}
-              <span style={{ color: "#159a94", cursor: "pointer" }}>
+              <span
+                onClick={() => {
+                  onClose();
+                  navigate("/privacy-policy");
+                }}
+                style={{ color: "#159a94", cursor: "pointer" }}
+              >
                 {" "}
                 Privacy Policy
               </span>

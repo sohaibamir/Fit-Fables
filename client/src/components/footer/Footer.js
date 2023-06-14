@@ -13,7 +13,6 @@ import { Link } from "react-router-dom";
 const Footer = () => {
   return (
     <>
-      {/* // for small screen code */}
       <Box bg="#EEF4FF" p="4rem 1rem">
         <Accordion
           display={{ sm: "block", md: "block", lg: "none" }}
@@ -197,7 +196,7 @@ const Footer = () => {
             <hr></hr>
             <AccordionPanel pb={4}>
               <Box>
-                <Link>
+                <Link to="privacy-policy">
                   <Text color="#30363C" fontSize="14px" mb={3}>
                     Privacy Policy
                   </Text>
@@ -394,7 +393,7 @@ const Footer = () => {
                 Policy Info
               </Heading>
 
-              <Link>
+              <Link to="privacy-policy">
                 <Text color="#30363C" fontSize="14px" mb={2}>
                   Privacy Policy
                 </Text>

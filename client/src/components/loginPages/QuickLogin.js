@@ -21,7 +21,7 @@ import {
 import { useState, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { loginAPI } from "../../allApi";
-import { getUserCart, isAuthenticated } from "../../api/api";
+import { getUserCart } from "../../api/api";
 import { getSuccess } from "../../redux/auth/action";
 import { setCart } from "../../redux/Cart/action";
 import { LogOut } from "./LogOut";
@@ -36,7 +36,6 @@ const initState = {
 export function LoginIndividualSlider() {
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
-  const role = isAuthenticated().role;
 
   const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -272,7 +271,13 @@ export function LoginIndividualSlider() {
             </Stack>
             <Text fontSize="12px" color="#4f585e" p="20px 0px 0px">
               By clicking continue, you agree with our{" "}
-              <span style={{ color: "#159a94", cursor: "pointer" }}>
+              <span
+                onClick={() => {
+                  onClose();
+                  navigate("/privacy-policy");
+                }}
+                style={{ color: "#159a94", cursor: "pointer" }}
+              >
                 {" "}
                 Privacy Policy
               </span>

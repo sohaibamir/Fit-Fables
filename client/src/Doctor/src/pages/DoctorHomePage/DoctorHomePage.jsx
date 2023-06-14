@@ -2,11 +2,19 @@ import React, { useEffect, useState } from "react";
 import Sidebar from "../../components/sidebar/Sidebar";
 import "./doctorHomePage.scss";
 import { Col, Row } from "react-bootstrap";
-import { getDoctorById, isAuthenticated } from "../../../../api/api";
+import {
+  getDoctorById,
+  isAuthenticated,
+  updateDoctor,
+} from "../../../../api/api";
+import { useNavigate } from "react-router-dom";
+import { useToast } from "@chakra-ui/react";
 
 const DoctorHomePage = ({ inputs }) => {
   const doctorId = isAuthenticated()._id;
   const [doctor, setDoctor] = useState([]);
+  const navigate = useNavigate();
+  const toast = useToast();
 
   useEffect(() => {
     getDoctorById(doctorId)
@@ -16,6 +24,26 @@ const DoctorHomePage = ({ inputs }) => {
       })
       .catch((error) => console.log(error));
   }, []);
+
+  const handleDoctorChange = (e) => {
+    setDoctor({ ...doctor, [e.target.name]: e.target.value });
+  };
+
+  const handleSave = () => {
+    updateDoctor(doctorId, doctor)
+      .then((res) => {
+        console.log(res);
+        toast({
+          title: "Doctor Updated Successfully!",
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+          position: "top",
+        });
+        navigate("/");
+      })
+      .catch((err) => console.log(err));
+  };
 
   return (
     <div className="doctor-profile">
@@ -56,17 +84,21 @@ const DoctorHomePage = ({ inputs }) => {
                     input.name === "phone" ||
                     input.name === "designation" ||
                     input.name === "timings" ||
+                    input.name === "gender" ||
                     input.name === "days"
                   }
                   className="inputsOfDoctorProfileInfo"
                   name={input.name}
                   type={input.type}
                   value={doctor[input.name]}
+                  onChange={handleDoctorChange}
                 />
               </Col>
             ))}
             <Col lg={12}>
-              <button style={{ width: "150px" }}>Save</button>
+              <button style={{ width: "150px" }} onClick={handleSave}>
+                Save
+              </button>
             </Col>
           </Row>
         </div>

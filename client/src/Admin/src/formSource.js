@@ -200,4 +200,11 @@ export const doctorInputs = [
       { label: "Female", value: "female" },
     ],
   },
+  {
+    id: 11,
+    label: "Fees",
+    type: "number",
+    placeholder: "100",
+    name: "price",
+  },
 ];

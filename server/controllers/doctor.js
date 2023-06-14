@@ -42,6 +42,7 @@ exports.createDoctor = async (req, res) => {
       timings,
       days,
       gender,
+      price,
     } = req.body;
 
     const doctor = await Doctor.create({
@@ -54,6 +55,7 @@ exports.createDoctor = async (req, res) => {
       designation,
       timings,
       days,
+      price,
       img1,
       img2,
       role: "doctor",
@@ -84,6 +86,20 @@ exports.getDoctorById = async (req, res) => {
     res.status(201).send({ data: doctor });
   } catch (error) {
     res.status(500).send(error);
+  }
+};
+
+exports.updateDoctor = async (req, res) => {
+  try {
+    const { doctorId } = req.params;
+    const doctor = await Doctor.findByIdAndUpdate(
+      { _id: doctorId },
+      { ...req.body.doctor },
+      { new: true }
+    );
+    return res.status(201).send({ message: "success", data: doctor });
+  } catch (error) {
+    return res.status(500).send({ message: error.message });
   }
 };
 
