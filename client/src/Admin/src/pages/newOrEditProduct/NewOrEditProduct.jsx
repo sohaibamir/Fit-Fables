@@ -2,10 +2,14 @@ import "./newOrEditProduct.scss";
 import Sidebar from "../../components/sidebar/Sidebar";
 import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
 import { useEffect, useState } from "react";
-import { Carousel } from 'react-bootstrap'
-import { createProduct, getSingleProduct, updateProduct } from "../../../../api/api";
+import { Carousel } from "react-bootstrap";
+import {
+  createProduct,
+  getSingleProduct,
+  updateProduct,
+} from "../../../../api/api";
 import { useParams, useNavigate } from "react-router-dom";
-
+import { useToast } from "@chakra-ui/react";
 
 const NewOrEditProduct = ({ inputs, title }) => {
   const [images, setImages] = useState([]);
@@ -21,6 +25,7 @@ const NewOrEditProduct = ({ inputs, title }) => {
     sub_category: "",
   });
   const param = useParams();
+  const toast = useToast();
 
   useEffect(() => {
     if (title !== "Add New Product") {
@@ -35,10 +40,10 @@ const NewOrEditProduct = ({ inputs, title }) => {
               actual_price: prod.actual_price,
               crossed_price: prod.crossed_price,
               manufacturer: prod.manufacturer,
-              country: prod.country ? prod.country : '',
+              country: prod.country ? prod.country : "",
               category: prod.category,
-              sub_category: prod.sub_category
-            })
+              sub_category: prod.sub_category,
+            });
             let img = [];
             if (prod.img1) {
               img.push(prod.img1);
@@ -49,13 +54,15 @@ const NewOrEditProduct = ({ inputs, title }) => {
             if (prod.img3) {
               img.push(prod.img3);
             }
-            setImagePreview(img)
-            setImages(img)
+            setImagePreview(img);
+            setImages(img);
           }
         })
-        .catch((err) => { console.log(err) })
+        .catch((err) => {
+          console.log(err);
+        });
     }
-  }, [])
+  }, []);
 
   const navigate = useNavigate();
 
@@ -70,7 +77,13 @@ const NewOrEditProduct = ({ inputs, title }) => {
       updateProduct(id, product)
         .then((res) => {
           console.log(res);
-          alert("Product Updated");
+          toast({
+            title: "Product Updated Successfully!",
+            status: "success",
+            duration: 3000,
+            isClosable: true,
+            position: "top",
+          });
           navigate("/admin/products");
         })
         .catch((err) => console.log(err));
@@ -86,7 +99,13 @@ const NewOrEditProduct = ({ inputs, title }) => {
       createProduct(newProduct)
         .then((res) => {
           console.log(res);
-          alert("Product added successfully");
+          toast({
+            title: "Doctor Addedd Successfully!",
+            status: "success",
+            duration: 3000,
+            isClosable: true,
+            position: "top",
+          });
           navigate("/admin/products");
         })
         .catch((error) => {

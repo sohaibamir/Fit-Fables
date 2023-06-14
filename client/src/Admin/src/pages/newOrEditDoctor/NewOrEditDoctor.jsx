@@ -3,7 +3,7 @@ import Sidebar from "../../components/sidebar/Sidebar";
 import { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
-import { createDoctor, getDoctorById } from "../../../../api/api";
+import { createDoctor, getDoctorById, updateDoctor } from "../../../../api/api";
 import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
 import { Carousel } from "react-bootstrap";
 import { useToast } from "@chakra-ui/react";
@@ -62,9 +62,7 @@ const NewOrEditDoctor = ({ inputs, title }) => {
   }, []);
 
   const handleDoctorChange = (e) => {
-    if (title === "Add New Doctor") {
-      setDoctor({ ...doctor, [e.target.name]: e.target.value });
-    }
+    setDoctor({ ...doctor, [e.target.name]: e.target.value });
   };
 
   const handleOnChange = (e) => {
@@ -111,6 +109,20 @@ const NewOrEditDoctor = ({ inputs, title }) => {
             position: "top",
           });
         });
+    } else {
+      updateDoctor(doctorId, doctor)
+        .then((res) => {
+          console.log(res);
+          toast({
+            title: "Doctor Updated Successfully!",
+            status: "success",
+            duration: 3000,
+            isClosable: true,
+            position: "top",
+          });
+          navigate("/admin/doctors");
+        })
+        .catch((err) => console.log(err));
     }
   };
 
@@ -178,14 +190,6 @@ const NewOrEditDoctor = ({ inputs, title }) => {
                   <label className="labelsOfDoctorInfo">{input.label}</label>
                   {input.type === "select" ? (
                     <select
-                      disabled={
-                        title === "Edit Doctor Details" &&
-                        (input.name === "_id" ||
-                          input.name === "name" ||
-                          input.name === "email" ||
-                          input.name === "phone" ||
-                          input.name === "address")
-                      }
                       className="inputsOfDoctorInfo"
                       name={input.name}
                       value={doctor[input.name]}
@@ -204,6 +208,7 @@ const NewOrEditDoctor = ({ inputs, title }) => {
                         (input.name === "_id" ||
                           input.name === "name" ||
                           input.name === "email" ||
+                          input.name === "password" ||
                           input.name === "phone" ||
                           input.name === "address")
                       }

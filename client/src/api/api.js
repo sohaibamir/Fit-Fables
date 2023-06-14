@@ -89,7 +89,9 @@ export async function updateProduct(id, product) {
 }
 
 export async function deleteProduct(id) {
-  return axios.delete(`${process.env.REACT_APP_API}/admin/delete/product/${id}`);
+  return axios.delete(
+    `${process.env.REACT_APP_API}/admin/delete/product/${id}`
+  );
 }
 
 export async function updateCartItem(id, quantity, userId) {
@@ -156,6 +158,12 @@ export async function createDoctor(doctor) {
 
 export async function getDoctorById(id) {
   return axios.get(`${process.env.REACT_APP_API}/admin/doctors/${id}`);
+}
+
+export async function updateDoctor(id, doctor) {
+  return axios.put(`${process.env.REACT_APP_API}/update/doctor/${id}`, {
+    doctor,
+  });
 }
 
 export async function deleteDoctor(id) {

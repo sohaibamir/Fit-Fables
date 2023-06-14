@@ -88,6 +88,20 @@ exports.getDoctorById = async (req, res) => {
   }
 };
 
+exports.updateDoctor = async (req, res) => {
+  try {
+    const { doctorId } = req.params;
+    const doctor = await Doctor.findByIdAndUpdate(
+      { _id: doctorId },
+      { ...req.body.doctor },
+      { new: true }
+    );
+    return res.status(201).send({ message: "success", data: doctor });
+  } catch (error) {
+    return res.status(500).send({ message: error.message });
+  }
+};
+
 exports.deleteDoctor = async (req, res) => {
   try {
     const { doctorId } = req.params;
