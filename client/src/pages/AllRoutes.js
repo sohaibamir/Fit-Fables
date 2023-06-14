@@ -26,8 +26,10 @@ import NewOrEditDoctor from "../Admin/src/pages/newOrEditDoctor/NewOrEditDoctor"
 import ViewOrderDetails from "../Admin/src/pages/viewOrderDetails/ViewOrderDetails";
 import ProductsByCategory from "./ProductsByCategory";
 import AdminRoute from "../auth/AdminRoute";
+import DoctorRoute from "../auth/DoctorRoute";
+import PrivateRoute from "../auth/PrivateRoute";
 import Consultation from "./Consultation";
-import DoctorHomePage from '../Doctor/src/pages/DoctorHomePage/DoctorHomePage';
+import DoctorHomePage from "../Doctor/src/pages/DoctorHomePage/DoctorHomePage";
 import { doctorPanelInputs } from "../Doctor/src/formSource";
 import CompletedAppointments from "../Doctor/src/pages/CompletedAppointments/CompletedAppoinments";
 import RemainingAppointments from "../Doctor/src/pages/RemainingAppointments/RemainingAppoinments";
@@ -35,7 +37,6 @@ import RemainingAppointments from "../Doctor/src/pages/RemainingAppointments/Rem
 function AllRoutes() {
   return (
     <Routes>
-      <Route exact path="/" element={<HomeUser />} />
       <Route
         exact
         path="/admin"
@@ -64,11 +65,6 @@ function AllRoutes() {
           </AdminRoute>
         }
       />
-      {/* <Route
-        exact
-        path="/admin/new/user"
-        element={<New inputs={userInputs} title="Add New User" />}
-      /> */}
 
       <Route
         path="/admin/products"
@@ -146,21 +142,129 @@ function AllRoutes() {
         }
       />
 
-      <Route path="/doctor" element={<DoctorHomePage inputs={doctorPanelInputs} />} />
-      <Route path="/doctor/completed-appointments" element={<CompletedAppointments />} />
-      <Route path="/doctor/remaining-appointments" element={<RemainingAppointments />} />
+      <Route
+        path="/doctor"
+        element={
+          <DoctorRoute>
+            <DoctorHomePage inputs={doctorPanelInputs} />
+          </DoctorRoute>
+        }
+      />
+      <Route
+        path="/doctor/completed-appointments"
+        element={
+          <DoctorRoute>
+            <CompletedAppointments />
+          </DoctorRoute>
+        }
+      />
+      <Route
+        path="/doctor/remaining-appointments"
+        element={
+          <DoctorRoute>
+            <RemainingAppointments />
+          </DoctorRoute>
+        }
+      />
 
-      <Route path="/healthcare" element={<Healthcare />} />
-      <Route path="/offers" element={<Offers />} />
-      <Route path="/health-blogs" element={<HealthBlogs />} />
-      <Route path="/:cat" element={<ProductsByCategory />} />
-      <Route path="/healthcare/products/:cat" element={<Products />} />
-      <Route path="/product/:id" element={<SingleProduct />} />
-      <Route path="/cart" element={<Cart />} />
-      <Route path="/delivery" element={<Delivery />} />
-      <Route path="/consultation" element={<Consultation />} />
-      <Route path="/orders" element={<MyOrders />} />
-      <Route path="/search/:name" element={<Search />} />
+      <Route
+        exact
+        path="/"
+        element={
+          <PrivateRoute>
+            <HomeUser />
+          </PrivateRoute>
+        }
+      />
+
+      <Route
+        path="/healthcare"
+        element={
+          <PrivateRoute>
+            <Healthcare />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/offers"
+        element={
+          <PrivateRoute>
+            <Offers />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/health-blogs"
+        element={
+          <PrivateRoute>
+            <HealthBlogs />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/:cat"
+        element={
+          <PrivateRoute>
+            <ProductsByCategory />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/healthcare/products/:cat"
+        element={
+          <PrivateRoute>
+            <Products />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/product/:id"
+        element={
+          <PrivateRoute>
+            <SingleProduct />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/cart"
+        element={
+          <PrivateRoute>
+            <Cart />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/delivery"
+        element={
+          <PrivateRoute>
+            <Delivery />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/consultation"
+        element={
+          <PrivateRoute>
+            <Consultation />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/orders"
+        element={
+          <PrivateRoute>
+            <MyOrders />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/search/:name"
+        element={
+          <PrivateRoute>
+            <Search />
+          </PrivateRoute>
+        }
+      />
     </Routes>
   );
 }

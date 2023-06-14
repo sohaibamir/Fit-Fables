@@ -147,7 +147,11 @@ function Navbar() {
               <Flex h="100%" w="100%" justify="start" align="end" mt="27px">
                 <Image
                   _hover={{ cursor: "pointer" }}
-                  onClick={() => navigate("/")}
+                  onClick={() =>
+                    role === "admin" || role === "doctor"
+                      ? navigate(`/${role}`)
+                      : navigate("/")
+                  }
                   h="100px"
                   src="/images/512x512.png"
                 />
@@ -160,7 +164,9 @@ function Navbar() {
                 <Image
                   _hover={{ cursor: "pointer" }}
                   onClick={() =>
-                    role === "user" ? navigate("/") : navigate(`/${role}`)
+                    role === "admin" || role === "doctor"
+                      ? navigate(`/${role}`)
+                      : navigate("/")
                   }
                   h="100px"
                   src="/images/512x512.png"

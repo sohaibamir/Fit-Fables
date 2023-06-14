@@ -1,18 +1,18 @@
 import { Navigate, useLocation } from "react-router-dom";
 import { isAuthenticated } from "../api/api";
 
-const AdminRoute = ({ children }) => {
+const PrivateRoute = ({ children }) => {
   const { location } = useLocation();
-  return isAuthenticated() && isAuthenticated().role === "admin" ? (
+  return isAuthenticated().role !== "admin" ? (
     children
   ) : (
     <Navigate
       to={{
-        pathname: isAuthenticated().role === "doctor" ? "/doctor" : "/",
+        pathname: isAuthenticated().role === "admin" ? "/admin" : "/",
         state: { from: location },
       }}
     />
   );
 };
 
-export default AdminRoute;
+export default PrivateRoute;
