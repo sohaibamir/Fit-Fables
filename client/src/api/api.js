@@ -196,6 +196,10 @@ export async function updateAppointmentHistory(userId, doctorId) {
   return axios.patch(`${process.env.REACT_APP_API}/updateAppointmenthistory/${userId}/${doctorId}`);
 }
 
+export async function updateAppointmentStatus(doctorId, userEmail) {
+  return axios.patch(`${process.env.REACT_APP_API}/doctor/updateApmtStatus/${doctorId}/${userEmail}`);
+}
+
 export async function getDashboardData(id) {
   return axios.get(`${process.env.REACT_APP_API}/admin/getDashboardData`);
 }

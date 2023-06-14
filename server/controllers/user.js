@@ -153,7 +153,7 @@ exports.updateAppointmentHistory = async (req, res) => {
       ...remData
     } = doctor;
 
-    history = { doctorName: name, timings, fees: price, phone, status: "remaining", ...history };
+    history = { doctorName: name, timings, fees: price, phone, status: "Remaining", ...history };
     const updatedUser = await user.findByIdAndUpdate({ _id: userId }, { $set: { appointmentHistory: history } }, { new: true });
 
     res.status(201).send({ data: updatedUser });

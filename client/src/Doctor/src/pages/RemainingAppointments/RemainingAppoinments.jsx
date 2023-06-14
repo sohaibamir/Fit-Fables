@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Sidebar from '../../components/sidebar/Sidebar';
 import './remainingAppointments.scss';
-import { Col, Row } from 'react-bootstrap';
 import Datatable from '../../components/datatable/Datatable';
 import { getRemainingAppointments } from '../../../../api/api';
 

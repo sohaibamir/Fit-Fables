@@ -119,7 +119,7 @@ exports.bookAppointment = async (req, res) => {
     let appoint = {};
     const patient = await user.findOne({ _id: userId });
     const { _id, name, email, password, phone, address, authType, createdAt, updatedAt, __v, role, gender } = patient;
-    appoint = { name, email, phone, address, gender, status: "remaining", ...appoint };
+    appoint = { name, email, phone, address, gender, status: "Remaining", ...appoint };
     const doctor = await Doctor.findByIdAndUpdate({ _id: doctorId }, { $set: { appointments: appoint } }, { new: true });
 
     res.status(201).send({ status: "success", data: doctor });
@@ -148,6 +148,31 @@ exports.getCompletedAppointments = async (req, res) => {
 
     if (doctor) {
       res.status(201).send({ data: doctor?.completedAppointments });
+    }
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
+exports.updateAppointmentStatus = async (req, res) => {
+  try {
+    const { doctorId, userEmail } = req.params;
+    const doctor = await Doctor.findOne({ _id: doctorId });
+
+    if (doctor) {
+      doctor?.appointments?.forEach(async (apt) => {
+        if (apt?.email === userEmail) {
+          const { name, email, phone, address, gender, ...remObj } = apt;
+          let newObj = {};
+          newObj = { name, email, phone, address, gender, status: "Completed", ...newObj };
+          const compApp = [...doctor?.completedAppointments, newObj];
+          doctor?.appointments?.splice(apt, 1);
+          const remArr = doctor?.appointments;
+
+          const result = await Doctor.findByIdAndUpdate({ _id: doctorId }, { $set: { appointments: remArr, completedAppointments: compApp } }, { new: true });
+          res.status(201).send({ data: result });
+        }
+      });
     }
   } catch (error) {
     res.status(500).send(error);

@@ -196,7 +196,7 @@ const Consultation = () => {
                             <span>
                               Book Appointment
                               <AiOutlineArrowRight
-                                style={{ color: "rgba(66, 153, 225, 0.6)" }}
+                                style={{ color: "rgba(66, 153, 225, 0.6)", marginLeft: "10px" }}
                               />
                             </span>
                           }
@@ -208,20 +208,8 @@ const Consultation = () => {
                           token={(token) =>
                             handlePayment(token, doctor._id, doctor.price)
                           }
+                          className="stripe-pay-btn-for-appointment"
                         />
-                        {/* <Button
-                          style={{
-                            color: "rgba(66, 153, 225, 0.6)",
-                            fontWeight: "bold",
-                            backgroundColor: "transparent",
-                          }}
-                          onClick={() => handleAppointmentBooking(doctor?._id)}
-                        >
-                          Book Appointment
-                        </Button>
-                        <AiOutlineArrowRight
-                          style={{ color: "rgba(66, 153, 225, 0.6)" }}
-                        /> */}
                       </div>
                     </div>
                   </div>

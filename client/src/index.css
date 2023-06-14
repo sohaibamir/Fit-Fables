@@ -135,24 +135,21 @@ code {
 }
 
 .stripe-pay-btn-for-appointment {
-  width: 100% !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  background-color: #10847e !important;
-  background-image: none !important;
-  color: white !important;
-  padding: 8px !important;
+  background: transparent !important;
+  margin: 8px 0px !important;
+  border-radius: 0px !important;
+  box-shadow: none !important;
 }
 
 .stripe-pay-btn-for-appointment span {
   display: flex;
   align-items: center;
+  color: rgba(66, 153, 225, 0.6) !important;
   background-image: none !important;
   box-shadow: none !important;
-  font-size: 1.2rem !important;
-  font-family: sans-serif !important;
-  font-weight: 600;
+  font-size: 1rem !important;
+  text-shadow: none !important;
+  font-weight: 600 !important;
 }
 
 .wow {
