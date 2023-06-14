@@ -1,5 +1,6 @@
 const Doctor = require("../models/doctor");
 const cloudinary = require("cloudinary");
+const user = require("../models/user");
 
 exports.createDoctor = async (req, res) => {
   try {
@@ -91,6 +92,47 @@ exports.deleteDoctor = async (req, res) => {
     const { doctorId } = req.params;
     const doctor = await Doctor.findByIdAndDelete({ _id: doctorId });
     res.status(201).send({ data: doctor });
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
+exports.bookAppointment = async (req, res) => {
+  try {
+    const { doctorId, userId } = req.params;
+    let appoint = {};
+    const patient = await user.findOne({ _id: userId });
+    const { _id, name, email, password, phone, address, authType, createdAt, updatedAt, __v, role, gender } = patient;
+    appoint = { name, email, phone, address, gender, status: "remaining", ...appoint };
+    const doctor = await Doctor.findByIdAndUpdate({ _id: doctorId }, { $set: { appointments: appoint } }, { new: true });
+
+    res.status(201).send({ status: "success", data: doctor });
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
+exports.getRemainingAppointments = async (req, res) => {
+  try {
+    const { doctorId } = req.params;
+    const doctor = await Doctor.findOne({ _id: doctorId });
+
+    if (doctor) {
+      res.status(201).send({ data: doctor?.appointments });
+    }
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
+exports.getCompletedAppointments = async (req, res) => {
+  try {
+    const { doctorId } = req.params;
+    const doctor = await Doctor.findOne({ _id: doctorId });
+
+    if (doctor) {
+      res.status(201).send({ data: doctor?.completedAppointments });
+    }
   } catch (error) {
     res.status(500).send(error);
   }

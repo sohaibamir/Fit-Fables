@@ -66,7 +66,7 @@ export function LogOut() {
           <AlertDialogHeader>Log Out?</AlertDialogHeader>
           <AlertDialogCloseButton />
           <AlertDialogBody>
-            Are you sure you want to <span color="#10847e">Log Out</span> ?
+            Are you sure you want to <span color="#10847e">log out</span> ?
           </AlertDialogBody>
           <AlertDialogFooter>
             <Button ref={cancelRef} onClick={onClose}>

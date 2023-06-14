@@ -1,3 +1,5 @@
+const Doctor = require("../models/doctor");
+const user = require("../models/user");
 const User = require("../models/user");
 const jwt = require("jsonwebtoken");
 const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
@@ -126,5 +128,36 @@ exports.getUserByIdAdmin = async (req, res) => {
     return res.status(400).json({
       error: "User not found",
     });
+  }
+};
+
+exports.updateAppointmentHistory = async (req, res) => {
+  try {
+    const { userId, doctorId } = req.params;
+    let history = {};
+    const userData = await user.findOne({ _id: userId });
+    const doctor = await Doctor.findOne({ _id: doctorId });
+    const {
+      appointmentHistory,
+      _id,
+      img1,
+      img2,
+      designation,
+      timings,
+      days,
+      price,
+      name,
+      email,
+      password,
+      phone,
+      ...remData
+    } = doctor;
+
+    history = { doctorName: name, timings, fees: price, phone, status: "remaining", ...history };
+    const updatedUser = await user.findByIdAndUpdate({ _id: userId }, { $set: { appointmentHistory: history } }, { new: true });
+
+    res.status(201).send({ data: updatedUser });
+  } catch (error) {
+    res.status(500).send(error);
   }
 };

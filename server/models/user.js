@@ -19,11 +19,16 @@ const userSchema = new mongoose.Schema(
       type: String,
       default: "email-password",
     },
+    appointmentHistory: {
+      type: Array,
+      default: [],
+    }
   },
   {
     timestamps: true,
   }
 );
+
 userSchema.pre("save", function (next) {
   if (!this.isModified("password")) return next();
   let hash = bcrypt.hashSync(this.password, 8);

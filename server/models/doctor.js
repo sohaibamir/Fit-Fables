@@ -21,28 +21,25 @@ const doctorSchema = new Schema(
       required: true,
       default: "Monday - Friday",
     },
-    appointments: [
-      {
-        user: {
-          type: ObjectId,
-          ref: "User",
-        },
-        date: {
-          type: Date,
-        },
-      },
-    ],
-    completedAppointments: [
-      {
-        user: {
-          type: ObjectId,
-          ref: "User",
-        },
-        date: {
-          type: Date,
-        },
-      },
-    ],
+    appointments: {
+      type: Array,
+      default: [],
+    },
+    completedAppointments: {
+      type: Array,
+      default: [],
+    },
+    // appointments: [
+    //   {
+    //     user: {
+    //       type: ObjectId,
+    //       ref: "User",
+    //     },
+    //     date: {
+    //       type: Date,
+    //     },
+    //   },
+    // ],
     price: { type: Number, required: true },
   },
   {

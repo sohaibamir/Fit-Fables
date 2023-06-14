@@ -1,8 +1,8 @@
-import { Box } from "@chakra-ui/react";
+import { Box, Button, useToast } from "@chakra-ui/react";
 import Tabs from "../components/navbar/Tabs";
 import HealthCareBreadcrumb from "../components/healthcare/HealthCareBreadcrumb";
 import { useEffect, useState } from "react";
-import { getAllDoctorsAdmin } from "../api/api";
+import { bookAppointment, getAllDoctorsAdmin, updateAppointmentHistory } from "../api/api";
 import {
   AiFillClockCircle,
   AiOutlineCalendar,
@@ -13,6 +13,7 @@ import {
 
 const Consultation = () => {
   const [doctors, setDoctors] = useState([]);
+  const toast = useToast();
 
   useEffect(() => {
     getAllDoctorsAdmin()
@@ -22,6 +23,26 @@ const Consultation = () => {
       })
       .catch((err) => console.log(err));
   }, []);
+
+  const loggedInUser = JSON.parse(localStorage.getItem('jwt'));
+  const userId = loggedInUser?._id;
+
+  const handleAppointmentBooking = (doctorId) => {
+    bookAppointment(doctorId, userId).then((res) => {
+      console.log('res', res);
+      toast({
+        title: "Appointment Booked Successfully!",
+        status: "success",
+        duration: 3500,
+        isClosable: true,
+        position: "top",
+      });
+    }).catch((error) => console.log(error));
+
+    updateAppointmentHistory(userId, doctorId).then((res) => {
+      console.log('history res', res);
+    }).catch((error) => console.log(error));
+  }
 
   return (
     <>
@@ -67,7 +88,7 @@ const Consultation = () => {
                       alt=""
                     />
 
-                    <div className="team-info">
+                    <div className="team-info" style={{ paddingBottom: "10px" }}>
                       <h3 style={{ color: "grey" }}>
                         {doctor.name.slice(0, 10)}
                       </h3>
@@ -127,26 +148,19 @@ const Consultation = () => {
                         style={{
                           display: "flex",
                           alignItems: "center",
+                          justifyContent: "center",
                           cursor: "pointer",
                         }}
                       >
-                        <p
+                        <Button
                           style={{
-                            marginTop: "20px",
                             color: "rgba(66, 153, 225, 0.6)",
-                            marginLeft: "auto",
-                            marginRight: "auto",
                             fontWeight: "bold",
+                            backgroundColor: "transparent"
                           }}
-                        >
-                          Book Appointment
-                        </p>
-                        <AiOutlineArrowRight
-                          style={{
-                            color: "rgba(66, 153, 225, 0.6)",
-                            fontSize: "16px",
-                          }}
-                        />
+                          onClick={() => handleAppointmentBooking(doctor?._id)}
+                        >Book Appointment</Button>
+                        <AiOutlineArrowRight style={{ color: "rgba(66, 153, 225, 0.6)" }} />
                       </div>
                     </div>
                   </div>
