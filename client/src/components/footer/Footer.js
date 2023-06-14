@@ -37,19 +37,10 @@ const Footer = () => {
                     About Us
                   </Text>
                 </Link>
-                <Link>
-                  <Text color="#30363C" fontSize="14px" mb={3}>
-                    Careers
-                  </Text>
-                </Link>
-                <Link>
+
+                <Link to="/health-blogs">
                   <Text color="#30363C" fontSize="14px" mb={3}>
                     Blog
-                  </Text>
-                </Link>
-                <Link>
-                  <Text color="#30363C" fontSize="14px" mb={3}>
-                    Partner with us
                   </Text>
                 </Link>
               </Box>
@@ -66,7 +57,7 @@ const Footer = () => {
             </AccordionButton>
             <AccordionPanel pb={4}>
               <Box>
-                <Link>
+                <Link to="/Medicine">
                   <Text color="#30363C" fontSize="14px" mb={3}>
                     Order Medicine
                   </Text>
@@ -96,42 +87,33 @@ const Footer = () => {
             </AccordionButton>
             <AccordionPanel pb={4}>
               <Box>
-                <Link>
+                <Link to="/healthcare/products/Covid%20Essentials">
                   <Text color="#30363C" fontSize="14px" mb={3}>
                     Covid Essentials
                   </Text>
                 </Link>
-                <Link>
+                <Link to="/healthcare/products/Personal%20Care">
                   <Text color="#30363C" fontSize="14px" mb={3}>
                     Personal Care
                   </Text>
                 </Link>
-                <Link>
-                  <Text color="#30363C" fontSize="14px" mb={3}>
-                    Beauty
-                  </Text>
-                </Link>
-                <Link>
+                <Link to="/healthcare/products/Skin%20Care">
                   <Text color="#30363C" fontSize="14px" mb={3}>
                     Skin Care
                   </Text>
                 </Link>
-                <Link>
-                  <Text color="#30363C" fontSize="14px" mb={3}>
-                    Home Care
-                  </Text>
-                </Link>
-                <Link>
+
+                <Link to="/healthcare/products/Ayush">
                   <Text color="#30363C" fontSize="14px" mb={3}>
                     Ayurvedic Care
                   </Text>
                 </Link>
-                <Link>
+                <Link to="/Fitness">
                   <Text color="#30363C" fontSize="14px" mb={3}>
                     Fitness Supplements
                   </Text>
                 </Link>
-                <Link>
+                <Link to="/healthcare/products/Mom%20&%20Baby">
                   <Text color="#30363C" fontSize="14px" mb={3}>
                     Mother and Baby Care
                   </Text>
@@ -139,11 +121,6 @@ const Footer = () => {
                 <Link to="/healthcare/products/Devices">
                   <Text color="#30363C" fontSize="14px" mb={3}>
                     Healthcare Devices
-                  </Text>
-                </Link>
-                <Link>
-                  <Text color="#30363C" fontSize="14px" mb={3}>
-                    Medicine
                   </Text>
                 </Link>
               </Box>
@@ -160,7 +137,7 @@ const Footer = () => {
             </AccordionButton>
             <AccordionPanel pb={4}>
               <Box>
-                <Link>
+                <Link to="/Medicine">
                   <Text color="#30363C" fontSize="14px" mb={3}>
                     Browse All Medicines
                   </Text>
@@ -173,12 +150,6 @@ const Footer = () => {
                 <Link to="/offers">
                   <Text color="#30363C" fontSize="14px" mb={3}>
                     Browse All Offers
-                  </Text>
-                </Link>
-
-                <Link>
-                  <Text color="#30363C" fontSize="14px" mb={3}>
-                    FAQs
                   </Text>
                 </Link>
               </Box>
@@ -205,16 +176,6 @@ const Footer = () => {
                 <Link>
                   <Text color="#30363C" fontSize="14px" mb={3}>
                     Terms and Conditions
-                  </Text>
-                </Link>
-                <Link>
-                  <Text color="#30363C" fontSize="14px" mb={3}>
-                    Customer Support Policy
-                  </Text>
-                </Link>
-                <Link>
-                  <Text color="#30363C" fontSize="14px" mb={3}>
-                    Return Policy
                   </Text>
                 </Link>
               </Box>
@@ -266,19 +227,10 @@ const Footer = () => {
                     About Us
                   </Text>
                 </Link>
-                <Link>
-                  <Text color="#30363C" fontSize="14px" mb={2}>
-                    Careers
-                  </Text>
-                </Link>
-                <Link>
+
+                <Link to="/health-blogs">
                   <Text color="#30363C" fontSize="14px" mb={2}>
                     Blog
-                  </Text>
-                </Link>
-                <Link>
-                  <Text color="#30363C" fontSize="14px" mb={2}>
-                    Partner with us
                   </Text>
                 </Link>
               </Box>
@@ -286,7 +238,7 @@ const Footer = () => {
                 <Heading m="15px 0" fontSize="16px" fontWeight="600">
                   Our Services
                 </Heading>
-                <Link>
+                <Link to="/Medicine">
                   <Text color="#30363C" fontSize="14px" mb={2}>
                     Order Medicine
                   </Text>
@@ -309,42 +261,33 @@ const Footer = () => {
               <Heading m="15px 0" fontSize="16px" fontWeight="600">
                 Featured Categories
               </Heading>
-              <Link>
+              <Link to="/healthcare/products/Covid%20Essentials">
                 <Text color="#30363C" fontSize="14px" mb={2}>
                   Covid Essentials
                 </Text>
               </Link>
-              <Link>
+              <Link to="/healthcare/products/Personal%20Care">
                 <Text color="#30363C" fontSize="14px" mb={2}>
                   Personal Care
                 </Text>
               </Link>
-              <Link>
-                <Text color="#30363C" fontSize="14px" mb={2}>
-                  Beauty
-                </Text>
-              </Link>
-              <Link>
+              <Link to="/healthcare/products/Skin%20Care">
                 <Text color="#30363C" fontSize="14px" mb={2}>
                   Skin Care
                 </Text>
               </Link>
-              <Link>
-                <Text color="#30363C" fontSize="14px" mb={2}>
-                  Home Care
-                </Text>
-              </Link>
-              <Link>
+
+              <Link to="/healthcare/products/Ayush">
                 <Text color="#30363C" fontSize="14px" mb={2}>
                   Ayurvedic Care
                 </Text>
               </Link>
-              <Link>
+              <Link to="/Fitness">
                 <Text color="#30363C" fontSize="14px" mb={2}>
                   Fitness Supplements
                 </Text>
               </Link>
-              <Link>
+              <Link to="/healthcare/products/Mom%20&%20Baby">
                 <Text color="#30363C" fontSize="14px" mb={2}>
                   Mother and Baby Care
                 </Text>
@@ -354,11 +297,6 @@ const Footer = () => {
                   Healthcare Devices
                 </Text>
               </Link>
-              <Link>
-                <Text color="#30363C" fontSize="14px" mb={2}>
-                  Medicine
-                </Text>
-              </Link>
             </Box>
           </GridItem>
           <GridItem colSpan={3}>
@@ -366,7 +304,7 @@ const Footer = () => {
               <Heading m="15px 0" fontSize="16px" fontWeight="600">
                 Need Help
               </Heading>
-              <Link>
+              <Link to="/Medicine">
                 <Text color="#30363C" fontSize="14px" mb={2}>
                   Browse All Medicines
                 </Text>
@@ -379,12 +317,6 @@ const Footer = () => {
               <Link to="/offers">
                 <Text color="#30363C" fontSize="14px" mb={2}>
                   Browse All Offers
-                </Text>
-              </Link>
-
-              <Link>
-                <Text color="#30363C" fontSize="14px" mb={2}>
-                  FAQs
                 </Text>
               </Link>
             </Box>
@@ -402,16 +334,6 @@ const Footer = () => {
               <Link>
                 <Text color="#30363C" fontSize="14px" mb={2}>
                   Terms and Conditions
-                </Text>
-              </Link>
-              <Link>
-                <Text color="#30363C" fontSize="14px" mb={2}>
-                  Customer Support Policy
-                </Text>
-              </Link>
-              <Link>
-                <Text color="#30363C" fontSize="14px" mb={2}>
-                  Return Policy
                 </Text>
               </Link>
             </Box>
@@ -458,7 +380,7 @@ const Footer = () => {
               <Link>
                 <Text
                   fontWeight="500"
-                  m="35px 0 20px 0"
+                  m="65px 0 15px 0"
                   color="#30363C"
                   fontSize="16px"
                 >

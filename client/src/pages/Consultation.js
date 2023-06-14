@@ -6,6 +6,7 @@ import {
   bookAppointment,
   getAllDoctorsAdmin,
   updateAppointmentHistory,
+  isAuthenticated,
 } from "../api/api";
 import {
   AiFillClockCircle,
@@ -21,9 +22,10 @@ import axios from "axios";
 const Consultation = () => {
   const [doctors, setDoctors] = useState([]);
   const toast = useToast();
+  const email = isAuthenticated().email;
+  console.log(email);
 
   const handlePayment = async (token, doctorId, price) => {
-    console.log(price, doctorId);
     try {
       const response = await axios({
         url: "http://localhost:8000/api/payment",
@@ -36,7 +38,7 @@ const Consultation = () => {
       if (response.status === 200) {
         bookAppointment(doctorId, userId)
           .then((res) => {
-            console.log("res", res);
+            console.log(res);
             toast({
               title: "Appointment Booked Successfully!",
               status: "success",
@@ -76,6 +78,9 @@ const Consultation = () => {
 
   const loggedInUser = JSON.parse(localStorage.getItem("jwt"));
   const userId = loggedInUser?._id;
+  const filteredDoctors = doctors.filter((doctor) =>
+    doctor.appointments.every((app) => app.email !== email)
+  );
 
   return (
     <>
@@ -104,7 +109,7 @@ const Consultation = () => {
           </div>
           <div className="container">
             <div className="row">
-              {doctors.map((doctor, index) => (
+              {filteredDoctors.map((doctor, index) => (
                 <div className="col-md-3 col-sm-4 mt-5 doctor-box" key={index}>
                   <div
                     className="team-thumb wow fadeInUp"

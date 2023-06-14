@@ -68,7 +68,7 @@ function TabCarousal() {
       width="100%"
       paddingLeft={{ base: "10px", sm: "20px", lg: "50px", xl: "50px" }}
       paddingRight={{ base: "10px", sm: "20px", lg: "50px", xl: "50px" }}
-      mt="50px"
+      mt="80px"
     >
       <Box width="100%" position="relative">
         {windowWidth > 1024 && scroll > 0 && (
