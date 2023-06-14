@@ -11,7 +11,7 @@ const HealthBlogs = () => {
   useEffect(() => {
     setLoading(true);
     fetch(
-      "https://newsapi.org/v2/top-headlines?country=us&category=health&pageSize=17&apiKey=1721a75ae72543d7b8caf7432a01d5fa"
+      "https://newsapi.org/v2/top-headlines?country=us&category=health&pageSize=16&apiKey=1721a75ae72543d7b8caf7432a01d5fa"
     )
       .then((response) => response.json())
       .then((data) => {

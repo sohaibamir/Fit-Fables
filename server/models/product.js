@@ -10,6 +10,7 @@ const productSchema = new mongoose.Schema(
     actual_price: { type: Number, required: true },
     crossed_price: { type: Number, required: true },
     manufacturer: { type: String, required: true },
+    quantity: { type: Number, default: 20 },
     country: { type: String, required: true },
     category: { type: String, required: true },
     sub_category: { type: String, required: true },

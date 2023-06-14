@@ -192,6 +192,7 @@ const Product = (props) => {
                   {!cartItems.find((e) => e.productId._id === data._id) ? (
                     <VStack>
                       <Select
+                        disabled={data.quantity < 1}
                         value={amt}
                         onChange={(e) => {
                           setAmount(+e.target.value);

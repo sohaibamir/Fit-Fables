@@ -1,7 +1,7 @@
 const Cart = require("../models/cart");
 const { Order } = require("../models/order");
 const User = require("../models/user");
-const Product = require('../models/product');
+const Product = require("../models/product");
 
 exports.createOrders = async (req, res) => {
   try {
@@ -17,6 +17,12 @@ exports.createOrders = async (req, res) => {
       })),
       totalPrice,
     };
+
+    for (const item of cart.cartItems) {
+      await Product.findByIdAndUpdate(item.productId, {
+        $inc: { quantity: -item.quantity },
+      });
+    }
 
     const order = await Order.create(newOrder);
     const deleteCart = await Cart.findByIdAndDelete(cart._id);
@@ -255,26 +261,25 @@ exports.getSixMonthsRevenue = async (req, res) => {
 
     let totalOrders = await Order.countDocuments();
 
-    let totalUsers = await User.countDocuments()
+    let totalUsers = await User.countDocuments();
 
     const totalOrdersInDB = await Order.find({});
-    let totalOrdersAmount=0;
+    let totalOrdersAmount = 0;
     totalOrdersInDB.map((amm) => {
-      if(amm.totalPrice){
-        totalOrdersAmount += amm.totalPrice
+      if (amm.totalPrice) {
+        totalOrdersAmount += amm.totalPrice;
       }
-      
-      })
+    });
 
-
-    return res.status(201).
-      send({
-        dataForChart: dataForChart,
-        todaySales: todaySales ? todaySales : 0,
-        weekSales: weekSales ? weekSales : 0,
-        monthSales: monthSales ? monthSales : 0,
-        totalOrders, totalUsers, totalOrdersAmount: totalOrdersAmount ? totalOrdersAmount.toFixed(0) : 0
-      });
+    return res.status(201).send({
+      dataForChart: dataForChart,
+      todaySales: todaySales ? todaySales : 0,
+      weekSales: weekSales ? weekSales : 0,
+      monthSales: monthSales ? monthSales : 0,
+      totalOrders,
+      totalUsers,
+      totalOrdersAmount: totalOrdersAmount ? totalOrdersAmount.toFixed(0) : 0,
+    });
   } catch (error) {
     console.log(error);
     return res.status(500).send({ message: error.message });
@@ -288,19 +293,23 @@ exports.getProductsOfSingleOrder = async (req, res) => {
 
     if (order) {
       let arrLength = order?.cartItems?.length;
-      let productsArr = [], intialProduct = {}, finalProduct = {};
+      let productsArr = [],
+        intialProduct = {},
+        finalProduct = {};
       order?.cartItems?.forEach(async (item) => {
         const actualProduct = await Product.findOne({ _id: item?.productId });
         intialProduct = { ...actualProduct, quantity: item?.quantity };
-        finalProduct = { ...intialProduct?._doc, quantity: intialProduct?.quantity };
+        finalProduct = {
+          ...intialProduct?._doc,
+          quantity: intialProduct?.quantity,
+        };
         productsArr.push(finalProduct);
 
         if (arrLength == productsArr?.length) {
           res.status(201).send({ products: productsArr });
         }
       });
-    }
-    else {
+    } else {
       res.status(500).send({ message: "order id is incorrect" });
     }
   } catch (error) {
