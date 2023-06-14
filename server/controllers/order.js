@@ -258,7 +258,13 @@ exports.getSixMonthsRevenue = async (req, res) => {
     let totalUsers = await User.countDocuments()
 
     const totalOrdersInDB = await Order.find({});
-    let totalOrdersAmount = totalOrdersInDB.reduce((acc, current) => { return acc + current.totalPrice ? current.totalPrice : 0  }, 0)
+    let totalOrdersAmount=0;
+    totalOrdersInDB.map((amm) => {
+      if(amm.totalPrice){
+        totalOrdersAmount += amm.totalPrice
+      }
+      
+      })
 
 
     return res.status(201).
@@ -267,7 +273,7 @@ exports.getSixMonthsRevenue = async (req, res) => {
         todaySales: todaySales ? todaySales : 0,
         weekSales: weekSales ? weekSales : 0,
         monthSales: monthSales ? monthSales : 0,
-        totalOrders, totalUsers, totalOrdersAmount: totalOrdersAmount ? totalOrdersAmount : 0
+        totalOrders, totalUsers, totalOrdersAmount: totalOrdersAmount ? totalOrdersAmount.toFixed(0) : 0
       });
   } catch (error) {
     console.log(error);

@@ -81,7 +81,7 @@ const Widget = ({ type,amount }) => {
   return (
     <div className="widget">
       <div className="left">
-        <span className="title">{data.title}</span>
+        <span className="title">{data.title} {data.title=='EARNINGS' && <p style={{display:'inline-block'}}>(Last 24 Hours)</p>}</span>
         <span className="counter">
         {data.isMoney && "Rs "}{amount} 
         </span>
