@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 const User = require("./user");
+const { ObjectId } = mongoose.Schema;
 
 const doctorSchema = new Schema(
   {
@@ -20,14 +21,29 @@ const doctorSchema = new Schema(
       required: true,
       default: "Monday - Friday",
     },
-    appointments: {
-      type: Array,
-      default: [],
-    },
-    completedAppointments: {
-      type: Array,
-      default: [],
-    },
+    appointments: [
+      {
+        user: {
+          type: ObjectId,
+          ref: "User",
+        },
+        date: {
+          type: Date,
+        },
+      },
+    ],
+    completedAppointments: [
+      {
+        user: {
+          type: ObjectId,
+          ref: "User",
+        },
+        date: {
+          type: Date,
+        },
+      },
+    ],
+    price: { type: Number, required: true },
   },
   {
     timestamps: true,

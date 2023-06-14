@@ -10,17 +10,12 @@ import { Link, useNavigate } from "react-router-dom";
 
 import { useToast } from "@chakra-ui/react";
 
-import { useDispatch } from "react-redux";
-import { logoutUser } from "../../../../redux/user/action";
-
 const Sidebar = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const toast = useToast();
 
   const clearSession = () => {
     localStorage.clear();
-    dispatch(logoutUser());
   };
 
   return (
@@ -36,13 +31,19 @@ const Sidebar = () => {
             </li>
           </Link>
           <p className="title">LISTS</p>
-          <Link to="/doctor/remaining-appointments" style={{ textDecoration: "none" }}>
+          <Link
+            to="/doctor/remaining-appointments"
+            style={{ textDecoration: "none" }}
+          >
             <li>
               <PersonOutlineIcon className="icon" />
               <span>Remaining Appointments</span>
             </li>
           </Link>
-          <Link to="/doctor/completed-appointments" style={{ textDecoration: "none" }}>
+          <Link
+            to="/doctor/completed-appointments"
+            style={{ textDecoration: "none" }}
+          >
             <li>
               <StoreIcon className="icon" />
               <span>Completed Appointments</span>
@@ -51,7 +52,21 @@ const Sidebar = () => {
           <p className="title">USER</p>
           <li>
             <ExitToAppIcon className="icon" />
-            <span>Logout</span>
+            <span
+              onClick={() => {
+                clearSession();
+                toast({
+                  title: "Logged out Successfully",
+                  status: "success",
+                  duration: 3000,
+                  isClosable: true,
+                  position: "top",
+                });
+                navigate("/");
+              }}
+            >
+              Logout
+            </span>
           </li>
         </ul>
       </div>
