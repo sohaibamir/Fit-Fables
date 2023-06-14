@@ -21,6 +21,7 @@ const NewOrEditDoctor = ({ inputs, title }) => {
     timings: "",
     days: "",
     gender: "",
+    price: "",
   });
   const [images, setImages] = useState([]);
   const [imagePreview, setImagePreview] = useState([]);
@@ -29,11 +30,32 @@ const NewOrEditDoctor = ({ inputs, title }) => {
   const toast = useToast();
 
   useEffect(() => {
-    if (title == "Edit Doctor Details") {
+    if (title === "Edit Doctor Details") {
       getDoctorById(doctorId)
         .then((res) => {
           console.log("res", res);
-          setDoctor(res?.data?.data);
+          let doc = res?.data?.data;
+          setDoctor({
+            _id: doc._id,
+            name: doc.name,
+            email: doc.email,
+            address: doc.address,
+            phone: doc.phone,
+            designation: doc.designation,
+            timings: doc.timings,
+            days: doc.days,
+            gender: doc.gender,
+            price: doc.price,
+          });
+          let img = [];
+          if (doc.img1) {
+            img.push(doc.img1);
+          }
+          if (doc.img2) {
+            img.push(doc.img2);
+          }
+          setImagePreview(img);
+          setImages(img);
         })
         .catch((error) => console.log(error));
     }
@@ -97,7 +119,7 @@ const NewOrEditDoctor = ({ inputs, title }) => {
     const [id, ...restArr] = inputs;
     remainingArr = restArr;
   } else {
-    let [id, name, email, password, ...restArr] = inputs;
+    let [id, name, email, ...restArr] = inputs;
     restArr = [id, name, email, ...restArr];
     remainingArr = restArr;
   }
@@ -135,7 +157,7 @@ const NewOrEditDoctor = ({ inputs, title }) => {
           <div className="right">
             <Row>
               <div className="formInput">
-                <label htmlFor="file">
+                <label style={{ cursor: "pointer" }} htmlFor="file">
                   Image: <DriveFolderUploadOutlinedIcon className="icon" />
                 </label>
                 <input
@@ -162,8 +184,7 @@ const NewOrEditDoctor = ({ inputs, title }) => {
                           input.name === "name" ||
                           input.name === "email" ||
                           input.name === "phone" ||
-                          input.name === "address"
-                        )
+                          input.name === "address")
                       }
                       className="inputsOfDoctorInfo"
                       name={input.name}
@@ -184,8 +205,7 @@ const NewOrEditDoctor = ({ inputs, title }) => {
                           input.name === "name" ||
                           input.name === "email" ||
                           input.name === "phone" ||
-                          input.name === "address"
-                        )
+                          input.name === "address")
                       }
                       className="inputsOfDoctorInfo"
                       name={input.name}

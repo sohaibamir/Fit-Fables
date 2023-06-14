@@ -41,6 +41,7 @@ exports.createDoctor = async (req, res) => {
       timings,
       days,
       gender,
+      price,
     } = req.body;
 
     const doctor = await Doctor.create({
@@ -53,6 +54,7 @@ exports.createDoctor = async (req, res) => {
       designation,
       timings,
       days,
+      price,
       img1,
       img2,
       role: "doctor",
