@@ -23,7 +23,6 @@ const Consultation = () => {
   const toast = useToast();
 
   const handlePayment = async (token, doctorId, price) => {
-    console.log(price, doctorId);
     try {
       const response = await axios({
         url: "http://localhost:8000/api/payment",
@@ -36,7 +35,7 @@ const Consultation = () => {
       if (response.status === 200) {
         bookAppointment(doctorId, userId)
           .then((res) => {
-            console.log("res", res);
+            console.log(res);
             toast({
               title: "Appointment Booked Successfully!",
               status: "success",
@@ -209,19 +208,6 @@ const Consultation = () => {
                             handlePayment(token, doctor._id, doctor.price)
                           }
                         />
-                        {/* <Button
-                          style={{
-                            color: "rgba(66, 153, 225, 0.6)",
-                            fontWeight: "bold",
-                            backgroundColor: "transparent",
-                          }}
-                          onClick={() => handleAppointmentBooking(doctor?._id)}
-                        >
-                          Book Appointment
-                        </Button>
-                        <AiOutlineArrowRight
-                          style={{ color: "rgba(66, 153, 225, 0.6)" }}
-                        /> */}
                       </div>
                     </div>
                   </div>
