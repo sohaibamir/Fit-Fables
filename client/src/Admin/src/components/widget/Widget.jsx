@@ -83,7 +83,7 @@ const Widget = ({ type,amount }) => {
       <div className="left">
         <span className="title">{data.title}</span>
         <span className="counter">
-          {amount}{data.isMoney && " Rs"} 
+        {data.isMoney && "Rs "}{amount} 
         </span>
         <Link className="link" to={data.title=='USERS'?'/admin/users':'/admin/orders'}  style={{visibility:(data.link == 'View net earnings' || data.link == 'See details') &&'hidden'}}>{data.link}</Link>
       </div>

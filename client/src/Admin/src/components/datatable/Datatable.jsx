@@ -179,7 +179,7 @@ const Datatable = ({ tableTitle, tableData, setIsDataUpdated }) => {
                           </div>
                         </td>
                         :
-                        tableTitle === "Orders" ?
+                        tableTitle === "Orders" || tableTitle ===  "Last Transactions" ?
                           <td>
                             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                               <Link to={`/admin/orders/${eachRecord?.orderId}`} style={{ marginRight: "7px", cursor: 'pointer' }}>

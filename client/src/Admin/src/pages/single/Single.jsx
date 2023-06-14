@@ -40,14 +40,21 @@ const Single = () => {
       .then((response) => {
         let fetchData = response.data.data;
         if (fetchData.length > 0) {
-          let tableHeader = ["Order ID", "Quantity", "Status", "Total"];
+          let tableHeader = [
+            "Order ID",
+            "Customer ID",
+            "Total Items",
+            "Status",
+            "Amount",
+          ];
           let tableBody = [];
           fetchData.map((order) => {
             tableBody.push({
               orderId: order._id,
+              customerId: order.userId,
               quantity: order.cartItems ? order.cartItems.length : 0,
               status: order.status ? order.status : "Pending",
-              total: 500,
+              total: order.totalPrice ? order.totalPrice : "N/A",
             });
           });
           setOrders({
@@ -55,6 +62,22 @@ const Single = () => {
             tableBody,
           });
         }
+        // if (fetchData.length > 0) {
+        //   let tableHeader = ["Order ID", "Quantity", "Status", "Total"];
+        //   let tableBody = [];
+        //   fetchData.map((order) => {
+        //     tableBody.push({
+        //       orderId: order._id,
+        //       quantity: order.cartItems ? order.cartItems.length : 0,
+        //       status: order.status ? order.status : "Pending",
+        //       total: 500,
+        //     });
+        //   });
+        //   setOrders({
+        //     tableHeader,
+        //     tableBody,
+        //   });
+        // }
         setchartData(response.data.dataForChart);
       })
       .catch((err) => console.log(err));

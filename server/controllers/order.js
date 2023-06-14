@@ -257,8 +257,8 @@ exports.getSixMonthsRevenue = async (req, res) => {
 
     let totalUsers = await User.countDocuments()
 
-    const totalOrdersInDB = await Order.find();
-    let totalOrdersAmount = totalOrdersInDB.reduce((acc, current) => { return acc + current.totalPrice }, 0)
+    const totalOrdersInDB = await Order.find({});
+    let totalOrdersAmount = totalOrdersInDB.reduce((acc, current) => { return acc + current.totalPrice ? current.totalPrice : 0  }, 0)
 
 
     return res.status(201).
