@@ -1,8 +1,12 @@
-import { Box, Button, useToast } from "@chakra-ui/react";
+import { Box, useToast } from "@chakra-ui/react";
 import Tabs from "../components/navbar/Tabs";
 import HealthCareBreadcrumb from "../components/healthcare/HealthCareBreadcrumb";
 import { useEffect, useState } from "react";
-import { bookAppointment, getAllDoctorsAdmin, updateAppointmentHistory } from "../api/api";
+import {
+  bookAppointment,
+  getAllDoctorsAdmin,
+  updateAppointmentHistory,
+} from "../api/api";
 import {
   AiFillClockCircle,
   AiOutlineCalendar,
@@ -11,9 +15,55 @@ import {
   AiOutlineArrowRight,
 } from "react-icons/ai";
 
+import StripeCheckout from "react-stripe-checkout";
+import axios from "axios";
+
 const Consultation = () => {
   const [doctors, setDoctors] = useState([]);
   const toast = useToast();
+
+  const handlePayment = async (token, doctorId, price) => {
+    console.log(price, doctorId);
+    try {
+      const response = await axios({
+        url: "http://localhost:8000/api/payment",
+        method: "POST",
+        data: {
+          amount: price,
+          token,
+        },
+      });
+      if (response.status === 200) {
+        bookAppointment(doctorId, userId)
+          .then((res) => {
+            console.log("res", res);
+            toast({
+              title: "Appointment Booked Successfully!",
+              status: "success",
+              duration: 3500,
+              isClosable: true,
+              position: "top",
+            });
+          })
+          .catch((error) => console.log(error));
+
+        updateAppointmentHistory(userId, doctorId)
+          .then((res) => {
+            console.log("history res", res);
+          })
+          .catch((error) => console.log(error));
+      }
+    } catch (error) {
+      toast({
+        title: "Payment Was Not Successful!",
+        status: "error",
+        duration: 3500,
+        isClosable: true,
+        position: "top",
+      });
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
     getAllDoctorsAdmin()
@@ -24,25 +74,8 @@ const Consultation = () => {
       .catch((err) => console.log(err));
   }, []);
 
-  const loggedInUser = JSON.parse(localStorage.getItem('jwt'));
+  const loggedInUser = JSON.parse(localStorage.getItem("jwt"));
   const userId = loggedInUser?._id;
-
-  const handleAppointmentBooking = (doctorId) => {
-    bookAppointment(doctorId, userId).then((res) => {
-      console.log('res', res);
-      toast({
-        title: "Appointment Booked Successfully!",
-        status: "success",
-        duration: 3500,
-        isClosable: true,
-        position: "top",
-      });
-    }).catch((error) => console.log(error));
-
-    updateAppointmentHistory(userId, doctorId).then((res) => {
-      console.log('history res', res);
-    }).catch((error) => console.log(error));
-  }
 
   return (
     <>
@@ -88,10 +121,13 @@ const Consultation = () => {
                       alt=""
                     />
 
-                    <div className="team-info" style={{ paddingBottom: "10px" }}>
-                      <h3 style={{ color: "grey" }}>
-                        {doctor.name.slice(0, 10)}
-                      </h3>
+                    <div
+                      className="team-info"
+                      style={{ paddingBottom: "10px" }}
+                    >
+                      <h4 style={{ color: "grey" }}>
+                        {doctor.name.slice(0, 20)}
+                      </h4>
                       <p style={{ fontWeight: "bold", color: "grey" }}>
                         {doctor.designation}
                       </p>
@@ -152,15 +188,40 @@ const Consultation = () => {
                           cursor: "pointer",
                         }}
                       >
-                        <Button
+                        <StripeCheckout
+                          stripeKey={
+                            "pk_test_51NHrzDESxeXqLxczuBm1MLWgFZZKFQj5zaH2HwXDmfluNP3mrR8gdh2z8l6ZVInWVoma6Gu4yP9nchi8JTWrNQan006l7Bdd1T"
+                          }
+                          label={
+                            <span>
+                              Book Appointment
+                              <AiOutlineArrowRight
+                                style={{ color: "rgba(66, 153, 225, 0.6)" }}
+                              />
+                            </span>
+                          }
+                          name="Pay With Credit Card"
+                          billingAddress
+                          shippingAddress
+                          amount={(doctor.price * 100) / 280}
+                          description={`Your total is Rs. ${doctor.price}`}
+                          token={(token) =>
+                            handlePayment(token, doctor._id, doctor.price)
+                          }
+                        />
+                        {/* <Button
                           style={{
                             color: "rgba(66, 153, 225, 0.6)",
                             fontWeight: "bold",
-                            backgroundColor: "transparent"
+                            backgroundColor: "transparent",
                           }}
                           onClick={() => handleAppointmentBooking(doctor?._id)}
-                        >Book Appointment</Button>
-                        <AiOutlineArrowRight style={{ color: "rgba(66, 153, 225, 0.6)" }} />
+                        >
+                          Book Appointment
+                        </Button>
+                        <AiOutlineArrowRight
+                          style={{ color: "rgba(66, 153, 225, 0.6)" }}
+                        /> */}
                       </div>
                     </div>
                   </div>
