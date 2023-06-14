@@ -48,3 +48,13 @@ To run this project locally, follow these steps:
 14) The revenue, earning, profits and sales could be seen through the services of react charts.
 15) React chart also shows the individual users transactions
 16) The application is comprised of User Side, Admin Panel and Doctor Panel.
+
+## Contributing
+Contributions are welcome! If you'd like to contribute to this project, please follow these steps:
+1) Fork the repository.
+2) Create a new branch.
+3) Make your changes.
+4) Commit your changes.
+5) Push the branch to your forked repository.
+6) Open a pull request.
+Please ensure that your code adheres to the existing coding style and conventions.
