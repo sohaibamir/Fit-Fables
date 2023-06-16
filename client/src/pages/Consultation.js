@@ -18,12 +18,13 @@ import {
 
 import StripeCheckout from "react-stripe-checkout";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Consultation = () => {
   const [doctors, setDoctors] = useState([]);
   const toast = useToast();
   const email = isAuthenticated().email;
-  console.log(email);
+  const navigate = useNavigate();
 
   const handlePayment = async (token, doctorId, price) => {
     try {
@@ -46,6 +47,7 @@ const Consultation = () => {
               isClosable: true,
               position: "top",
             });
+            navigate("/");
           })
           .catch((error) => console.log(error));
 
@@ -113,11 +115,14 @@ const Consultation = () => {
                 <div className="col-md-3 col-sm-4 mt-5 doctor-box" key={index}>
                   <div
                     className="team-thumb wow fadeInUp"
+                    style={{ borderRadius: "10px" }}
                     data-wow-delay="0.2s"
                   >
                     <img
                       src={doctor.img1}
                       style={{
+                        borderTopLeftRadius: "10px",
+                        borderTopRadius: "10px",
                         width: "100%",
                         height: "250px",
                         objectFit: "cover",
@@ -185,37 +190,43 @@ const Consultation = () => {
                           </p>
                         </div>
                       </div>
-                      <div
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          cursor: "pointer",
-                        }}
-                      >
-                        <StripeCheckout
-                          stripeKey={
-                            "pk_test_51NHrzDESxeXqLxczuBm1MLWgFZZKFQj5zaH2HwXDmfluNP3mrR8gdh2z8l6ZVInWVoma6Gu4yP9nchi8JTWrNQan006l7Bdd1T"
-                          }
-                          label={
-                            <span>
-                              Book Appointment
-                              <AiOutlineArrowRight
-                                style={{ color: "rgba(66, 153, 225, 0.6)", marginLeft: "10px" }}
-                              />
-                            </span>
-                          }
-                          name="Pay With Credit Card"
-                          billingAddress
-                          shippingAddress
-                          amount={(doctor.price * 100) / 280}
-                          description={`Your total is Rs. ${doctor.price}`}
-                          token={(token) =>
-                            handlePayment(token, doctor._id, doctor.price)
-                          }
-                          className="stripe-pay-btn-for-appointment"
-                        />
-                      </div>
+                      {isAuthenticated() &&
+                        isAuthenticated().role === "user" && (
+                          <div
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              cursor: "pointer",
+                            }}
+                          >
+                            <StripeCheckout
+                              stripeKey={
+                                "pk_test_51NHrzDESxeXqLxczuBm1MLWgFZZKFQj5zaH2HwXDmfluNP3mrR8gdh2z8l6ZVInWVoma6Gu4yP9nchi8JTWrNQan006l7Bdd1T"
+                              }
+                              label={
+                                <span>
+                                  Book Appointment
+                                  <AiOutlineArrowRight
+                                    style={{
+                                      color: "rgba(66, 153, 225, 0.6)",
+                                      marginLeft: "10px",
+                                    }}
+                                  />
+                                </span>
+                              }
+                              name="Pay With Credit Card"
+                              billingAddress
+                              shippingAddress
+                              amount={(doctor.price * 100) / 280}
+                              description={`Your total is Rs. ${doctor.price}`}
+                              token={(token) =>
+                                handlePayment(token, doctor._id, doctor.price)
+                              }
+                              className="stripe-pay-btn-for-appointment"
+                            />
+                          </div>
+                        )}
                     </div>
                   </div>
                 </div>

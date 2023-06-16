@@ -43,9 +43,7 @@ function MyOrders() {
             borderRadius="10px"
           >
             <Box>
-              <Heading fontSize={"25px"}>
-                Order Placed on: {el.createdAt.split("T")[0]}
-              </Heading>
+              <Heading fontSize={"25px"}>Order ID: {el._id}</Heading>
             </Box>
 
             {el.cartItems.map((el) => (
@@ -57,6 +55,7 @@ function MyOrders() {
                 <span>Quantity : {el.quantity}</span>
               </li>
             ))}
+            <span>Placed on: {el.createdAt.split("T")[0]}</span>
             <Heading fontSize={"18px"}>Total Price: Rs.{el.totalPrice}</Heading>
           </Stack>
         ))}

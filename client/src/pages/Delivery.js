@@ -36,10 +36,24 @@ function Delivery() {
 
   const navigate = useNavigate();
 
+  const currentDate = new Date();
+
   const [deliveryAmount, setDeliveryAmount] = useState(0);
   const [amountToPay, setAmountToPay] = useState(0);
 
   const dollarPrice = 286;
+
+  const startDate = new Date(currentDate.getTime() + 4 * 24 * 60 * 60 * 1000);
+  const endDate = new Date(currentDate.getTime() + 6 * 24 * 60 * 60 * 1000);
+
+  const start = startDate.toLocaleDateString(undefined, {
+    month: "long",
+    day: "numeric",
+  });
+  const end = endDate.toLocaleDateString(undefined, {
+    month: "long",
+    day: "numeric",
+  });
 
   const handleChange = (e) => {
     setDeliveryAmount(e.target.value);
@@ -165,7 +179,7 @@ function Delivery() {
                 ></Radio>
                 <Box ml="20px">
                   <Heading fontSize="xl" color="#4f585e">
-                    12 June - 14 June
+                    {start} - {end}
                   </Heading>
                   <Flex mt="6px">
                     <Text mb="0px" fontSize="13px">
@@ -280,7 +294,9 @@ function Delivery() {
                         Total savings of{" "}
                         <Text mb="0px" fontWeight="bold" mr="5px" ml="5px">
                           {" "}
-                          Rs {totalOriginalAmount - totalAmount}{" "}
+                          Rs {(totalOriginalAmount - totalAmount).toFixed(
+                            2
+                          )}{" "}
                         </Text>{" "}
                         on this order
                       </Flex>

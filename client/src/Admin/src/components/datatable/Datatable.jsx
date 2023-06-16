@@ -23,9 +23,9 @@ import {
 
 const Datatable = ({ tableTitle, tableData, setIsDataUpdated }) => {
   const [data, setData] = useState(tableData.tableBody);
+  const [deleteId, setDeleteId] = useState("");
   const [page, setPage] = useState(1);
 
-  let objectId = "";
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = useRef();
   const toast = useToast();
@@ -43,37 +43,43 @@ const Datatable = ({ tableTitle, tableData, setIsDataUpdated }) => {
 
   const handleDelete = (id) => {
     if (tableTitle === "Doctors") {
-      deleteDoctor(id).then((res) => {
-        console.log('res', res);
-        setIsDataUpdated((prev) => !prev);
-        setPage(1);
-        onClose();
-        toast({
-          title: "Record Deleted Successfully!",
-          status: "success",
-          duration: 3500,
-          isClosable: true,
-          position: "top",
-        });
-      })
+      deleteDoctor(deleteId)
+        .then((res) => {
+          console.log("res", res);
+          setIsDataUpdated((prev) => !prev);
+          setPage(1);
+          onClose();
+          toast({
+            title: "Record Deleted Successfully!",
+            status: "success",
+            duration: 3500,
+            isClosable: true,
+            position: "top",
+          });
+        })
+        .catch((error) => console.log(error));
+    } else if (tableTitle === "Products") {
+      deleteProduct(id)
+        .then((res) => {
+          console.log("res", res);
+          setIsDataUpdated((prev) => !prev);
+          setPage(1);
+          onClose();
+          toast({
+            title: "Product Deleted Successfully!",
+            status: "success",
+            duration: 3500,
+            isClosable: true,
+            position: "top",
+          });
+        })
         .catch((error) => console.log(error));
     }
-    else if (tableTitle === "Products") {
-      deleteProduct(id).then((res) => {
-        console.log('res', res);
-        setIsDataUpdated((prev) => !prev);
-        setPage(1);
-        onClose();
-        toast({
-          title: "Product Deleted Successfully!",
-          status: "success",
-          duration: 3500,
-          isClosable: true,
-          position: "top",
-        });
-      })
-        .catch((error) => console.log(error));
-    }
+  };
+
+  const handleClickDelete = (id) => {
+    setDeleteId(id);
+    onOpen();
   };
 
   return (
@@ -100,7 +106,11 @@ const Datatable = ({ tableTitle, tableData, setIsDataUpdated }) => {
               <tr style={{ textAlign: "center" }}>
                 {tableTitle === "Products" && <th></th>}
                 {tableData?.tableHeader?.map((value) => {
-                  if (value !== "_id" && value !== "img1") {
+                  if (
+                    value !== "_id" &&
+                    value !== "img1" &&
+                    value != "appointmentHistory"
+                  ) {
                     return (
                       <td
                         key={value}
@@ -143,8 +153,25 @@ const Datatable = ({ tableTitle, tableData, setIsDataUpdated }) => {
                     )}
                     {Object.values(eachRecord)?.map((value) => {
                       return (
-                        <td>{(value == "Pending" || value == "In-process" || value == "Delivered") ? <CustomBadge bgColor={value == "Pending" ? "danger" : value == "In-process" ? "primary" : "success"} badgeText={value} /> : value}</td>
-                      )
+                        <td>
+                          {value == "Pending" ||
+                          value == "In-process" ||
+                          value == "Delivered" ? (
+                            <CustomBadge
+                              bgColor={
+                                value == "Pending"
+                                  ? "danger"
+                                  : value == "In-process"
+                                  ? "primary"
+                                  : "success"
+                              }
+                              badgeText={value}
+                            />
+                          ) : (
+                            value
+                          )}
+                        </td>
+                      );
                     })}
                     {tableTitle === "Products" ? (
                       <td>
@@ -162,33 +189,57 @@ const Datatable = ({ tableTitle, tableData, setIsDataUpdated }) => {
                             <EditIcon color="green.500" />
                           </Link>
                           <div style={{ cursor: "pointer" }}>
-                            <DeleteIcon color="red.500" onClick={onOpen} />
+                            <DeleteIcon
+                              color="red.500"
+                              onClick={() => handleClickDelete(_id)}
+                            />
                           </div>
                         </div>
                       </td>
-                    )
-                      : tableTitle === "Doctors" ?
-                        <td>
-                          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                            <Link to={`/admin/doctors/${_id}`} style={{ marginRight: "7px", cursor: 'pointer' }}>
-                              <EditIcon color="green.500" />
-                            </Link>
-                            <div style={{ cursor: 'pointer' }}>
-                              <DeleteIcon color="red.500" onClick={onOpen} />
-                            </div>
+                    ) : tableTitle === "Doctors" ? (
+                      <td>
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                          }}
+                        >
+                          <Link
+                            to={`/admin/doctors/${_id}`}
+                            style={{ marginRight: "7px", cursor: "pointer" }}
+                          >
+                            <EditIcon color="green.500" />
+                          </Link>
+                          <div style={{ cursor: "pointer" }}>
+                            <DeleteIcon
+                              color="red.500"
+                              onClick={() => handleClickDelete(_id)}
+                            />
                           </div>
-                        </td>
-                        :
-                        tableTitle === "Orders" || tableTitle ===  "Last Transactions" ?
-                          <td>
-                            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                              <Link to={`/admin/orders/${eachRecord?.orderId}`} style={{ marginRight: "7px", cursor: 'pointer' }}>
-                                <AiFillEye style={{ color: "#38A169", fontSize: "18px" }} />
-                              </Link>
-                            </div>
-                          </td>
-                          : null
-                    }
+                        </div>
+                      </td>
+                    ) : tableTitle === "Orders" ||
+                      tableTitle === "Last Transactions" ? (
+                      <td>
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                          }}
+                        >
+                          <Link
+                            to={`/admin/orders/${eachRecord?.orderId}`}
+                            style={{ marginRight: "7px", cursor: "pointer" }}
+                          >
+                            <AiFillEye
+                              style={{ color: "#38A169", fontSize: "18px" }}
+                            />
+                          </Link>
+                        </div>
+                      </td>
+                    ) : null}
 
                     {tableTitle === "Users" && (
                       <td>
@@ -203,13 +254,13 @@ const Datatable = ({ tableTitle, tableData, setIsDataUpdated }) => {
                             to={`/admin/${_id}`}
                             style={{ marginRight: "7px", cursor: "pointer" }}
                           >
-                            <AiFillEye style={{ color: "#38A169", fontSize: "18px" }} />
+                            <AiFillEye
+                              style={{ color: "#38A169", fontSize: "18px" }}
+                            />
                           </Link>
                         </div>
                       </td>
                     )}
-
-                    <span style={{ display: "none" }}>{objectId = _id}</span>
                   </tr>
                 );
               })}
@@ -245,23 +296,23 @@ const Datatable = ({ tableTitle, tableData, setIsDataUpdated }) => {
           <AlertDialogHeader>Delete?</AlertDialogHeader>
           <AlertDialogCloseButton />
           <AlertDialogBody>
-            {tableTitle === "Doctors" ?
-              <span color="#10847e">Are you sure you want to delete this record ?</span>
-              :
-              tableTitle === "Products" &&
-              <span color="#10847e">Are you sure you want to delete this product ?</span>
-            }
+            {tableTitle === "Doctors" ? (
+              <span color="#10847e">
+                Are you sure you want to delete this record ?
+              </span>
+            ) : (
+              tableTitle === "Products" && (
+                <span color="#10847e">
+                  Are you sure you want to delete this product ?
+                </span>
+              )
+            )}
           </AlertDialogBody>
           <AlertDialogFooter>
             <Button ref={cancelRef} onClick={onClose}>
               No
             </Button>
-            <Button
-              bg="#10847e"
-              color="white"
-              ml={3}
-              onClick={() => handleDelete(objectId)}
-            >
+            <Button bg="#10847e" color="white" ml={3} onClick={handleDelete}>
               Yes
             </Button>
           </AlertDialogFooter>
