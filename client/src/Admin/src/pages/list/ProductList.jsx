@@ -60,7 +60,11 @@ const ProductList = () => {
     <div className="list">
       <Sidebar />
       <div className="listContainer">
-        <Datatable tableTitle="Products" tableData={products} setIsDataUpdated={setIsDataUpdated} />
+        <Datatable
+          tableTitle="Products"
+          tableData={products}
+          setIsDataUpdated={setIsDataUpdated}
+        />
       </div>
     </div>
   );

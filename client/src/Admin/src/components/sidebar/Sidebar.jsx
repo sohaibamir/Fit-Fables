@@ -5,7 +5,7 @@ import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import CreditCardIcon from "@mui/icons-material/CreditCard";
 import MedicalInformationIcon from "@mui/icons-material/MedicalInformation";
 import StoreIcon from "@mui/icons-material/Store";
-
+import OnlinePredictionIcon from "@mui/icons-material/OnlinePrediction";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
@@ -64,6 +64,33 @@ const Sidebar = ({ isDoctorPanel }) => {
                 style={{ textDecoration: "none" }}
               />
               <span>Doctors</span>
+            </li>
+          </Link>
+          <p className="title">SIMULATION</p>
+          <Link
+            to="/admin/inventory-product"
+            style={{ textDecoration: "none" }}
+          >
+            <li>
+              <OnlinePredictionIcon className="icon" />
+              <span>By Product</span>
+            </li>
+          </Link>
+          <Link
+            to="/admin/inventory-category"
+            style={{ textDecoration: "none" }}
+          >
+            <li>
+              <OnlinePredictionIcon className="icon" />
+
+              <span>By Category</span>
+            </li>
+          </Link>
+          <Link to="/admin/inventory-city" style={{ textDecoration: "none" }}>
+            <li>
+              <OnlinePredictionIcon className="icon" />
+
+              <span>By City</span>
             </li>
           </Link>
           <p className="title">USER</p>

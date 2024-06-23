@@ -34,6 +34,9 @@ import { doctorPanelInputs } from "../Doctor/src/formSource";
 import CompletedAppointments from "../Doctor/src/pages/CompletedAppointments/CompletedAppoinments";
 import RemainingAppointments from "../Doctor/src/pages/RemainingAppointments/RemainingAppoinments";
 import PrivacyPolicy from "./PrivacyPolicy";
+import ProductInventory from "../Admin/src/pages/simulation/ProductInventory";
+import CategoryInventory from "../Admin/src/pages/simulation/CategoryInventory";
+import CityInventory from "../Admin/src/pages/simulation/CityInventory";
 
 function AllRoutes() {
   return (
@@ -72,6 +75,30 @@ function AllRoutes() {
         element={
           <AdminRoute>
             <ProductList />
+          </AdminRoute>
+        }
+      />
+      <Route
+        path="/admin/inventory-product"
+        element={
+          <AdminRoute>
+            <ProductInventory />
+          </AdminRoute>
+        }
+      />
+      <Route
+        path="/admin/inventory-category"
+        element={
+          <AdminRoute>
+            <CategoryInventory />
+          </AdminRoute>
+        }
+      />
+      <Route
+        path="/admin/inventory-city"
+        element={
+          <AdminRoute>
+            <CityInventory />
           </AdminRoute>
         }
       />

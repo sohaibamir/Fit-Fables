@@ -8,6 +8,7 @@ const userSchema = new mongoose.Schema(
     password: { type: String },
     phone: { type: Number },
     address: { type: String },
+    city: { type: String },
     gender: { type: String },
     role: {
       type: String,
@@ -22,7 +23,7 @@ const userSchema = new mongoose.Schema(
     appointmentHistory: {
       type: Array,
       default: [],
-    }
+    },
   },
   {
     timestamps: true,

@@ -140,6 +140,12 @@ export async function getAllProductsAdmin() {
   return axios.get(`${process.env.REACT_APP_API}/products/all`);
 }
 
+export async function getInventoryByProduct(category, productId, season, days) {
+  return axios.get(
+    `${process.env.REACT_APP_API}/admin/inventory?category=${category}&productId=${productId}&season=${season}&days=${days}`
+  );
+}
+
 export async function getAllUsersAdmin() {
   return axios.get(`${process.env.REACT_APP_API}/admin/getUsers`);
 }
@@ -181,23 +187,33 @@ export async function getcustomerOrders(id) {
 }
 
 export async function bookAppointment(doctorId, userId) {
-  return axios.patch(`${process.env.REACT_APP_API}/doctor/bookAppointment/${doctorId}/${userId}`);
+  return axios.patch(
+    `${process.env.REACT_APP_API}/doctor/bookAppointment/${doctorId}/${userId}`
+  );
 }
 
 export async function getRemainingAppointments(doctorId) {
-  return axios.get(`${process.env.REACT_APP_API}/doctor/getRemainingAppointments/${doctorId}`);
+  return axios.get(
+    `${process.env.REACT_APP_API}/doctor/getRemainingAppointments/${doctorId}`
+  );
 }
 
 export async function getCompletedAppointments(doctorId) {
-  return axios.get(`${process.env.REACT_APP_API}/doctor/getCompletedAppointments/${doctorId}`);
+  return axios.get(
+    `${process.env.REACT_APP_API}/doctor/getCompletedAppointments/${doctorId}`
+  );
 }
 
 export async function updateAppointmentHistory(userId, doctorId) {
-  return axios.patch(`${process.env.REACT_APP_API}/updateAppointmenthistory/${userId}/${doctorId}`);
+  return axios.patch(
+    `${process.env.REACT_APP_API}/updateAppointmenthistory/${userId}/${doctorId}`
+  );
 }
 
 export async function updateAppointmentStatus(doctorId, userEmail) {
-  return axios.patch(`${process.env.REACT_APP_API}/doctor/updateApmtStatus/${doctorId}/${userEmail}`);
+  return axios.patch(
+    `${process.env.REACT_APP_API}/doctor/updateApmtStatus/${doctorId}/${userEmail}`
+  );
 }
 
 export async function getDashboardData(id) {

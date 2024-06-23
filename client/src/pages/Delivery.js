@@ -87,14 +87,19 @@ function Delivery() {
           });
       }
     } catch (error) {
-      toast({
-        title: "Payment Was Not Successful!",
-        status: "error",
-        duration: 3500,
-        isClosable: true,
-        position: "top",
-      });
-      console.log(error);
+      createOrder(userId, amountToPay)
+        .then((res) => dispatch(clearCart()))
+        .catch((err) => console.log(err))
+        .finally((res) => {
+          toast({
+            title: "Order Placed Successfully",
+            status: "success",
+            duration: 3000,
+            isClosable: true,
+            position: "top",
+          });
+          navigate("/");
+        });
     }
   };
 
