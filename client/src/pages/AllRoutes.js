@@ -38,6 +38,8 @@ import ProductInventory from "../Admin/src/pages/simulation/ProductInventory";
 import CategoryInventory from "../Admin/src/pages/simulation/CategoryInventory";
 import CityInventory from "../Admin/src/pages/simulation/CityInventory";
 import GenderInventory from "../Admin/src/pages/simulation/GenderInventory";
+import SubCategoryInventory from "../Admin/src/pages/simulation/SubCategoryInventory";
+import ManufacturerInventory from "../Admin/src/pages/simulation/ManufacturerInventory";
 
 function AllRoutes() {
   return (
@@ -104,6 +106,22 @@ function AllRoutes() {
         }
       />
       <Route
+        path="/admin/inventory-sub_category"
+        element={
+          <AdminRoute>
+            <SubCategoryInventory />
+          </AdminRoute>
+        }
+      />
+      <Route
+        path="/admin/inventory-manufacturer"
+        element={
+          <AdminRoute>
+            <ManufacturerInventory />
+          </AdminRoute>
+        }
+      />
+            <Route
         path="/admin/inventory-gender"
         element={
           <AdminRoute>
@@ -111,7 +129,6 @@ function AllRoutes() {
           </AdminRoute>
         }
       />
-
       <Route
         path="/admin/new/product"
         element={

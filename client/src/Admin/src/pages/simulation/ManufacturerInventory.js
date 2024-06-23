@@ -11,35 +11,35 @@ import {
   Button,
 } from "@chakra-ui/react";
 import Sidebar from "../../components/sidebar/Sidebar";
-import { getAllCategories, getInventoryByProduct } from "../../../../api/api";
+import { getAllManufacturers, getInventoryByProduct } from "../../../../api/api";
 import InventoryChart from "../../components/chart/InventoryChart";
 
-const CategoryInventory = () => {
+const ManufacturerInventory = () => {
   const [categories, setCategories] = useState([]);
   const [selectedSeason, setSelectedSeason] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedManuf, setSelectedCategory] = useState("");
   const [days, setDays] = useState(30);
   const [inventoryData, setInventoryData] = useState(null);
   const [stockoutData, setStockoutData] = useState(null);
 
   useEffect(() => {
-    getAllCategories()
+    getAllManufacturers()
       .then((res) => {
         console.log(res);
         if (res.data) {
-          setCategories(res.data.totalCategories);
+          setCategories(res.data.totalManufacturers);
         }
       })
       .catch((err) => console.log(err));
   }, []);
 
   const runSimulation = () => {
-    if (!selectedCategory || !selectedSeason || !days) {
+    if (!selectedManuf || !selectedSeason || !days) {
       alert("Please select a product, season, and enter the number of days.");
       return;
     }
 
-    getInventoryByProduct(selectedCategory,"","", "", selectedSeason, days)
+    getInventoryByProduct("","","", "", selectedSeason, days, "", selectedManuf)
       .then((res) => {
         if (res.data) {
           const inventoryLevels = res.data.projected_inventory.map(
@@ -74,7 +74,7 @@ const CategoryInventory = () => {
     <Flex width="100%">
       <Sidebar />
       <Box flex="6" p={16}>
-        <Heading mb={4}>Simulation by Category</Heading>
+        <Heading mb={4}>Simulation by Manufacturer</Heading>
         <VStack spacing={6} align="stretch">
           <FormControl>
             <FormLabel>Season</FormLabel>
@@ -90,10 +90,10 @@ const CategoryInventory = () => {
             </Select>
           </FormControl>
           <FormControl>
-            <FormLabel>Category</FormLabel>
+            <FormLabel>Manufacturer</FormLabel>
             <Select
-              placeholder="Select category"
-              value={selectedCategory}
+              placeholder="Select manufacturer"
+              value={selectedManuf}
               onChange={(e) => setSelectedCategory(e.target.value)}
             >
               {categories.map((category, index) => (
@@ -147,4 +147,4 @@ const CategoryInventory = () => {
   );
 };
 
-export default CategoryInventory;
+export default ManufacturerInventory;

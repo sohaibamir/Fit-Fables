@@ -14,6 +14,8 @@ const {
   getMostSellingProducts,
   updateProduct,
   deleteProduct,
+  getSubCategories,
+  getManufacturers,
 } = require("../controllers/product");
 
 router.get("/products/search", getProductsBySearch);
@@ -27,6 +29,8 @@ router.get(
   getAllProductsBySubCategory
 );
 router.get("/products", getCategories);
+router.get("/sub_categories", getSubCategories);
+router.get("/manufacturers", getManufacturers);
 router.post("/products/create", uploadProduct);
 router.get("/products/all", getAllProducts);
 router.put("/update/product/:id", updateProduct);

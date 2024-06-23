@@ -212,11 +212,20 @@ const calculateMeanAndStdDevByProduct = async (params) => {
   }
 };
 
-const calculateMeanAndStdDevByCategory = async (params) => {
+const calculateMeanAndStdDevByCategory = async (params, filter) => {
   try {
-    const category = params.category;
+    let products;
+    if (filter === "category") {
+      const category = params.category;
+      products = await Product.find({ category: category });
+    } else if (filter === "sub_category") {
+      const sub_category = params.sub_category;
+      products = await Product.find({ sub_category: sub_category });
+    } else if(filter === "manufacturer") {
+      const manufacturer = params.manufacturer;
+      products = await Product.find({ manufacturer: manufacturer });
+    }
 
-    const products = await Product.find({ category: category });
     const productIds = products.map((product) => product._id.toString());
     console.log("product IDs", productIds);
 
@@ -374,9 +383,14 @@ const monteCarloSimulation = async (params, initialInventory, days = 30) => {
       await calculateMeanAndStdDevByProduct(params));
   } else if (params.category) {
     ({ mean, stdDev, seasonalityFactor, dayOfWeekFactor } =
-      await calculateMeanAndStdDevByCategory(params));
-  }
-
+      await calculateMeanAndStdDevByCategory(params, "category"));
+    } else if (params.sub_category) {
+      ({ mean, stdDev, seasonalityFactor, dayOfWeekFactor } =
+        await calculateMeanAndStdDevByCategory(params, "sub_category"));
+      } else if (params.manufacturer) {
+        ({ mean, stdDev, seasonalityFactor, dayOfWeekFactor } =
+          await calculateMeanAndStdDevByCategory(params, "manufacturer"));
+      }  
   const seasonFactor = seasonalityFactor[params.season];
   let inventoryLevels = [];
   let stockoutEvents = [];
@@ -438,7 +452,7 @@ const getOrderSeason = (date) => {
 };
 
 exports.projectedInventory = async (req, res) => {
-  const { season, productId, category, city, gender, days = 30 } = req.query;
+  const { season, productId, category, city, gender, sub_category, manufacturer, days = 30 } = req.query;
 
   const params = {
     season: season || undefined,
@@ -446,6 +460,8 @@ exports.projectedInventory = async (req, res) => {
     category: category || undefined,
     city: city || undefined,
     gender: gender || undefined,
+    sub_category: sub_category || undefined,
+    manufacturer: manufacturer || undefined,
   };
 
   try {
@@ -458,6 +474,12 @@ exports.projectedInventory = async (req, res) => {
       product = await Product.find({ category: category });
       quantity = product.reduce((acc, product) => acc + product.quantity, 0);
       console.log("HERE IN CATEGORY");
+    } else if (params.sub_category) {
+      product = await Product.find({ sub_category: sub_category });
+      quantity = product.reduce((acc, product) => acc + product.quantity, 0);
+    } else if (params.manufacturer) {
+      product = await Product.find({ manufacturer: manufacturer });
+      quantity = product.reduce((acc, product) => acc + product.quantity, 0);
     }
 
     if (!product) {

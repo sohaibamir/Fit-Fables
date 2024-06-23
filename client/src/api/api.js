@@ -23,6 +23,14 @@ export async function getAllCategories() {
   return axios.get(`${process.env.REACT_APP_API}/products`);
 }
 
+export async function getAllSubCategories() {
+  return axios.get(`${process.env.REACT_APP_API}/sub_categories`);
+}
+
+export async function getAllManufacturers() {
+  return axios.get(`${process.env.REACT_APP_API}/manufacturers`);
+}
+
 export async function getAllOfferProducts(page, sortBy) {
   return axios.get(
     `${process.env.REACT_APP_API}/products/offer?page=${page}&sortBy=actual_price&sortOrder=${sortBy}`
@@ -146,10 +154,12 @@ export async function getInventoryByProduct(
   city,
   gender,
   season,
-  days
+  days,
+  sub_category,
+  manufacturer,
 ) {
   return axios.get(
-    `${process.env.REACT_APP_API}/admin/inventory?category=${category}&productId=${productId}&city=${city}&gender=${gender}&season=${season}&days=${days}`
+    `${process.env.REACT_APP_API}/admin/inventory?category=${category}&productId=${productId}&city=${city}&gender=${gender}&season=${season}&days=${days}&sub_category=${sub_category}&manufacturer=${manufacturer}`
   );
 }
 

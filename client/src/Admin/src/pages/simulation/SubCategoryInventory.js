@@ -11,10 +11,10 @@ import {
   Button,
 } from "@chakra-ui/react";
 import Sidebar from "../../components/sidebar/Sidebar";
-import { getAllCategories, getInventoryByProduct } from "../../../../api/api";
+import { getAllSubCategories, getInventoryByProduct } from "../../../../api/api";
 import InventoryChart from "../../components/chart/InventoryChart";
 
-const CategoryInventory = () => {
+const SubCategoryInventory = () => {
   const [categories, setCategories] = useState([]);
   const [selectedSeason, setSelectedSeason] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -23,11 +23,11 @@ const CategoryInventory = () => {
   const [stockoutData, setStockoutData] = useState(null);
 
   useEffect(() => {
-    getAllCategories()
+    getAllSubCategories()
       .then((res) => {
         console.log(res);
         if (res.data) {
-          setCategories(res.data.totalCategories);
+          setCategories(res.data.totalSubCategories);
         }
       })
       .catch((err) => console.log(err));
@@ -39,7 +39,7 @@ const CategoryInventory = () => {
       return;
     }
 
-    getInventoryByProduct(selectedCategory,"","", "", selectedSeason, days)
+    getInventoryByProduct("","","", "", selectedSeason, days, selectedCategory)
       .then((res) => {
         if (res.data) {
           const inventoryLevels = res.data.projected_inventory.map(
@@ -74,7 +74,7 @@ const CategoryInventory = () => {
     <Flex width="100%">
       <Sidebar />
       <Box flex="6" p={16}>
-        <Heading mb={4}>Simulation by Category</Heading>
+        <Heading mb={4}>Simulation by Sub Category</Heading>
         <VStack spacing={6} align="stretch">
           <FormControl>
             <FormLabel>Season</FormLabel>
@@ -90,9 +90,9 @@ const CategoryInventory = () => {
             </Select>
           </FormControl>
           <FormControl>
-            <FormLabel>Category</FormLabel>
+            <FormLabel>Sub Category</FormLabel>
             <Select
-              placeholder="Select category"
+              placeholder="Select sub category"
               value={selectedCategory}
               onChange={(e) => setSelectedCategory(e.target.value)}
             >
@@ -147,4 +147,4 @@ const CategoryInventory = () => {
   );
 };
 
-export default CategoryInventory;
+export default SubCategoryInventory;

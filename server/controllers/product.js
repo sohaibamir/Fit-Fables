@@ -26,6 +26,27 @@ exports.getCategories = async (req, res) => {
     res.status(500).send({ message: error.message });
   }
 };
+
+exports.getSubCategories = async (req, res) => {
+  try {
+    let totalSubCategories = await Product.distinct("sub_category");
+
+    res.send({ totalSubCategories });
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+};
+
+exports.getManufacturers = async (req, res) => {
+  try {
+    let totalManufacturers = await Product.distinct("manufacturer");
+
+    res.send({ totalManufacturers });
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+};
+
 exports.getProductById = async (req, res) => {
   try {
     const { id } = req.params;

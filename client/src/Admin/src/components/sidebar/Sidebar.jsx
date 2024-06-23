@@ -100,6 +100,20 @@ const Sidebar = ({ isDoctorPanel }) => {
               <span>By Gender</span>
             </li>
           </Link>
+          <Link to="/admin/inventory-sub_category" style={{ textDecoration: "none" }}>
+            <li>
+              <OnlinePredictionIcon className="icon" />
+
+              <span>By SubCategory</span>
+            </li>
+          </Link>
+          <Link to="/admin/inventory-manufacturer" style={{ textDecoration: "none" }}>
+            <li>
+              <OnlinePredictionIcon className="icon" />
+
+              <span>By Manufacturer</span>
+            </li>
+          </Link>
           <p className="title">USER</p>
           <li>
             <AccountCircleOutlinedIcon className="icon" />
