@@ -21,7 +21,7 @@ const Featured = ({ todaySale, weekSale, monthSale }) => {
           />
         </div>
         <p className="title">Total sales made today</p>
-        <p className="amount">{`Rs ${todaySale}`}</p>
+        <p className="amount">{`Rs ${todaySale.toFixed(2)}`}</p>
         <p className="desc">
           Previous transactions processing. Last payments may not be included.
         </p>
@@ -39,7 +39,9 @@ const Featured = ({ todaySale, weekSale, monthSale }) => {
               <div className="itemTitle">Target</div>
               <div className="itemResult positive">
                 <KeyboardArrowUpOutlinedIcon fontSize="small" />
-                <div className="resultAmount">{`${(10000 - todaySale).toFixed(0)} Rs`}</div>
+                <div className="resultAmount">{`${(10000 - todaySale).toFixed(
+                  0
+                )} Rs`}</div>
               </div>
             </div>
           )}

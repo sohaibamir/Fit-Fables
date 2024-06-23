@@ -11,13 +11,16 @@ import {
   Button,
 } from "@chakra-ui/react";
 import Sidebar from "../../components/sidebar/Sidebar";
-import { getAllManufacturers, getInventoryByProduct } from "../../../../api/api";
+import {
+  getAllManufacturers,
+  getInventoryByProduct,
+} from "../../../../api/api";
 import InventoryChart from "../../components/chart/InventoryChart";
 
 const ManufacturerInventory = () => {
   const [categories, setCategories] = useState([]);
   const [selectedSeason, setSelectedSeason] = useState("");
-  const [selectedManuf, setSelectedCategory] = useState("");
+  const [selectedManufacturer, setSelectedManufacturer] = useState("");
   const [days, setDays] = useState(30);
   const [inventoryData, setInventoryData] = useState(null);
   const [stockoutData, setStockoutData] = useState(null);
@@ -34,12 +37,23 @@ const ManufacturerInventory = () => {
   }, []);
 
   const runSimulation = () => {
-    if (!selectedManuf || !selectedSeason || !days) {
-      alert("Please select a product, season, and enter the number of days.");
+    if (!selectedManufacturer || !selectedSeason || !days) {
+      alert(
+        "Please select a manufacturer, season, and enter the number of days."
+      );
       return;
     }
 
-    getInventoryByProduct("","","", "", selectedSeason, days, "", selectedManuf)
+    getInventoryByProduct(
+      "",
+      "",
+      "",
+      "",
+      selectedSeason,
+      days,
+      "",
+      selectedManufacturer
+    )
       .then((res) => {
         if (res.data) {
           const inventoryLevels = res.data.projected_inventory.map(
@@ -93,8 +107,8 @@ const ManufacturerInventory = () => {
             <FormLabel>Manufacturer</FormLabel>
             <Select
               placeholder="Select manufacturer"
-              value={selectedManuf}
-              onChange={(e) => setSelectedCategory(e.target.value)}
+              value={selectedManufacturer}
+              onChange={(e) => setSelectedManufacturer(e.target.value)}
             >
               {categories.map((category, index) => (
                 <option key={index} value={category}>

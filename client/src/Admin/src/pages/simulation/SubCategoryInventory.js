@@ -11,7 +11,10 @@ import {
   Button,
 } from "@chakra-ui/react";
 import Sidebar from "../../components/sidebar/Sidebar";
-import { getAllSubCategories, getInventoryByProduct } from "../../../../api/api";
+import {
+  getAllSubCategories,
+  getInventoryByProduct,
+} from "../../../../api/api";
 import InventoryChart from "../../components/chart/InventoryChart";
 
 const SubCategoryInventory = () => {
@@ -35,11 +38,21 @@ const SubCategoryInventory = () => {
 
   const runSimulation = () => {
     if (!selectedCategory || !selectedSeason || !days) {
-      alert("Please select a product, season, and enter the number of days.");
+      alert(
+        "Please select a sub category, season, and enter the number of days."
+      );
       return;
     }
 
-    getInventoryByProduct("","","", "", selectedSeason, days, selectedCategory)
+    getInventoryByProduct(
+      "",
+      "",
+      "",
+      "",
+      selectedSeason,
+      days,
+      selectedCategory
+    )
       .then((res) => {
         if (res.data) {
           const inventoryLevels = res.data.projected_inventory.map(

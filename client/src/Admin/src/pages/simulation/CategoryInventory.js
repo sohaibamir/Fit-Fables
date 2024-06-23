@@ -35,11 +35,11 @@ const CategoryInventory = () => {
 
   const runSimulation = () => {
     if (!selectedCategory || !selectedSeason || !days) {
-      alert("Please select a product, season, and enter the number of days.");
+      alert("Please select a category, season, and enter the number of days.");
       return;
     }
 
-    getInventoryByProduct(selectedCategory,"","", "", selectedSeason, days)
+    getInventoryByProduct(selectedCategory, "", "", "", selectedSeason, days)
       .then((res) => {
         if (res.data) {
           const inventoryLevels = res.data.projected_inventory.map(

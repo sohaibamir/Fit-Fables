@@ -23,7 +23,7 @@ const InventoryChart = ({ title, data, categories, chartType }) => {
     options: {
       chart: {
         type: chartType,
-        height: 350,
+        height: 400,
         zoom: {
           enabled: false,
         },
@@ -56,7 +56,7 @@ const InventoryChart = ({ title, data, categories, chartType }) => {
       options={chartData.options}
       series={chartData.series}
       type={chartType}
-      height={350}
+      height={400}
     />
   );
 };
