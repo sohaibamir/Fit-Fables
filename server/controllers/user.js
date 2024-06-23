@@ -191,7 +191,7 @@ const calculateMeanAndStdDevByProduct = async (params) => {
       const orderSeason = getOrderSeason(order.createdAt);
       const dayOfWeek = order.createdAt.getDay();
       order.cartItems.forEach((item) => {
-        if (item.productId._id.toString() === productId.toString()) {
+        if (item.productId?._id.toString() === productId.toString()) {
           quantities.push(item.quantity);
           seasonDemand[orderSeason].push(item.quantity);
           dayOfWeekDemand[dayOfWeek].push(item.quantity);
@@ -232,13 +232,14 @@ const calculateMeanAndStdDevByCategory = async (params) => {
       const orderSeason = getOrderSeason(order.createdAt);
       const dayOfWeek = order.createdAt.getDay();
       order.cartItems.forEach((item) => {
-        if (productIds.includes(item.productId._id.toString())) {
+        if (productIds.includes(item.productId?._id.toString())) {
           quantities.push(item.quantity);
           seasonDemand[orderSeason].push(item.quantity);
           dayOfWeekDemand[dayOfWeek].push(item.quantity);
         }
       });
     });
+    console.log("Working2");
 
     const { mean, stdDev } = calculateMeanAndStdDevFromQuantities(quantities);
     console.log(`Mean: ${mean}, StdDev: ${stdDev}`);
