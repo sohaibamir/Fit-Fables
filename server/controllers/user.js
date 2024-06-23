@@ -254,6 +254,54 @@ const calculateMeanAndStdDevByCategory = async (params) => {
   }
 };
 
+const calculateMeanAndStdDevByFilter = async (params, filterType) => {
+  try {
+    const { productId } = params;
+    let filter;
+
+    if (filterType === "gender") {
+      const usersByGender = await User.find({ gender: params.gender }).select(
+        "_id"
+      );
+      const userIds = usersByGender.map((user) => user._id);
+      filter = { userId: { $in: userIds }, "cartItems.productId": productId };
+    } else if (filterType === "city") {
+      const usersByCity = await User.find({ city: params.city }).select("_id");
+      const userIds = usersByCity.map((user) => user._id);
+      filter = { userId: { $in: userIds }, "cartItems.productId": productId };
+    }
+
+    const orders = await Order.find(filter).populate("cartItems.productId");
+
+    let quantities = [];
+    let seasonDemand = { winter: [], spring: [], summer: [], fall: [] };
+    let dayOfWeekDemand = [[], [], [], [], [], [], []];
+
+    orders.forEach((order) => {
+      const orderSeason = getOrderSeason(order.createdAt);
+      const dayOfWeek = order.createdAt.getDay();
+      order.cartItems.forEach((item) => {
+        if (item.productId?._id.toString() === productId.toString()) {
+          quantities.push(item.quantity);
+          seasonDemand[orderSeason].push(item.quantity);
+          dayOfWeekDemand[dayOfWeek].push(item.quantity);
+        }
+      });
+    });
+
+    const { mean, stdDev } = calculateMeanAndStdDevFromQuantities(quantities);
+    console.log(`Mean: ${mean}, StdDev: ${stdDev}`);
+
+    const seasonalityFactor = calculateSeasonalityFactor(seasonDemand);
+    const dayOfWeekFactor = calculateDayOfWeekFactor(dayOfWeekDemand);
+
+    return { mean, stdDev, seasonalityFactor, dayOfWeekFactor };
+  } catch (error) {
+    console.error(`Error calculating mean and stdDev by ${filterType}:`, error);
+    return { mean: 0, stdDev: 0, seasonalityFactor: {}, dayOfWeekFactor: [] };
+  }
+};
+
 const calculateMeanAndStdDevFromQuantities = (quantities) => {
   if (quantities.length === 0) {
     return { mean: 0, stdDev: 0 };
@@ -315,7 +363,13 @@ const normalRandom = () => {
 const monteCarloSimulation = async (params, initialInventory, days = 30) => {
   let mean, stdDev, seasonalityFactor, dayOfWeekFactor;
 
-  if (params.productId) {
+  if (params.productId && params.gender) {
+    ({ mean, stdDev, seasonalityFactor, dayOfWeekFactor } =
+      await calculateMeanAndStdDevByFilter(params, "gender"));
+  } else if (params.productId && params.city) {
+    ({ mean, stdDev, seasonalityFactor, dayOfWeekFactor } =
+      await calculateMeanAndStdDevByFilter(params, "city"));
+  } else if (params.productId) {
     ({ mean, stdDev, seasonalityFactor, dayOfWeekFactor } =
       await calculateMeanAndStdDevByProduct(params));
   } else if (params.category) {
@@ -384,12 +438,14 @@ const getOrderSeason = (date) => {
 };
 
 exports.projectedInventory = async (req, res) => {
-  const { season, productId, category, days = 30 } = req.query;
+  const { season, productId, category, city, gender, days = 30 } = req.query;
 
   const params = {
     season: season || undefined,
     productId: productId || undefined,
     category: category || undefined,
+    city: city || undefined,
+    gender: gender || undefined,
   };
 
   try {

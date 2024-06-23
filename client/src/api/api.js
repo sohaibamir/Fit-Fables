@@ -140,9 +140,16 @@ export async function getAllProductsAdmin() {
   return axios.get(`${process.env.REACT_APP_API}/products/all`);
 }
 
-export async function getInventoryByProduct(category, productId, season, days) {
+export async function getInventoryByProduct(
+  category,
+  productId,
+  city,
+  gender,
+  season,
+  days
+) {
   return axios.get(
-    `${process.env.REACT_APP_API}/admin/inventory?category=${category}&productId=${productId}&season=${season}&days=${days}`
+    `${process.env.REACT_APP_API}/admin/inventory?category=${category}&productId=${productId}&city=${city}&gender=${gender}&season=${season}&days=${days}`
   );
 }
 

@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const Product = require("./models/product.js");
+const User = require("./models/user.js");
 require("dotenv").config();
 
 mongoose
@@ -7,16 +7,13 @@ mongoose
   .then(() => console.log("DB CONNECTED"))
   .catch((error) => console.log(`DB CONNECTION ERR ${error}`));
 
-async function updateProduct() {
+async function addGender() {
   try {
-    const result = await Product.updateOne(
-      { _id: "647752ff351ce8d19f49c660" },
-      { $set: { quantity: 4000 } }
-    );
-    console.log(`${result.modifiedCount} product updated`);
+    const result = await User.updateMany({}, { $set: { gender: "male" } });
+    console.log(`${result.modifiedCount} users updated`);
   } catch (error) {
-    console.error(`Error updating product: ${error}`);
+    console.error(`Error updating users: ${error}`);
   }
 }
 
-updateProduct();
+addGender();

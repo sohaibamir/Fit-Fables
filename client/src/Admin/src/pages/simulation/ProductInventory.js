@@ -17,10 +17,12 @@ import {
 } from "../../../../api/api";
 import InventoryChart from "../../components/chart/InventoryChart";
 
-const ProductInventory = () => {
+const ProductInventory = ({ filter }) => {
   const [products, setProducts] = useState([]);
   const [selectedSeason, setSelectedSeason] = useState("");
   const [selectedProduct, setSelectedProduct] = useState("");
+  const [selectedCity, setSelectedCity] = useState("");
+  const [selectedGender, setSelectedGender] = useState("");
   const [days, setDays] = useState(30);
   const [inventoryData, setInventoryData] = useState(null);
   const [stockoutData, setStockoutData] = useState(null);
@@ -40,12 +42,35 @@ const ProductInventory = () => {
   }, []);
 
   const runSimulation = () => {
-    if (!selectedProduct || !selectedSeason || !days) {
-      alert("Please select a product, season, and enter the number of days.");
-      return;
+    if (filter === "city") {
+      if (!selectedProduct || !selectedCity || !selectedSeason || !days) {
+        alert(
+          "Please select a product, season, city, and enter the number of days."
+        );
+        return;
+      }
+    } else if (filter === "gender") {
+      if (!selectedProduct || !selectedGender || !selectedSeason || !days) {
+        alert(
+          "Please select a product, season, gender and enter the number of days."
+        );
+        return;
+      }
+    } else {
+      if (!selectedProduct || !selectedSeason || !days) {
+        alert("Please select a product, season, and enter the number of days.");
+        return;
+      }
     }
 
-    getInventoryByProduct("", selectedProduct, selectedSeason, days)
+    getInventoryByProduct(
+      "",
+      selectedProduct,
+      selectedCity,
+      selectedGender,
+      selectedSeason,
+      days
+    )
       .then((res) => {
         if (res.data) {
           const inventoryLevels = res.data.projected_inventory.map(
@@ -80,7 +105,13 @@ const ProductInventory = () => {
     <Flex width="100%">
       <Sidebar />
       <Box flex="6" p={16}>
-        <Heading mb={4}>Simulation by Product</Heading>
+        <Heading mb={4}>
+          {filter === "city"
+            ? "Simulation by City"
+            : filter === "gender"
+            ? "Simulation by Gender"
+            : "Simulation by Product"}
+        </Heading>
         <VStack spacing={6} align="stretch">
           <FormControl>
             <FormLabel>Season</FormLabel>
@@ -109,6 +140,35 @@ const ProductInventory = () => {
               ))}
             </Select>
           </FormControl>
+          {filter === "city" && (
+            <FormControl>
+              <FormLabel>City</FormLabel>
+              <Select
+                placeholder="Select city"
+                value={selectedCity}
+                onChange={(e) => setSelectedCity(e.target.value)}
+              >
+                <option value="karachi">Karachi</option>
+                <option value="lahore">Lahore</option>
+                <option value="islamabad">Islambad</option>
+                <option value="peshawar">Peshawar</option>
+              </Select>
+            </FormControl>
+          )}
+          {filter === "gender" && (
+            <FormControl>
+              <FormLabel>Gender</FormLabel>
+              <Select
+                placeholder="Select Gender"
+                value={selectedGender}
+                onChange={(e) => setSelectedGender(e.target.value)}
+              >
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+              </Select>
+            </FormControl>
+          )}
+
           <FormControl>
             <FormLabel>Simulation for how many days</FormLabel>
             <Input

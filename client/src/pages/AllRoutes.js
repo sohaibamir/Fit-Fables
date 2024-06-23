@@ -37,6 +37,7 @@ import PrivacyPolicy from "./PrivacyPolicy";
 import ProductInventory from "../Admin/src/pages/simulation/ProductInventory";
 import CategoryInventory from "../Admin/src/pages/simulation/CategoryInventory";
 import CityInventory from "../Admin/src/pages/simulation/CityInventory";
+import GenderInventory from "../Admin/src/pages/simulation/GenderInventory";
 
 function AllRoutes() {
   return (
@@ -99,6 +100,14 @@ function AllRoutes() {
         element={
           <AdminRoute>
             <CityInventory />
+          </AdminRoute>
+        }
+      />
+      <Route
+        path="/admin/inventory-gender"
+        element={
+          <AdminRoute>
+            <GenderInventory />
           </AdminRoute>
         }
       />
